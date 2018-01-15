@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @collected_email.email %>
+</p>
+
+<p>
+  <strong>Shop:</strong>
+  <%= @collected_email.shop %>
+</p>
+
+<%= link_to 'Edit', edit_collected_email_path(@collected_email) %> |
+<%= link_to 'Back', collected_emails_path %>

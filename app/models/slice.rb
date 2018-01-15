@@ -1,3 +1,3 @@
 class Slice < ApplicationRecord
-  belongs_to :settings
+  belongs_to :setting
 end
