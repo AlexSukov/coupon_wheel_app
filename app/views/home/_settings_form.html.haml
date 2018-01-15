@@ -1,0 +1,163 @@
+= form_with(model: setting, local: true) do |form|
+  - if setting.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(setting.errors.count, "error")
+        prohibited this setting from being saved:
+      %ul
+        - setting.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :enable_app
+    = form.check_box :enable, id: :setting_enable
+  .field
+    = form.label :big_logo
+    = form.file_field :big_logo, id: :setting_big_logo
+  .field
+    = form.label :small_logo
+    = form.check_box :small_logo, id: :setting_small_logo
+  .field
+    = form.label :title_text
+    = form.text_field :title_text, id: :setting_title_text
+  .field
+    = form.label :disclaimer_text
+    = form.text_area :disclaimer_text, id: :disclaimer_text
+  .field
+    = form.label :guiding_text
+    = form.text_area :guiding_text, id: :setting_guiding_text
+  .field
+    = form.label :enter_email
+    = form.text_field :enter_email, id: :setting_enter_email
+  .field
+    = form.label :invalid_email_message
+    = form.text_field :invalid_email_message, id: :setting_invalid_email_message
+  .field
+    = form.label :spin_button
+    = form.text_field :spin_button, id: :setting_spin_button
+  .field
+    = form.label :close_button
+    = form.text_field :close_button, id: :setting_close_button
+  .field
+    = form.label :winning_title
+    = form.text_field :winning_title, id: :setting_winning_title
+  .field
+    = form.label :winning_text
+    = form.text_field :winning_text, id: :setting_winning_text
+  .field
+    = form.label :discount_code_title
+    = form.text_field :discount_code_title, id: :setting_discount_code_title
+  .field
+    = form.label :continue_button
+    = form.text_field :continue_button, id: :setting_continue_button
+  .field
+    = form.label :copied_message
+    = form.text_field :copied_message, id: :setting_copied_message
+  .field
+    = form.label :reject_discount_button
+    = form.text_field :reject_discount_button, id: :setting_reject_discount_button
+  .field
+    = form.label :free_product_description
+    = form.text_field :free_product_description, id: :setting_free_product_description
+  .field
+    = form.label :free_product_button
+    = form.text_field :free_product_button, id: :setting_free_product_button
+  .field
+    = form.label :free_product_reject
+    = form.text_field :free_product_reject, id: :setting_free_product_reject
+  .field
+    = form.label :discount_coupon_code_bar
+    = form.text_field :discount_coupon_code_bar, id: :setting_discount_coupon_code_bar
+  .field
+    = form.label :close_button_in_bar
+    = form.text_field :close_button_in_bar, id: :setting_close_button_in_bar
+
+  .field
+    = form.label :theme
+    = form.select :theme, options_for_select([["Default", 'Default'], ["Madrid", 'Madrid']])
+  .field
+    = form.label :background_color
+    = form.text_field :background_color, id: :setting_background_color
+  .field
+    = form.label :close_button_in_bar
+    = form.text_field :close_button_in_bar, id: :setting_close_button_in_bar
+  .field
+    = form.label :font_color
+    = form.text_field :font_color, id: :setting_font_color
+  .field
+    = form.label :bold_text_and_button_color
+    = form.text_field :bold_text_and_button_color, id: :setting_bold_text_and_button_color
+  .field
+    = form.label :win_section_color
+    = form.text_field :win_section_color, id: :setting_win_section_color
+  .field
+    = form.label :lose_section_color
+    = form.text_field :lose_section_color, id: :setting_lose_section_color
+
+  .field
+    = form.label :enable_discount_code_bar
+    = form.check_box :enable_discount_code_bar, id: :setting_enable_discount_code_bar
+  .field
+    = form.label :discount_code_bar_countdown_time
+    = form.text_field :discount_code_bar_countdown_time, id: :setting_discount_code_bar_countdown_time
+  .field
+    = form.label :discount_code_bar_position
+    = form.text_field :discount_code_bar_position, id: :setting_discount_code_bar_position
+
+  .field
+    = form.label :enable_progress_bar
+    = form.check_box :enable_progress_bar, id: :setting_enable_progress_bar
+  .field
+    = form.label :progress_bar_text
+    = form.text_field :progress_bar_text, id: :setting_progress_bar_text
+  .field
+    = form.label :progress_bar_color
+    = form.text_field :progress_bar_color, id: :setting_progress_bar_color
+  .field
+    = form.label :progress_bar_percentage
+    = form.number_field :progress_bar_percentage, id: :setting_progress_bar_percentage
+  .field
+    = form.label :progress_bar_position
+    = form.text_field :progress_bar_position, id: :setting_progress_bar_position
+
+  .field
+    = form.label :show_on_desktop
+    = form.check_box :show_on_desktop, id: :setting_show_on_desktop
+  .field
+    = form.label :show_on_mobile
+    = form.check_box :show_on_mobile, id: :setting_show_on_mobile
+  .field
+    = form.label :show_on_desktop_leave_intent
+    = form.check_box :show_on_desktop_leave_intent, id: :setting_show_on_desktop_leave_intent
+  .field
+    = form.label :show_on_mobile_leave_intent
+    = form.check_box :show_on_mobile_leave_intent, id: :setting_show_on_mobile_leave_intent
+  .field
+    = form.label :show_on_desktop_after
+    = form.check_box :show_on_desktop_after, id: :setting_show_on_desktop_after
+  .field
+    = form.label :show_on_mobile_after
+    = form.check_box :show_on_mobile_after, id: :setting_show_on_mobile_after
+  .field
+    = form.label :show_on_desktop_seconds
+    = form.number_field :show_on_desktop_seconds, id: :setting_show_on_desktop_seconds
+  .field
+    = form.label :show_on_mobile_seconds
+    = form.number_field :show_on_mobile_seconds, id: :setting_show_on_mobile_seconds
+
+  .field
+    = form.label :show_pull_out_tab
+    = form.check_box :show_pull_out_tab, id: :setting_show_pull_out_tab
+  .field
+    = form.label :tab_icon
+    = form.text_field :tab_icon, id: :setting_tab_icon
+
+  .field
+    = form.label :do_not_show_app
+    = form.text_field :do_not_show_app, id: :setting_do_not_show_app
+
+  .field
+    = form.label :discount_coupon_auto_apply
+    = form.check_box :discount_coupon_auto_apply, id: :setting_discount_coupon_auto_apply
+
+  .actions
+    = form.submit

@@ -33,3 +33,8 @@
       %li= customer.email
 - else
   %p This app has not created any Customers for this Shop.
+
+- @collected_emails.each do |collected_email|
+  = render 'collected_emails_form', collected_email: collected_email
+
+= render 'settings_form', setting: @settings

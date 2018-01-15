@@ -20,7 +20,7 @@ class SettingsController < ApplicationController
   def update
     respond_to do |format|
       if @setting.update(setting_params)
-        format.html { redirect_to @setting, notice: 'Setting was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Setting was successfully updated.' }
         format.json { render :show, status: :ok, location: @setting }
       else
         format.html { render :edit }
@@ -44,7 +44,7 @@ class SettingsController < ApplicationController
       :free_product_reject, :discount_coupon_code_bar, :close_button_in_bar, :theme, :background_color,
       :font_color, :bold_text_and_button_color, :win_section_color, :lose_section_color,
       :enable_discount_code_bar, :discount_code_bar_countdown_time, :discount_code_bar_position,
-      :enable_progress_bar, :progress_bar_text, :progress_bar_color, :progress_bar_position,
+      :enable_progress_bar, :progress_bar_text, :progress_bar_color, :progress_bar_percentage, :progress_bar_position,
       :show_on_desktop, :show_on_mobile, :show_on_desktop_leave_intent, :show_on_mobile_leave_intent,
       :show_on_desktop_after, :show_on_mobile_after, :show_on_desktop_seconds, :show_on_mobile_seconds,
       :show_pull_out_tab, :tab_icon, :do_not_show_app, :discount_coupon_auto_apply)
