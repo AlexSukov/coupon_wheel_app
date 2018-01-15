@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lose: false
+  type: 
+  label: MyString
+  code: MyString
+  gravity: 1
+  settings: one
+
+two:
+  lose: false
+  type: 
+  label: MyString
+  code: MyString
+  gravity: 1
+  settings: two

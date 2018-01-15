@@ -1,0 +1,18 @@
+= form_with(model: setting, local: true) do |form|
+  - if setting.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(setting.errors.count, "error")
+        prohibited this setting from being saved:
+      %ul
+        - setting.errors.full_messages.each do |message|
+          %li= message
+
+      %h3 Slices
+        = form.fields_for :slices do |slice|
+          = render 'slice_fields', form: slice
+        .links
+          = link_to_add_association 'add slice', form, :slices
+
+  .actions
+    = form.submit

@@ -26,3 +26,25 @@
 <% else %>
   <p>This app has not created any webhooks for this Shop. Add webhooks to your ShopifyApp initializer if you need webhooks</p>
 <% end %>
+
+<h2>Discounts</h2>
+<% if @discounts.present? %>
+  <ul>
+    <% @discounts.each do |discount| %>
+      <li><%= discount.title %> : <%= discount.value %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>This app has not created any Discounts for this Shop.</p>
+<% end %>
+
+<h2>Customers</h2>
+<% if @customers.present? %>
+  <ul>
+    <% @customers.each do |customer| %>
+      <li><%= customer.email %></li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>This app has not created any Customers for this Shop.</p>
+<% end %>
