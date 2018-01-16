@@ -38,3 +38,5 @@
   = render 'collected_emails_form', collected_email: collected_email
 
 = render 'settings_form', setting: @settings
+- @slices.each do |slice|
+  = render 'slice_form', slice: slice

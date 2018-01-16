@@ -1,0 +1,24 @@
+= form_with(model: slice, local: true) do |form|
+  - if setting.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(setting.errors.count, "error")
+        prohibited this setting from being saved:
+      %ul
+        - setting.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :type
+    = form.text_field :type, id: :slice_type
+  .field
+    = form.label :label
+    = form.text_field :label, id: :slice_label
+  .field
+    = form.label :code
+    = form.text_field :code, id: :slice_code
+  .field
+    = form.label :gravity
+    = form.number_field :gravity, id: :slice_gravity, min: 0, max: 100
+
+  .actions
+    = form.submit

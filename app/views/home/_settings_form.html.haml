@@ -15,7 +15,7 @@
     = form.file_field :big_logo, id: :setting_big_logo
   .field
     = form.label :small_logo
-    = form.check_box :small_logo, id: :setting_small_logo
+    = form.file_field :small_logo, id: :setting_small_logo
   .field
     = form.label :title_text
     = form.text_field :title_text, id: :setting_title_text
@@ -72,8 +72,11 @@
     = form.text_field :close_button_in_bar, id: :setting_close_button_in_bar
 
   .field
+    - theme_options = [ ["Default", 'Default'], ["Madrid", 'Madrid'] ]
+    - selected_theme = setting.theme
     = form.label :theme
-    = form.select :theme, options_for_select([["Default", 'Default'], ["Madrid", 'Madrid']])
+    = form.select :theme, options_for_select(theme_options, selected_theme), id: :setting_theme
+
   .field
     = form.label :background_color
     = form.text_field :background_color, id: :setting_background_color
@@ -98,10 +101,12 @@
     = form.check_box :enable_discount_code_bar, id: :setting_enable_discount_code_bar
   .field
     = form.label :discount_code_bar_countdown_time
-    = form.text_field :discount_code_bar_countdown_time, id: :setting_discount_code_bar_countdown_time
+    = form.number_field :discount_code_bar_countdown_time, id: :setting_discount_code_bar_countdown_time, min: 0
   .field
+    - discount_position_options = [ ["Screen Top", 'Screen Top'], ["Screen Bottom", 'Screen Bottom'], ["Page Top", 'Page Top'], ["Page Bottom", 'Page Bottom']]
+    - selected_discount_position = setting.discount_code_bar_position
     = form.label :discount_code_bar_position
-    = form.text_field :discount_code_bar_position, id: :setting_discount_code_bar_position
+    = form.select :discount_code_bar_position, options_for_select(discount_position_options, selected_discount_position), id: :setting_discount_code_bar_position
 
   .field
     = form.label :enable_progress_bar
@@ -114,10 +119,12 @@
     = form.text_field :progress_bar_color, id: :setting_progress_bar_color
   .field
     = form.label :progress_bar_percentage
-    = form.number_field :progress_bar_percentage, id: :setting_progress_bar_percentage
+    = form.number_field :progress_bar_percentage, id: :setting_progress_bar_percentage, min: 0
   .field
+    - progress_position_options = [ ["Under Top Title", 'Under Top Title'], ["Under Main Text", 'Under Main Text'], ["Under Spin Button", 'Under Spin Button'] ]
+    - selected_progress_position = setting.progress_bar_position
     = form.label :progress_bar_position
-    = form.text_field :progress_bar_position, id: :setting_progress_bar_position
+    = form.select :progress_bar_position, options_for_select(progress_position_options, selected_progress_position), id: :setting_progress_bar_position
 
   .field
     = form.label :show_on_desktop
@@ -139,21 +146,23 @@
     = form.check_box :show_on_mobile_after, id: :setting_show_on_mobile_after
   .field
     = form.label :show_on_desktop_seconds
-    = form.number_field :show_on_desktop_seconds, id: :setting_show_on_desktop_seconds
+    = form.number_field :show_on_desktop_seconds, id: :setting_show_on_desktop_seconds, min: 0
   .field
     = form.label :show_on_mobile_seconds
-    = form.number_field :show_on_mobile_seconds, id: :setting_show_on_mobile_seconds
+    = form.number_field :show_on_mobile_seconds, id: :setting_show_on_mobile_seconds, min: 0
 
   .field
     = form.label :show_pull_out_tab
     = form.check_box :show_pull_out_tab, id: :setting_show_pull_out_tab
   .field
+    - tab_icon_options = [ ["None", 'None'], ["Free Product", 'Free Product'], ["Discount", 'Discount'], ["Money", 'Money'], ["Star", 'Star'], ["Custom...", 'Custom'] ]
+    - selected_tab_icon = setting.tab_icon
     = form.label :tab_icon
-    = form.text_field :tab_icon, id: :setting_tab_icon
+    = form.select :tab_icon, options_for_select(tab_icon_options, selected_tab_icon), id: :setting_tab_icon
 
   .field
     = form.label :do_not_show_app
-    = form.text_field :do_not_show_app, id: :setting_do_not_show_app
+    = form.number_field :do_not_show_app, id: :setting_do_not_show_app, min: 0
 
   .field
     = form.label :discount_coupon_auto_apply
