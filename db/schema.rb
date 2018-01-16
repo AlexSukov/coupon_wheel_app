@@ -50,12 +50,12 @@ ActiveRecord::Schema.define(version: 20180115145624) do
     t.string "win_section_color", default: "#000fff"
     t.string "lose_section_color", default: "#00ff00"
     t.boolean "enable_discount_code_bar", default: false
-    t.string "discount_code_bar_countdown_time"
+    t.integer "discount_code_bar_countdown_time", default: 15
     t.string "discount_code_bar_position", default: "Screen bottom"
     t.boolean "enable_progress_bar", default: false
     t.string "progress_bar_text", default: "70% offers claimed. Hurry up!"
     t.string "progress_bar_color", default: "#ff00ff"
-    t.string "progress_bar_percentage", default: "70"
+    t.integer "progress_bar_percentage", default: 70
     t.string "progress_bar_position", default: "Under top title"
     t.boolean "show_on_desktop", default: true
     t.boolean "show_on_mobile", default: true
@@ -63,11 +63,11 @@ ActiveRecord::Schema.define(version: 20180115145624) do
     t.boolean "show_on_mobile_leave_intent", default: true
     t.boolean "show_on_desktop_after", default: false
     t.boolean "show_on_mobile_after", default: false
-    t.string "show_on_desktop_seconds", default: "15"
-    t.string "show_on_mobile_seconds", default: "15"
+    t.integer "show_on_desktop_seconds", default: 15
+    t.integer "show_on_mobile_seconds", default: 15
     t.boolean "show_pull_out_tab", default: false
-    t.string "tab_icon"
-    t.string "do_not_show_app", default: "30"
+    t.string "tab_icon", default: "None"
+    t.integer "do_not_show_app", default: 30
     t.boolean "discount_coupon_auto_apply", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -84,7 +84,7 @@ ActiveRecord::Schema.define(version: 20180115145624) do
 
   create_table "slices", force: :cascade do |t|
     t.boolean "lose"
-    t.string "type"
+    t.string "slice_type"
     t.string "label"
     t.string "code"
     t.integer "gravity"

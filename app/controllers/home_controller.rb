@@ -9,4 +9,5 @@ class HomeController < ShopifyApp::AuthenticatedController
     @slices = Slice.where(setting_id: @settings.id)
     @collected_emails = CollectedEmail.where(shop_id: @shop.id)
   end
+
 end

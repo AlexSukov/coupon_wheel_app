@@ -7,164 +7,164 @@
       %ul
         - setting.errors.full_messages.each do |message|
           %li= message
-  .field
-    = form.label :enable_app
+  .form-group
+    = form.label :enable, 'Enable App'
     = form.check_box :enable, id: :setting_enable
-  .field
+  .form-group
     = form.label :big_logo
-    = form.file_field :big_logo, id: :setting_big_logo
-  .field
+    = form.file_field :big_logo, id: :setting_big_logo, class: 'form-control'
+  .form-group
     = form.label :small_logo
-    = form.file_field :small_logo, id: :setting_small_logo
-  .field
+    = form.file_field :small_logo, id: :setting_small_logo, class: 'form-control'
+  .form-group
     = form.label :title_text
-    = form.text_field :title_text, id: :setting_title_text
-  .field
+    = form.text_field :title_text, id: :setting_title_text, class: 'form-control'
+  .form-group
     = form.label :disclaimer_text
-    = form.text_area :disclaimer_text, id: :disclaimer_text
-  .field
+    = form.text_area :disclaimer_text, id: :disclaimer_text, class: 'form-control'
+  .form-group
     = form.label :guiding_text
-    = form.text_area :guiding_text, id: :setting_guiding_text
-  .field
+    = form.text_area :guiding_text, id: :setting_guiding_text, class: 'form-control'
+  .form-group
     = form.label :enter_email
-    = form.text_field :enter_email, id: :setting_enter_email
-  .field
+    = form.text_field :enter_email, id: :setting_enter_email, class: 'form-control'
+  .form-group
     = form.label :invalid_email_message
-    = form.text_field :invalid_email_message, id: :setting_invalid_email_message
-  .field
+    = form.text_field :invalid_email_message, id: :setting_invalid_email_message, class: 'form-control'
+  .form-group
     = form.label :spin_button
-    = form.text_field :spin_button, id: :setting_spin_button
-  .field
+    = form.text_field :spin_button, id: :setting_spin_button, class: 'form-control'
+  .form-group
     = form.label :close_button
-    = form.text_field :close_button, id: :setting_close_button
-  .field
+    = form.text_field :close_button, id: :setting_close_button, class: 'form-control'
+  .form-group
     = form.label :winning_title
-    = form.text_field :winning_title, id: :setting_winning_title
-  .field
+    = form.text_field :winning_title, id: :setting_winning_title, class: 'form-control'
+  .form-group
     = form.label :winning_text
-    = form.text_field :winning_text, id: :setting_winning_text
-  .field
+    = form.text_field :winning_text, id: :setting_winning_text, class: 'form-control'
+  .form-group
     = form.label :discount_code_title
-    = form.text_field :discount_code_title, id: :setting_discount_code_title
-  .field
+    = form.text_field :discount_code_title, id: :setting_discount_code_title, class: 'form-control'
+  .form-group
     = form.label :continue_button
-    = form.text_field :continue_button, id: :setting_continue_button
-  .field
+    = form.text_field :continue_button, id: :setting_continue_button, class: 'form-control'
+  .form-group
     = form.label :copied_message
-    = form.text_field :copied_message, id: :setting_copied_message
-  .field
+    = form.text_field :copied_message, id: :setting_copied_message, class: 'form-control'
+  .form-group
     = form.label :reject_discount_button
-    = form.text_field :reject_discount_button, id: :setting_reject_discount_button
-  .field
+    = form.text_field :reject_discount_button, id: :setting_reject_discount_button, class: 'form-control'
+  .form-group
     = form.label :free_product_description
-    = form.text_field :free_product_description, id: :setting_free_product_description
-  .field
+    = form.text_field :free_product_description, id: :setting_free_product_description, class: 'form-control'
+  .form-group
     = form.label :free_product_button
-    = form.text_field :free_product_button, id: :setting_free_product_button
-  .field
+    = form.text_field :free_product_button, id: :setting_free_product_button, class: 'form-control'
+  .form-group
     = form.label :free_product_reject
-    = form.text_field :free_product_reject, id: :setting_free_product_reject
-  .field
+    = form.text_field :free_product_reject, id: :setting_free_product_reject, class: 'form-control'
+  .form-group
     = form.label :discount_coupon_code_bar
-    = form.text_field :discount_coupon_code_bar, id: :setting_discount_coupon_code_bar
-  .field
+    = form.text_field :discount_coupon_code_bar, id: :setting_discount_coupon_code_bar, class: 'form-control'
+  .form-group
     = form.label :close_button_in_bar
-    = form.text_field :close_button_in_bar, id: :setting_close_button_in_bar
+    = form.text_field :close_button_in_bar, id: :setting_close_button_in_bar, class: 'form-control'
 
-  .field
+  .form-group
     - theme_options = [ ["Default", 'Default'], ["Madrid", 'Madrid'] ]
     - selected_theme = setting.theme
     = form.label :theme
-    = form.select :theme, options_for_select(theme_options, selected_theme), id: :setting_theme
+    = form.select :theme, options_for_select(theme_options, selected_theme), id: :setting_theme, class: 'form-control'
 
-  .field
+  .form-group
     = form.label :background_color
-    = form.text_field :background_color, id: :setting_background_color
-  .field
+    = form.text_field :background_color, id: :setting_background_color, class: 'form-control'
+  .form-group
     = form.label :close_button_in_bar
-    = form.text_field :close_button_in_bar, id: :setting_close_button_in_bar
-  .field
+    = form.text_field :close_button_in_bar, id: :setting_close_button_in_bar, class: 'form-control'
+  .form-group
     = form.label :font_color
-    = form.text_field :font_color, id: :setting_font_color
-  .field
+    = form.text_field :font_color, id: :setting_font_color, class: 'form-control'
+  .form-group
     = form.label :bold_text_and_button_color
-    = form.text_field :bold_text_and_button_color, id: :setting_bold_text_and_button_color
-  .field
+    = form.text_field :bold_text_and_button_color, id: :setting_bold_text_and_button_color, class: 'form-control'
+  .form-group
     = form.label :win_section_color
-    = form.text_field :win_section_color, id: :setting_win_section_color
-  .field
+    = form.text_field :win_section_color, id: :setting_win_section_color, class: 'form-control'
+  .form-group
     = form.label :lose_section_color
-    = form.text_field :lose_section_color, id: :setting_lose_section_color
+    = form.text_field :lose_section_color, id: :setting_lose_section_color, class: 'form-control'
 
-  .field
+  .form-group
     = form.label :enable_discount_code_bar
     = form.check_box :enable_discount_code_bar, id: :setting_enable_discount_code_bar
-  .field
+  .form-group
     = form.label :discount_code_bar_countdown_time
-    = form.number_field :discount_code_bar_countdown_time, id: :setting_discount_code_bar_countdown_time, min: 0
-  .field
+    = form.number_field :discount_code_bar_countdown_time, id: :setting_discount_code_bar_countdown_time, min: 0, class: 'form-control'
+  .form-group
     - discount_position_options = [ ["Screen Top", 'Screen Top'], ["Screen Bottom", 'Screen Bottom'], ["Page Top", 'Page Top'], ["Page Bottom", 'Page Bottom']]
     - selected_discount_position = setting.discount_code_bar_position
     = form.label :discount_code_bar_position
-    = form.select :discount_code_bar_position, options_for_select(discount_position_options, selected_discount_position), id: :setting_discount_code_bar_position
+    = form.select :discount_code_bar_position, options_for_select(discount_position_options, selected_discount_position), id: :setting_discount_code_bar_position, class: 'form-control'
 
-  .field
+  .form-group
     = form.label :enable_progress_bar
     = form.check_box :enable_progress_bar, id: :setting_enable_progress_bar
-  .field
+  .form-group
     = form.label :progress_bar_text
-    = form.text_field :progress_bar_text, id: :setting_progress_bar_text
-  .field
+    = form.text_field :progress_bar_text, id: :setting_progress_bar_text, class: 'form-control'
+  .form-group
     = form.label :progress_bar_color
-    = form.text_field :progress_bar_color, id: :setting_progress_bar_color
-  .field
+    = form.text_field :progress_bar_color, id: :setting_progress_bar_color, class: 'form-control'
+  .form-group
     = form.label :progress_bar_percentage
-    = form.number_field :progress_bar_percentage, id: :setting_progress_bar_percentage, min: 0
-  .field
+    = form.number_field :progress_bar_percentage, id: :setting_progress_bar_percentage, min: 0, class: 'form-control'
+  .form-group
     - progress_position_options = [ ["Under Top Title", 'Under Top Title'], ["Under Main Text", 'Under Main Text'], ["Under Spin Button", 'Under Spin Button'] ]
     - selected_progress_position = setting.progress_bar_position
     = form.label :progress_bar_position
-    = form.select :progress_bar_position, options_for_select(progress_position_options, selected_progress_position), id: :setting_progress_bar_position
+    = form.select :progress_bar_position, options_for_select(progress_position_options, selected_progress_position), id: :setting_progress_bar_position, class: 'form-control'
 
-  .field
+  .form-group
     = form.label :show_on_desktop
     = form.check_box :show_on_desktop, id: :setting_show_on_desktop
-  .field
+  .form-group
     = form.label :show_on_mobile
     = form.check_box :show_on_mobile, id: :setting_show_on_mobile
-  .field
+  .form-group
     = form.label :show_on_desktop_leave_intent
     = form.check_box :show_on_desktop_leave_intent, id: :setting_show_on_desktop_leave_intent
-  .field
+  .form-group
     = form.label :show_on_mobile_leave_intent
     = form.check_box :show_on_mobile_leave_intent, id: :setting_show_on_mobile_leave_intent
-  .field
+  .form-group
     = form.label :show_on_desktop_after
     = form.check_box :show_on_desktop_after, id: :setting_show_on_desktop_after
-  .field
+  .form-group
     = form.label :show_on_mobile_after
     = form.check_box :show_on_mobile_after, id: :setting_show_on_mobile_after
-  .field
+  .form-group
     = form.label :show_on_desktop_seconds
-    = form.number_field :show_on_desktop_seconds, id: :setting_show_on_desktop_seconds, min: 0
-  .field
+    = form.number_field :show_on_desktop_seconds, id: :setting_show_on_desktop_seconds, min: 0, class: 'form-control'
+  .form-group
     = form.label :show_on_mobile_seconds
-    = form.number_field :show_on_mobile_seconds, id: :setting_show_on_mobile_seconds, min: 0
+    = form.number_field :show_on_mobile_seconds, id: :setting_show_on_mobile_seconds, min: 0, class: 'form-control'
 
-  .field
+  .form-group
     = form.label :show_pull_out_tab
     = form.check_box :show_pull_out_tab, id: :setting_show_pull_out_tab
-  .field
+  .form-group
     - tab_icon_options = [ ["None", 'None'], ["Free Product", 'Free Product'], ["Discount", 'Discount'], ["Money", 'Money'], ["Star", 'Star'], ["Custom...", 'Custom'] ]
     - selected_tab_icon = setting.tab_icon
     = form.label :tab_icon
-    = form.select :tab_icon, options_for_select(tab_icon_options, selected_tab_icon), id: :setting_tab_icon
+    = form.select :tab_icon, options_for_select(tab_icon_options, selected_tab_icon), id: :setting_tab_icon, class: 'form-control'
 
-  .field
+  .form-group
     = form.label :do_not_show_app
-    = form.number_field :do_not_show_app, id: :setting_do_not_show_app, min: 0
+    = form.number_field :do_not_show_app, id: :setting_do_not_show_app, min: 0, class: 'form-control'
 
-  .field
+  .form-group
     = form.label :discount_coupon_auto_apply
     = form.check_box :discount_coupon_auto_apply, id: :setting_discount_coupon_auto_apply
 

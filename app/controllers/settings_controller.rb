@@ -29,6 +29,11 @@ class SettingsController < ApplicationController
     end
   end
 
+  def clientside
+    @shop = Shop.find_by(shopify_domain: params[:shop_domain])
+    render json: { shop: @shop }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_setting

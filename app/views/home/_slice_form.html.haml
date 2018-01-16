@@ -1,24 +1,15 @@
-= form_with(model: slice, local: true) do |form|
-  - if setting.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(setting.errors.count, "error")
-        prohibited this setting from being saved:
-      %ul
-        - setting.errors.full_messages.each do |message|
-          %li= message
-  .field
-    = form.label :type
-    = form.text_field :type, id: :slice_type
-  .field
-    = form.label :label
-    = form.text_field :label, id: :slice_label
-  .field
-    = form.label :code
-    = form.text_field :code, id: :slice_code
-  .field
-    = form.label :gravity
-    = form.number_field :gravity, id: :slice_gravity, min: 0, max: 100
+- slice_type_options = [ ["Coupon", 'Coupon'], ["Free Product", 'Free Product'] ]
 
-  .actions
-    = form.submit
+- if slice.lose
+  .slice{"data-slice-id": slice.id}
+    %input.slice-type{type: "text", value: slice.slice_type, disabled: true }
+    %input.slice-label{type: "text", value: slice.label }
+    %button.slice-save Save
+- else
+  .slice{"data-slice-id": slice.id}
+    = select_tag "slice-type", options_for_select(slice_type_options, slice.slice_type), class: "slice-type"
+    %input.slice-label{type: "text", value: slice.label }
+    %input.slice-code{type: "text", value: slice.code }
+    %input.slice-gravity{max: "100", min: "0", type: "number", value: slice.gravity }
+    %button.slice-save Save
+    %button.slice-delete Delete

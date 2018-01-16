@@ -3,34 +3,22 @@ class SlicesController < ApplicationController
 
   def create
     @slice = Slice.new(slice_params)
-
-    respond_to do |format|
-      if @slice.save
-        format.html { redirect_to root_path, notice: 'slice was successfully created.' }
-        format.json { render :show, status: :created, location: @slice }
-      else
-        format.html { render :new }
-        format.json { render json: @slice.errors, status: :unprocessable_entity }
-      end
+    if @slice.save
+      render json: { slice: @slice }
     end
   end
 
   # PATCH/PUT /slices/1
   # PATCH/PUT /slices/1.json
   def update
-    respond_to do |format|
-      if @slice.update(slice_params)
-        format.html { redirect_to root_path, notice: 'slice was successfully updated.' }
-        format.json { render :show, status: :ok, location: @slice }
-      else
-        format.html { render :edit }
-        format.json { render json: @slice.errors, status: :unprocessable_entity }
-      end
+    if @slice.update(slice_params)
+      render json: { slice: @slice }
     end
   end
 
   def destroy
-    @slice.next.destroy
+    @next_slice = Slice.find(@slice.id + 1)
+    @next_slice.destroy
     @slice.destroy
   end
   private
@@ -41,6 +29,6 @@ class SlicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def slice_params
-      params.require(:slice).permit(:lose, :type, :label, :code, :gravity)
+      params.require(:slice).permit(:lose, :slice_type, :label, :code, :gravity, :setting_id)
     end
 end
