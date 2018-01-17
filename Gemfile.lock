@@ -49,7 +49,12 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
+    autoprefixer-rails (7.1.1)
+      execjs
     bindex (0.5.0)
+    bootstrap-sass (3.3.7)
+      autoprefixer-rails (>= 5.2.1)
+      sass (>= 3.3.4)
     builder (3.2.3)
     byebug (9.1.0)
     capybara (2.17.0)
@@ -74,10 +79,12 @@ GEM
     daemons (1.2.6)
     erubi (1.7.0)
     eventmachine (1.2.5-x64-mingw32)
+    eventmachine (1.2.5-x86-mingw32)
     execjs (2.7.0)
     faraday (0.12.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18-x64-mingw32)
+    ffi (1.9.18-x86-mingw32)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     haml (5.0.1)
@@ -89,6 +96,10 @@ GEM
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
+    jquery-rails (4.3.1)
+      rails-dom-testing (>= 1, < 3)
+      railties (>= 4.2.0)
+      thor (>= 0.14, < 2.0)
     jwt (1.5.6)
     loofah (2.1.1)
       crass (~> 1.0.2)
@@ -104,6 +115,8 @@ GEM
     multipart-post (2.0.0)
     nio4r (2.2.0)
     nokogiri (1.8.1-x64-mingw32)
+      mini_portile2 (~> 2.3.0)
+    nokogiri (1.8.1-x86-mingw32)
       mini_portile2 (~> 2.3.0)
     oauth2 (1.4.0)
       faraday (>= 0.8, < 0.13)
@@ -122,6 +135,7 @@ GEM
     public_suffix (3.0.1)
     puma (3.11.0)
     rack (2.0.3)
+    rack-cors (1.0.2)
     rack-test (0.8.2)
       rack (>= 1.0, < 3)
     rails (5.1.4)
@@ -181,6 +195,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.3.13-x64-mingw32)
+    sqlite3 (1.3.13-x86-mingw32)
     temple (0.8.0)
     thin (1.7.2)
       daemons (~> 1.0, >= 1.0.9)
@@ -189,9 +204,6 @@ GEM
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
-    turbolinks (5.1.0)
-      turbolinks-source (~> 5.1)
-    turbolinks-source (5.1.0)
     tzinfo (1.2.4)
       thread_safe (~> 0.1)
     tzinfo-data (1.2017.3)
@@ -211,26 +223,29 @@ GEM
 
 PLATFORMS
   x64-mingw32
+  x86-mingw32
 
 DEPENDENCIES
+  bootstrap-sass
   byebug
   capybara (~> 2.13)
   cocoon
   coffee-rails (~> 4.2)
   haml
   jbuilder (~> 2.5)
+  jquery-rails
   omniauth-shopify-oauth2
   puma (~> 3.7)
+  rack-cors
   rails (~> 5.1.1)
   sass-rails (~> 5.0)
   selenium-webdriver
   shopify_app
   sqlite3
   thin
-  turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.14.6
+   1.15.0

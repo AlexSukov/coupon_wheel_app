@@ -1,0 +1,12 @@
+- content_for :javascript do
+  :javascript
+    ShopifyApp.ready(function(){
+      ShopifyApp.Bar.initialize({ title: "Home" });
+    });
+
+= render 'settings_form', setting: @settings, slices: @slices
+
+#collected_emails
+  - @collected_emails.each do |collected_email|
+    .collected-email= collected_email.email
+    %button.remove-email{type: 'button', 'data-email-id': collected_email.id } Remove

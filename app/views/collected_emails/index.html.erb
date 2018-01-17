@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Collected Emails</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Shop</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @collected_emails.each do |collected_email| %>
+      <tr>
+        <td><%= collected_email.email %></td>
+        <td><%= collected_email.shop %></td>
+        <td><%= link_to 'Show', collected_email %></td>
+        <td><%= link_to 'Edit', edit_collected_email_path(collected_email) %></td>
+        <td><%= link_to 'Destroy', collected_email, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Collected Email', new_collected_email_path %>
