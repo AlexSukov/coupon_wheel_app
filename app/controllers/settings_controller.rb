@@ -1,5 +1,5 @@
 class SettingsController < ApplicationController
-  before_action :set_setting, only: :update
+  before_action :set_setting, only: [:update, :add_url_filter, :remove_url_filter]
 
   def create
     @setting = Setting.new(setting_params)
@@ -29,6 +29,19 @@ class SettingsController < ApplicationController
     end
   end
 
+  def add_url_filter
+    url = params[:url_filters]
+    @setting.url_filters.push(url)
+    @setting.save
+    render json: { url: url}
+  end
+
+  def remove_url_filter
+    @setting.url_filters.delete(params[:url_filters])
+    @setting.save
+    render json: { status: 'ok' }
+  end
+
   def clientside
     @shop = Shop.find_by(shopify_domain: params[:shop_domain])
     @settings = Setting.find_by(shop_id: @shop.id)
@@ -54,6 +67,6 @@ class SettingsController < ApplicationController
       :enable_progress_bar, :progress_bar_text, :progress_bar_color, :progress_bar_percentage, :progress_bar_position,
       :show_on_desktop, :show_on_mobile, :show_on_desktop_leave_intent, :show_on_mobile_leave_intent,
       :show_on_desktop_after, :show_on_mobile_after, :show_on_desktop_seconds, :show_on_mobile_seconds,
-      :show_pull_out_tab, :tab_icon, :do_not_show_app, :discount_coupon_auto_apply)
+      :show_pull_out_tab, :tab_icon, :do_not_show_app, :discount_coupon_auto_apply, :url_filters)
     end
 end

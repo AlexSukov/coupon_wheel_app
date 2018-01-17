@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180115145624) do
+ActiveRecord::Schema.define(version: 20180117110301) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20180115145624) do
     t.boolean "discount_coupon_auto_apply", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "url_filters", default: [], array: true
     t.index ["shop_id"], name: "index_settings_on_shop_id"
   end
 
@@ -91,6 +92,7 @@ ActiveRecord::Schema.define(version: 20180115145624) do
     t.string "label"
     t.string "code"
     t.integer "gravity"
+    t.string "product_image"
     t.bigint "setting_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

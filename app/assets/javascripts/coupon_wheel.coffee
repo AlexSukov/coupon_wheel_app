@@ -2,7 +2,7 @@ $ ->
   domain = document.domain
   $.ajax
     type: 'POST'
-    url: "https://2a75eeec.ngrok.io/clientside"
+    url: "https://6360825f.ngrok.io/clientside"
     data: { shop_domain: domain }
     dataType: "json"
     success: (data) ->

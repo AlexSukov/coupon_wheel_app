@@ -7,6 +7,7 @@
       %ul
         - setting.errors.full_messages.each do |message|
           %li= message
+  %h2 General
   .form-group
     = form.label :enable, 'Enable App'
     = form.check_box :enable, id: :setting_enable
@@ -20,6 +21,8 @@
       = image_tag setting.small_logo, class: "big-logo"
     = form.label :small_logo
     = form.file_field :small_logo, id: :setting_small_logo, class: 'form-control'
+
+  %h2 Advanced
   .form-group
     = form.label :title_text
     = form.text_field :title_text, id: :setting_title_text, class: 'form-control'
@@ -75,6 +78,7 @@
     = form.label :close_button_in_bar
     = form.text_field :close_button_in_bar, id: :setting_close_button_in_bar, class: 'form-control'
 
+  %h2 Colors
   .form-group
     - theme_options = [ ["Default", 'Default'], ["Madrid", 'Madrid'] ]
     - selected_theme = setting.theme
@@ -97,13 +101,14 @@
     = form.label :lose_section_color
     = form.text_field :lose_section_color, id: :setting_lose_section_color, class: 'form-control'
 
-
+  %h2 Slices
   #slice-container
     - slices.each do |slice|
       = render 'slice_form', slice: slice
   %button.create_slice{'data-setting': @settings.id, type: 'button' } Add Slice
   %br
 
+  %h2 Discount code bar
   .form-group
     = form.label :enable_discount_code_bar
     = form.check_box :enable_discount_code_bar, id: :setting_enable_discount_code_bar
@@ -116,6 +121,7 @@
     = form.label :discount_code_bar_position
     = form.select :discount_code_bar_position, options_for_select(discount_position_options, selected_discount_position), id: :setting_discount_code_bar_position, class: 'form-control'
 
+  %h2 Progress bar
   .form-group
     = form.label :enable_progress_bar
     = form.check_box :enable_progress_bar, id: :setting_enable_progress_bar
@@ -127,13 +133,14 @@
     = form.text_field :progress_bar_color, id: :setting_progress_bar_color, class: 'form-control'
   .form-group
     = form.label :progress_bar_percentage
-    = form.number_field :progress_bar_percentage, id: :setting_progress_bar_percentage, min: 0, class: 'form-control'
+    = form.number_field :progress_bar_percentage, id: :setting_progress_bar_percentage, min: 0, max: 100, class: 'form-control'
   .form-group
     - progress_position_options = [ ["Under Top Title", 'Under Top Title'], ["Under Main Text", 'Under Main Text'], ["Under Spin Button", 'Under Spin Button'] ]
     - selected_progress_position = setting.progress_bar_position
     = form.label :progress_bar_position
     = form.select :progress_bar_position, options_for_select(progress_position_options, selected_progress_position), id: :setting_progress_bar_position, class: 'form-control'
 
+  %h2 Show on devices
   .form-group
     = form.label :show_on_desktop
     = form.check_box :show_on_desktop, id: :setting_show_on_desktop
@@ -159,6 +166,7 @@
     = form.label :show_on_mobile_seconds
     = form.number_field :show_on_mobile_seconds, id: :setting_show_on_mobile_seconds, min: 0, class: 'form-control'
 
+  %h2 Pull-out-tab
   .form-group
     = form.label :show_pull_out_tab
     = form.check_box :show_pull_out_tab, id: :setting_show_pull_out_tab
@@ -168,10 +176,20 @@
     = form.label :tab_icon
     = form.file_field :tab_icon, id: :setting_tab_icon, class: 'form-control'
 
+  %h2 Don't show app
   .form-group
     = form.label :do_not_show_app
     = form.number_field :do_not_show_app, id: :setting_do_not_show_app, min: 0, class: 'form-control'
 
+  %h2 URL filter
+  #url_filters{'data-setting-id': setting.id}
+    -if setting.url_filters?
+      -setting.url_filters.each do |url|
+        .url
+          = url
+          %button.url_delete{'data-url': url, type: 'button' } Delete URL
+  %button.add_url{type: 'button'} Add URL
+  %h2 Discount coupon auto apply
   .form-group
     = form.label :discount_coupon_auto_apply
     = form.check_box :discount_coupon_auto_apply, id: :setting_discount_coupon_auto_apply

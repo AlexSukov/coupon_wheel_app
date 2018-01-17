@@ -144,6 +144,7 @@ GEM
     omniauth-shopify-oauth2 (1.2.1)
       omniauth-oauth2 (~> 1.5.0)
     pg (0.20.0-x64-mingw32)
+    pg (0.20.0-x86-mingw32)
     public_suffix (3.0.1)
     puma (3.11.0)
     rack (2.0.3)
@@ -264,4 +265,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.15.0
+   1.16.1

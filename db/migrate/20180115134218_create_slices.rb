@@ -6,6 +6,7 @@ class CreateSlices < ActiveRecord::Migration[5.1]
       t.string :label
       t.string :code
       t.integer :gravity
+      t.string :product_image
       t.belongs_to :setting, foreign_key: true
 
       t.timestamps

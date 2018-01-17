@@ -29,6 +29,7 @@ class SlicesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def slice_params
-      params.require(:slice).permit(:lose, :slice_type, :label, :code, :gravity, :setting_id)
+      params.require(:slice).permit(:lose, :slice_type, :label, :code, :gravity, :setting_id,
+      :product_image)
     end
 end

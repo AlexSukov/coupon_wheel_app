@@ -17,6 +17,7 @@ $ ->
             <input class='slice-code' type='text' value='#{data.slice.code}'>
             <button type='button' class='slice-choose-product' hidden>Choose Product</button>
             <input class='slice-gravity' type='number' min='0' max='100' value='#{data.slice.gravity}'>
+            <input class='slice-product-image' type='text' hidden>
             <button type='button' class='slice-save'>Save</button>
             <button type='button' class='slice-delete'>Delete</button>
           </div>
@@ -60,10 +61,11 @@ $ ->
     slice_label = $parent.children('.slice-label').val()
     slice_code = $parent.children('.slice-code').val()
     slice_gravity = $parent.children('.slice-gravity').val()
+    slice_product_image = $parent.children('.slice-product-image').val()
     if (slice_type == 'Losing')
       data_slice = { slice: { id: slice_id, label: slice_label } }
     else
-      data_slice = { slice: { id: slice_id, slice_type: slice_type, label: slice_label, code: slice_code, gravity: slice_gravity } }
+      data_slice = { slice: { id: slice_id, slice_type: slice_type, label: slice_label, code: slice_code, gravity: slice_gravity, product_image: slice_product_image } }
     $.ajax
       type: 'PUT'
       url: "/slices/#{slice_id}"
@@ -75,16 +77,19 @@ $ ->
         alert('Update slice error')
 
   $('#slice-container').on 'change', '.slice-type', ->
+    $(this).parent().children('.slice-product-image').val('')
     $(this).parent().children('.slice-choose-product').toggle()
     $(this).parent().children('.slice-code').toggle()
 
   $('#slice-container').on 'click', '.slice-choose-product', ->
     $parent = $(this).parent()
+    $shop_domain = $('#shop_domain').val()
     singleProductOptions = 'selectMultiple': false
     ShopifyApp.Modal.productPicker singleProductOptions, (success, data) ->
       if success
-        alert(data.products[0])
-        $parent.children('.slice-code').val(data.products[0])
-
+        product = data.products[0]
+        $parent.children('.slice-code').val($shop_domain + '/products/' + product.handle)
+        $parent.children('.slice-label').val(product.title)
+        $parent.children('.slice-product-image').val(product.image.src)
       if data.errors
         console.error data.errors
