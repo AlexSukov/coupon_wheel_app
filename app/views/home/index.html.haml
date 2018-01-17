@@ -3,44 +3,10 @@
     ShopifyApp.ready(function(){
       ShopifyApp.Bar.initialize({ title: "Home" });
     });
-%h2 Products
-%ul
-  - @products.each do |product|
-    %li= link_to product.title, "https://#{@shop_session.url}/admin/products/#{product.id}", target: "_top"
-%hr/
-%h2 Webhooks
-- if @webhooks.present?
-  %ul
-    - @webhooks.each do |webhook|
-      %li
-        = webhook.topic
-        \: #{webhook.address}
-- else
-  %p This app has not created any webhooks for this Shop. Add webhooks to your ShopifyApp initializer if you need webhooks
-%h2 Discounts
-- if @discounts.present?
-  %ul
-    - @discounts.each do |discount|
-      %li
-        = discount.title
-        \: #{discount.value}
-- else
-  %p This app has not created any Discounts for this Shop.
-%h2 Customers
-- if @customers.present?
-  %ul
-    - @customers.each do |customer|
-      %li= customer.email
-- else
-  %p This app has not created any Customers for this Shop.
 
-- @collected_emails.each do |collected_email|
-  = render 'collected_emails_form', collected_email: collected_email
+= render 'settings_form', setting: @settings, slices: @slices
 
-= render 'settings_form', setting: @settings
-
-#slice-container
-  - @slices.each do |slice|
-    = render 'slice_form', slice: slice
-    
-%button.create_slice{'data-setting': @settings.id } Add Slice
+#collected_emails
+  - @collected_emails.each do |collected_email|
+    .collected-email= collected_email.email
+    %button.remove-email{type: 'button', 'data-email-id': collected_email.id } Remove

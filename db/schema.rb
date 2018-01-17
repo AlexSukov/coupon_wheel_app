@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20180115145624) do
     t.integer "show_on_desktop_seconds", default: 15
     t.integer "show_on_mobile_seconds", default: 15
     t.boolean "show_pull_out_tab", default: false
-    t.string "tab_icon", default: "None"
+    t.string "tab_icon"
     t.integer "do_not_show_app", default: 30
     t.boolean "discount_coupon_auto_apply", default: false
     t.datetime "created_at", null: false

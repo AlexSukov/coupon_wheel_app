@@ -17,7 +17,7 @@ class SlicesController < ApplicationController
   end
 
   def destroy
-    @next_slice = Slice.find(@slice.id + 1)
+    @next_slice = Slice.where(["id > ? and setting_id = ?", @slice.id, @slice.setting_id]).first
     @next_slice.destroy
     @slice.destroy
   end

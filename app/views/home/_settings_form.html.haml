@@ -96,6 +96,13 @@
     = form.label :lose_section_color
     = form.text_field :lose_section_color, id: :setting_lose_section_color, class: 'form-control'
 
+
+  #slice-container
+    - slices.each do |slice|
+      = render 'slice_form', slice: slice
+  %button.create_slice{'data-setting': @settings.id, type: 'button' } Add Slice
+  %br
+
   .form-group
     = form.label :enable_discount_code_bar
     = form.check_box :enable_discount_code_bar, id: :setting_enable_discount_code_bar
@@ -155,10 +162,8 @@
     = form.label :show_pull_out_tab
     = form.check_box :show_pull_out_tab, id: :setting_show_pull_out_tab
   .form-group
-    - tab_icon_options = [ ["None", 'None'], ["Free Product", 'Free Product'], ["Discount", 'Discount'], ["Money", 'Money'], ["Star", 'Star'], ["Custom...", 'Custom'] ]
-    - selected_tab_icon = setting.tab_icon
     = form.label :tab_icon
-    = form.select :tab_icon, options_for_select(tab_icon_options, selected_tab_icon), id: :setting_tab_icon, class: 'form-control'
+    = form.file_field :tab_icon, id: :setting_tab_icon, class: 'form-control'
 
   .form-group
     = form.label :do_not_show_app

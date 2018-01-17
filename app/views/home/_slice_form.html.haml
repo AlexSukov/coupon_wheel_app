@@ -4,12 +4,12 @@
   .slice{"data-slice-id": slice.id}
     %input.slice-type{type: "text", value: slice.slice_type, disabled: true }
     %input.slice-label{type: "text", value: slice.label }
-    %button.slice-save Save
+    %button.slice-save{type: 'button'} Save
 - else
   .slice{"data-slice-id": slice.id}
     = select_tag "slice-type", options_for_select(slice_type_options, slice.slice_type), class: "slice-type"
     %input.slice-label{type: "text", value: slice.label }
     %input.slice-code{type: "text", value: slice.code }
     %input.slice-gravity{max: "100", min: "0", type: "number", value: slice.gravity }
-    %button.slice-save Save
-    %button.slice-delete Delete
+    %button.slice-save{type: 'button'} Save
+    %button.slice-delete{type: 'button'} Delete

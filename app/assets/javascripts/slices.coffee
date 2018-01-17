@@ -16,8 +16,8 @@ $ ->
             <input class='slice-label' type='text' value='#{data.slice.label}'>
             <input class='slice-code' type='text' value='#{data.slice.code}'>
             <input class='slice-gravity' type='number' min='0' max='100' value='#{data.slice.gravity}'>
-            <button class='slice-save'>Save</button>
-            <button class='slice-delete'>Delete</button>
+            <button type='button' class='slice-save'>Save</button>
+            <button type='button' class='slice-delete'>Delete</button>
           </div>
         ")
         $.ajax
@@ -30,7 +30,7 @@ $ ->
               <div class='slice' data-slice-id='#{data.slice.id}'>
                 <input class='slice-type' type='text' value='#{data.slice.slice_type}' disabled>
                 <input class='slice-label' type='text' value='#{data.slice.label}'>
-                <button class='slice-save'>Save</button>
+                <button type='button' class='slice-save'>Save</button>
               </div>
             ")
           error: (data) ->

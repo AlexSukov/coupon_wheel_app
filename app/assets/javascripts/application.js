@@ -16,3 +16,4 @@
 //= require cocoon
 //= require bootstrap
 //= require_tree .
+//= stub coupon_wheel
