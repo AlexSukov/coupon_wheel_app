@@ -1,12 +1,25 @@
 - content_for :javascript do
   :javascript
     ShopifyApp.ready(function(){
-      ShopifyApp.Bar.initialize({ title: "Home" });
+      ShopifyApp.Bar.initialize({
+        title: "Home",
+          buttons: {
+          primary: {
+            label: "Save", callback: function(){ $('#setting_save').click() }
+          },
+          secondary: [
+            { label: "Help", callback: function(){ alert('help'); } },
+            { label: "Preview", href: "http://my-app.com/preview_url", target: "new" }
+          ],
+        },
+      });
     });
 %input#shop_domain{type: 'hidden', value: @shop.shopify_domain}
 = render 'settings_form', setting: @settings, slices: @slices
 
 #collected_emails
+  %h2 Collected Emails
   - @collected_emails.each do |collected_email|
-    .collected-email= collected_email.email
-    %button.remove-email{type: 'button', 'data-email-id': collected_email.id } Remove
+    .collected-email
+      %p= collected_email.email
+      %button.remove-email{type: 'button', 'data-email-id': collected_email.id } Remove

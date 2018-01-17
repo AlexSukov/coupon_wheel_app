@@ -103,8 +103,8 @@
 
   %h2 Slices
   #slice-container
-    - slices.each do |slice|
-      = render 'slice_form', slice: slice
+    - slices.each_with_index do |slice, index|
+      = render 'slice_form', slice: slice, index: index+1
   %button.create_slice{'data-setting': @settings.id, type: 'button' } Add Slice
   %br
 
@@ -195,4 +195,4 @@
     = form.check_box :discount_coupon_auto_apply, id: :setting_discount_coupon_auto_apply
 
   .actions
-    = form.submit
+    = form.submit 'Save', id: 'setting_save'

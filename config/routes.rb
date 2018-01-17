@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :settings, only: :update
   resources :slices, except: [:index, :new]
   post 'clientside', to: 'settings#clientside'
+  post 'create_email', to: 'collected_emails#create_email'
   post 'add_url_filter/:id', to: 'settings#add_url_filter'
   post 'remove_url_filter/:id', to: 'settings#remove_url_filter'
 

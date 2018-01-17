@@ -7,15 +7,17 @@ $ ->
       data: { slice: { setting_id: setting_id, lose: false, slice_type: 'Coupon', label: 'Coupon Name', code: '000-000-000', gravity: 0 } }
       dataType: "json"
       success: (data) ->
+        slice_index = $('.slice-index').last().data('slice-index') + 1
         $('#slice-container').append("
           <div class='slice' data-slice-id='#{data.slice.id}'>
+            <span class='slice-index' data-slice-index=#{slice_index}>#{slice_index}</span>
             <select class='slice-type'>
               <option value='Coupon' selected>Coupon</option>
               <option value='Free Product'>Free Product</option>
             </select>
+            <button type='button' class='slice-choose-product' hidden>Choose Product</button>
             <input class='slice-label' type='text' value='#{data.slice.label}'>
             <input class='slice-code' type='text' value='#{data.slice.code}'>
-            <button type='button' class='slice-choose-product' hidden>Choose Product</button>
             <input class='slice-gravity' type='number' min='0' max='100' value='#{data.slice.gravity}'>
             <input class='slice-product-image' type='text' hidden>
             <button type='button' class='slice-save'>Save</button>
@@ -28,8 +30,10 @@ $ ->
           data: { slice: { setting_id: setting_id, lose: true, slice_type: 'Losing', label: 'Losing Name' } }
           dataType: "json"
           success: (data) ->
+            slice_index = $('.slice-index').last().data('slice-index') + 1
             $('#slice-container').append("
               <div class='slice' data-slice-id='#{data.slice.id}'>
+                <span class='slice-index' data-slice-index=#{slice_index}>#{slice_index}</span>
                 <input class='slice-type' type='text' value='#{data.slice.slice_type}' disabled>
                 <input class='slice-label' type='text' value='#{data.slice.label}'>
                 <button type='button' class='slice-save'>Save</button>
@@ -77,9 +81,12 @@ $ ->
         alert('Update slice error')
 
   $('#slice-container').on 'change', '.slice-type', ->
-    $(this).parent().children('.slice-product-image').val('')
-    $(this).parent().children('.slice-choose-product').toggle()
-    $(this).parent().children('.slice-code').toggle()
+    parent = $(this).parent()
+    if $(this).val() == 'Coupon'
+      parent.children('.slice-code').val('000-000-000')
+    parent.children('.slice-product-image').val('')
+    parent.children('.slice-choose-product').toggle()
+    parent.children('.slice-code').toggle()
 
   $('#slice-container').on 'click', '.slice-choose-product', ->
     $parent = $(this).parent()

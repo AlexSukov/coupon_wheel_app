@@ -61,6 +61,13 @@ class CollectedEmailsController < ApplicationController
     end
   end
 
+  def create_email
+    @shop = Shop.find_by(shopify_domain: params[:shop_domain])
+    @email = params[:collected_email]
+    @collected_email = CollectedEmail.create(email: @email, shop_id: @shop.id)
+    render json: { collected_email: @collected_email }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_collected_email

@@ -1,3 +1,13 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+$ ->
+  $('.remove-email').on 'click', ->
+    $parent = $(this).parent()
+    email_id = $(this).data('email-id')
+    $.ajax
+      type: 'DELETE'
+      url: "collected_emails/#{email_id}"
+      data: { collected_email: { id: email_id } }
+      dataType: "json"
+      success: (data) ->
+        $parent.remove()
+      error: (data) ->
+        alert('Error in deleting email')
