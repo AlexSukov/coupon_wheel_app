@@ -7,9 +7,14 @@
     %button.slice-save{type: 'button'} Save
 - else
   .slice{"data-slice-id": slice.id}
+    - if slice.slice_type == 'Free Product'
+      - free = true
+    - else
+      - free = false
     = select_tag "slice-type", options_for_select(slice_type_options, slice.slice_type), class: "slice-type"
     %input.slice-label{type: "text", value: slice.label }
-    %input.slice-code{type: "text", value: slice.code }
+    %input.slice-code{type: "text", value: slice.code, hidden: free }
+    %button.slice-choose-product{type: 'button', hidden: !free } Choose Product
     %input.slice-gravity{max: "100", min: "0", type: "number", value: slice.gravity }
     %button.slice-save{type: 'button'} Save
     %button.slice-delete{type: 'button'} Delete

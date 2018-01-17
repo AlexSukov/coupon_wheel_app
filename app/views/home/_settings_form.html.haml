@@ -11,9 +11,13 @@
     = form.label :enable, 'Enable App'
     = form.check_box :enable, id: :setting_enable
   .form-group
+    - if setting.big_logo.present?
+      = image_tag setting.big_logo, class: "big-logo"
     = form.label :big_logo
     = form.file_field :big_logo, id: :setting_big_logo, class: 'form-control'
   .form-group
+    - if setting.small_logo.present?
+      = image_tag setting.small_logo, class: "big-logo"
     = form.label :small_logo
     = form.file_field :small_logo, id: :setting_small_logo, class: 'form-control'
   .form-group
@@ -80,9 +84,6 @@
   .form-group
     = form.label :background_color
     = form.text_field :background_color, id: :setting_background_color, class: 'form-control'
-  .form-group
-    = form.label :close_button_in_bar
-    = form.text_field :close_button_in_bar, id: :setting_close_button_in_bar, class: 'form-control'
   .form-group
     = form.label :font_color
     = form.text_field :font_color, id: :setting_font_color, class: 'form-control'
@@ -162,6 +163,8 @@
     = form.label :show_pull_out_tab
     = form.check_box :show_pull_out_tab, id: :setting_show_pull_out_tab
   .form-group
+    - if setting.tab_icon.present?
+      = image_tag setting.tab_icon, class: "tab-icon"
     = form.label :tab_icon
     = form.file_field :tab_icon, id: :setting_tab_icon, class: 'form-control'
 

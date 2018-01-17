@@ -15,6 +15,7 @@ $ ->
             </select>
             <input class='slice-label' type='text' value='#{data.slice.label}'>
             <input class='slice-code' type='text' value='#{data.slice.code}'>
+            <button type='button' class='slice-choose-product' hidden>Choose Product</button>
             <input class='slice-gravity' type='number' min='0' max='100' value='#{data.slice.gravity}'>
             <button type='button' class='slice-save'>Save</button>
             <button type='button' class='slice-delete'>Delete</button>
@@ -72,3 +73,18 @@ $ ->
         alert('Update slice successfull')
       error: (data) ->
         alert('Update slice error')
+
+  $('#slice-container').on 'change', '.slice-type', ->
+    $(this).parent().children('.slice-choose-product').toggle()
+    $(this).parent().children('.slice-code').toggle()
+
+  $('#slice-container').on 'click', '.slice-choose-product', ->
+    $parent = $(this).parent()
+    singleProductOptions = 'selectMultiple': false
+    ShopifyApp.Modal.productPicker singleProductOptions, (success, data) ->
+      if success
+        alert(data.products[0])
+        $parent.children('.slice-code').val(data.products[0])
+
+      if data.errors
+        console.error data.errors
