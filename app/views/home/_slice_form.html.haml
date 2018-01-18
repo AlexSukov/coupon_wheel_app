@@ -1,15 +1,20 @@
 - slice_type_options = [ ["Coupon", 'Coupon'], ["Free Product", 'Free Product'] ]
-
-- if slice.lose
-  .slice{"data-slice-id": slice.id}
+.slice{"data-slice-id": slice.id}
+  %span.slice-index{"data-slice-index": index}= index
+  - if slice.lose
     %input.slice-type{type: "text", value: slice.slice_type, disabled: true }
     %input.slice-label{type: "text", value: slice.label }
     %button.slice-save{type: 'button'} Save
-- else
-  .slice{"data-slice-id": slice.id}
+  - else
+    - if slice.slice_type == 'Free Product'
+      - free = true
+    - else
+      - free = false
     = select_tag "slice-type", options_for_select(slice_type_options, slice.slice_type), class: "slice-type"
+    %button.slice-choose-product{type: 'button', hidden: !free } Choose Product
     %input.slice-label{type: "text", value: slice.label }
-    %input.slice-code{type: "text", value: slice.code }
+    %input.slice-code{type: "text", value: slice.code, hidden: free }
     %input.slice-gravity{max: "100", min: "0", type: "number", value: slice.gravity }
     %button.slice-save{type: 'button'} Save
     %button.slice-delete{type: 'button'} Delete
+    %input.slice-product-image{type: 'text', value: slice.product_image, hidden: true}

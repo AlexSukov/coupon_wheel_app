@@ -10,18 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180115145624) do
+ActiveRecord::Schema.define(version: 20180117110301) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "collected_emails", force: :cascade do |t|
     t.string "email"
-    t.integer "shop_id"
+    t.bigint "shop_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["shop_id"], name: "index_collected_emails_on_shop_id"
   end
 
   create_table "settings", force: :cascade do |t|
-    t.integer "shop_id"
+    t.bigint "shop_id"
     t.boolean "enable", default: false
     t.string "big_logo"
     t.string "small_logo"
@@ -71,6 +74,7 @@ ActiveRecord::Schema.define(version: 20180115145624) do
     t.boolean "discount_coupon_auto_apply", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "url_filters", default: [], array: true
     t.index ["shop_id"], name: "index_settings_on_shop_id"
   end
 
@@ -88,10 +92,14 @@ ActiveRecord::Schema.define(version: 20180115145624) do
     t.string "label"
     t.string "code"
     t.integer "gravity"
-    t.integer "setting_id"
+    t.string "product_image"
+    t.bigint "setting_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["setting_id"], name: "index_slices_on_setting_id"
   end
 
+  add_foreign_key "collected_emails", "shops"
+  add_foreign_key "settings", "shops"
+  add_foreign_key "slices", "settings"
 end

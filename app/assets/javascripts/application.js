@@ -15,5 +15,6 @@
 //= require rails-ujs
 //= require cocoon
 //= require bootstrap
+//= require jquery.minicolors
 //= require_tree .
 //= stub coupon_wheel
