@@ -1,3 +1,29 @@
+@displayList = (api_key, list_id) ->
+  $.ajax
+    type: 'POST'
+    url: "/mailchimp_api_key_verification"
+    data: { api_key: api_key }
+    dataType: "json"
+    success: (data) ->
+      mailchimp_lists = data.mailchimp_lists.body.lists
+      $('#mailchimp').append("
+        <div class='form-group' id='mailchimp-select-form'>
+          <label for='mailchimp-select'>Mailchimp List</label>
+          <select id='mailchimp-select'></select>
+        </div>
+      ")
+      $.each mailchimp_lists, (i) ->
+        if mailchimp_lists[i].id == list_id
+          $('#mailchimp-select').append("
+            <option selected value='#{mailchimp_lists[i].id}'>#{mailchimp_lists[i].name}</option>
+          ")
+        else
+          $('#mailchimp-select').append("
+            <option value='#{mailchimp_lists[i].id}'>#{mailchimp_lists[i].name}</option>
+          ")
+    error: (data) ->
+      ShopifyApp.flashError('Something wrong with your API key')
+
 $ ->
   $('#setting_background_color').minicolors theme: 'bootstrap'
   $('#setting_font_color').minicolors theme: 'bootstrap'
@@ -52,3 +78,32 @@ $ ->
         ShopifyApp.flashNotice("URL filter successfully deleted")
       error: (data) ->
         ShopifyApp.flashError("Something went wrong with URL filter deletion")
+
+  $('#setting_mailchimp_api_key').on 'change', ->
+    mailchimp_api_key = $(this).val()
+    $.ajax
+      type: 'POST'
+      url: "/mailchimp_api_key_verification"
+      data: { api_key: mailchimp_api_key }
+      dataType: "json"
+      success: (data) ->
+        $('#mailchimp-select-form').remove()
+        $('#mailchimp').append("
+          <div class='form-group' id='mailchimp-select-form'>
+            <label for='mailchimp-select'>Mailchimp List</label>
+            <select id='mailchimp-select'>
+              <option disabled selected> -- select a list -- </option>
+            </select>
+          </div>
+        ")
+        mailchimp_lists = data.mailchimp_lists.body.lists
+        $.each mailchimp_lists, (i) ->
+          $('#mailchimp-select').append("
+            <option value='#{mailchimp_lists[i].id}'>#{mailchimp_lists[i].name}</option>
+          ")
+      error: (data) ->
+        ShopifyApp.flashError('Wrong API key. Try again')
+
+  $('body').on 'change','#mailchimp-select', ->
+    list_id = $(this).val()
+    $('#setting_mailchimp_list_id').val(list_id)

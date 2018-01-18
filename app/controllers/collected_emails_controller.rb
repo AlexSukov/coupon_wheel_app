@@ -4,8 +4,17 @@ class CollectedEmailsController < ApplicationController
   def create
     @shop = Shop.find_by(shopify_domain: params[:shop_domain])
     @email = params[:collected_email]
-    @collected_email = CollectedEmail.create(email: @email, shop_id: @shop.id)
-    render json: { collected_email: @collected_email }
+    @settings = Setting.find_by( shop_id: @shop.id )
+    if CollectedEmail.exists?(email: @email)
+      render json: { status: 'ok' }
+    else
+      @collected_email = CollectedEmail.create(email: @email, shop_id: @shop.id)
+      if @settings.mailchimp_enable
+        gibbon = Gibbon::Request.new(api_key: @settings.mailchimp_api_key)
+        gibbon.lists(@settings.mailchimp_list_id).members.create(body: {email_address: @email, status: "subscribed" })
+      end
+      render json: { status: 'ok' }
+    end
   end
 
   def destroy

@@ -89,6 +89,9 @@ GEM
       multipart-post (>= 1.2, < 3)
     ffi (1.9.18-x64-mingw32)
     ffi (1.9.18-x86-mingw32)
+    gibbon (3.2.0)
+      faraday (>= 0.9.1)
+      multi_json (>= 1.11.0)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     haml (5.0.1)
@@ -245,6 +248,7 @@ DEPENDENCIES
   carrierwave
   cocoon
   coffee-rails (~> 4.2)
+  gibbon
   haml
   jbuilder (~> 2.5)
   jquery-minicolors-rails

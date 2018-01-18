@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180117110301) do
+ActiveRecord::Schema.define(version: 20180118101132) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,12 @@ ActiveRecord::Schema.define(version: 20180117110301) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "url_filters", default: [], array: true
+    t.boolean "mailchimp_enable"
+    t.string "mailchimp_api_key"
+    t.string "mailchimp_list_id"
+    t.boolean "klaviyo_enable"
+    t.string "klaviyo_api_key"
+    t.string "klaviyo_list_id"
     t.index ["shop_id"], name: "index_settings_on_shop_id"
   end
 
