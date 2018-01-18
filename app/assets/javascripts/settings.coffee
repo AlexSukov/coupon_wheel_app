@@ -36,18 +36,19 @@ $ ->
           </div>")
         $('.add_url').prop('disabled', false)
       error: (data) ->
-        alert('Url filter creation error')
+        ShopifyApp.flashError("Something went wrong with URL filter creation")
 
   $('#url_filters').on 'click', '.url_delete', ->
     $parent = $(this).parent()
     url_value = $(this).data('url')
     setting_id = $('#url_filters').data('setting-id')
     $.ajax
-      type: 'POST'
+      type: 'DELETE'
       url: "/remove_url_filter/#{setting_id}"
       data: { url_filters: url_value }
       dataType: "json"
       success: (data) ->
         $parent.remove()
+        ShopifyApp.flashNotice("URL filter successfully deleted")
       error: (data) ->
-        alert('Url filter creation error')
+        ShopifyApp.flashError("Something went wrong with URL filter deletion")

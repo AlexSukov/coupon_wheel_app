@@ -39,10 +39,11 @@ $ ->
                 <button type='button' class='slice-save'>Save</button>
               </div>
             ")
+            ShopifyApp.flashNotice("Winning and Losing slices are successfully created")
           error: (data) ->
-            alert('Lose error')
+            ShopifyApp.flashError("Something went wrong with losing slice creation")
       error: (data) ->
-        alert('Win error')
+        ShopifyApp.flashError("Something went wrong with winning slice creation")
 
   $('#slice-container').on 'click', '.slice-delete', ->
     $parent = $(this).parent()
@@ -55,8 +56,9 @@ $ ->
       success: (data) ->
         $parent.next().remove()
         $parent.remove()
+        ShopifyApp.flashNotice("Slices successfully deleted")
       error: (data) ->
-        alert('Remove slice error')
+        ShopifyApp.flashError("Something went wrong with slice deletion")
 
   $('#slice-container').on 'click', '.slice-save', ->
     $parent = $(this).parent()
@@ -67,18 +69,18 @@ $ ->
     slice_gravity = $parent.children('.slice-gravity').val()
     slice_product_image = $parent.children('.slice-product-image').val()
     if (slice_type == 'Losing')
-      data_slice = { slice: { id: slice_id, label: slice_label } }
+      data_slice = { slice: { label: slice_label } }
     else
-      data_slice = { slice: { id: slice_id, slice_type: slice_type, label: slice_label, code: slice_code, gravity: slice_gravity, product_image: slice_product_image } }
+      data_slice = { slice: { slice_type: slice_type, label: slice_label, code: slice_code, gravity: slice_gravity, product_image: slice_product_image } }
     $.ajax
       type: 'PUT'
       url: "/slices/#{slice_id}"
       data: data_slice
       dataType: "json"
       success: (data) ->
-        alert('Update slice successfull')
+        ShopifyApp.flashNotice("Slice was successfully updated")
       error: (data) ->
-        alert('Update slice error')
+        ShopifyApp.flashError("Something went wrong with slice update")
 
   $('#slice-container').on 'change', '.slice-type', ->
     parent = $(this).parent()

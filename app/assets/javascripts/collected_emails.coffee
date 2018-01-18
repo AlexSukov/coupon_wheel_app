@@ -9,5 +9,6 @@ $ ->
       dataType: "json"
       success: (data) ->
         $parent.remove()
+        ShopifyApp.flashNotice("Email successfully deleted")
       error: (data) ->
-        alert('Error in deleting email')
+        ShopifyApp.flashError("Something went wrong with email deletion")
