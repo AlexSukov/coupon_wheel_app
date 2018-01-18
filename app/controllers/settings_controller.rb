@@ -49,6 +49,16 @@ class SettingsController < ApplicationController
     render json: { shop: @shop, settings: @settings, slices: @slices }
   end
 
+  def mailchimp_api_key_verification
+    gibbon = Gibbon::Request.new(api_key: params[:api_key])
+    begin
+      @mailchimp_lists = gibbon.lists.retrieve
+      render json: { mailchimp_lists: @mailchimp_lists }
+    rescue Gibbon::MailChimpError => e
+      puts "MailChimpError: #{e.message} - #{e.raw_body}"
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_setting
@@ -67,6 +77,7 @@ class SettingsController < ApplicationController
       :enable_progress_bar, :progress_bar_text, :progress_bar_color, :progress_bar_percentage, :progress_bar_position,
       :show_on_desktop, :show_on_mobile, :show_on_desktop_leave_intent, :show_on_mobile_leave_intent,
       :show_on_desktop_after, :show_on_mobile_after, :show_on_desktop_seconds, :show_on_mobile_seconds,
-      :show_pull_out_tab, :tab_icon, :do_not_show_app, :discount_coupon_auto_apply, :url_filters)
+      :show_pull_out_tab, :tab_icon, :do_not_show_app, :discount_coupon_auto_apply, :url_filters,
+      :mailchimp_enable, :mailchimp_list_id, :mailchimp_api_key, :klaviyo_enable, :klaviyo_api_key, :klaviyo_list_id)
     end
 end

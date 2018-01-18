@@ -2,7 +2,7 @@ $ ->
   domain = document.domain
   $.ajax
     type: 'POST'
-    url: "https://d0396494.ngrok.io/clientside"
+    url: "https://452d6e11.ngrok.io/clientside"
     data: { shop_domain: domain }
     dataType: "json"
     success: (data) ->
@@ -26,15 +26,13 @@ $ ->
     email = $this.children('.coupon-wheel-email').val()
     $.ajax
       type: 'POST'
-      url: "https://d0396494.ngrok.io/collected_emails"
+      url: "https://452d6e11.ngrok.io/collected_emails"
       data: { collected_email: email, shop_domain: domain }
       dataType: "json"
       success: (data) ->
-        collected_email = data.collected_email
         $this.remove()
         $parent.append('
           <p>Thank you for subscription!</p>
         ')
-        alert(collected_email.email)
       error: (data) ->
         alert('Email not saved')

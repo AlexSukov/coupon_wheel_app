@@ -189,10 +189,40 @@
           = url
           %button.url_delete{'data-url': url, type: 'button' } Delete URL
   %button.add_url{type: 'button'} Add URL
+
   %h2 Discount coupon auto apply
   .form-group
     = form.label :discount_coupon_auto_apply
     = form.check_box :discount_coupon_auto_apply, id: :setting_discount_coupon_auto_apply
+
+  %h2 E-mails Integration
+
+  %h3 Mailchimp
+  #mailchimp
+    .form-group
+      = form.label :mailchimp_enable
+      = form.check_box :mailchimp_enable, id: :setting_mailchimp_enable
+    .form-group
+      = form.label :mailchimp_api_key
+      = form.text_field :mailchimp_api_key, id: :setting_mailchimp_api_key, class: 'form-control'
+    -if setting.mailchimp_api_key?
+      -if setting.mailchimp_list_id?
+        :javascript
+          displayList("#{setting.mailchimp_api_key}", "#{setting.mailchimp_list_id}")
+    .form-group
+      = form.hidden_field :mailchimp_list_id, id: :setting_mailchimp_list_id, class: 'form-control'
+
+  %h3 Klaviyo
+  #klaviyo
+    .form-group
+      = form.label :klaviyo_enable
+      = form.check_box :klaviyo_enable, id: :setting_klaviyo_enable
+    .form-group
+      = form.label :klaviyo_api_key
+      = form.text_field :klaviyo_api_key, id: :setting_klaviyo_api_key, class: 'form-control'
+    .form-group
+      = form.label :klaviyo_list_id
+      = form.hidden_field :klaviyo_list_id, id: :setting_klaviyo_list_id, class: 'form-control'
 
   .actions
     = form.submit 'Save', id: 'setting_save'
