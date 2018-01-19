@@ -1,5 +1,6 @@
 class SettingsController < ApplicationController
   before_action :set_setting, only: [:update, :add_url_filter, :remove_url_filter]
+  require 'net/http'
 
   def create
     @setting = Setting.new(setting_params)
@@ -56,6 +57,18 @@ class SettingsController < ApplicationController
       render json: { mailchimp_lists: @mailchimp_lists }
     rescue Gibbon::MailChimpError => e
       puts "MailChimpError: #{e.message} - #{e.raw_body}"
+    end
+  end
+
+  def klaviyo_api_key_verification
+    uri = URI('https://a.klaviyo.com/api/v1/lists')
+    parameters = { api_key: params[:api_key], type: 'list' }
+    uri.query = URI.encode_www_form(parameters )
+    res = Net::HTTP.get_response(uri)
+    if res.is_a?(Net::HTTPSuccess)
+      render json: { klaviyo_lists: res.body }
+    else
+      render json: { errors: res.body }, status: 409
     end
   end
 

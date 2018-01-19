@@ -1,5 +1,6 @@
 class CollectedEmailsController < ApplicationController
   before_action :set_collected_email, only: [:show, :edit, :update, :destroy]
+  require 'net/http'
 
   def create
     @shop = Shop.find_by(shopify_domain: params[:shop_domain])
@@ -12,6 +13,15 @@ class CollectedEmailsController < ApplicationController
       if @settings.mailchimp_enable
         gibbon = Gibbon::Request.new(api_key: @settings.mailchimp_api_key)
         gibbon.lists(@settings.mailchimp_list_id).members.create(body: {email_address: @email, status: "subscribed" })
+      end
+      if @settings.klaviyo_enable
+        url = URI("https://a.klaviyo.com/api/v1/list/#{@settings.klaviyo_list_id}/members")
+        req = Net::HTTP::Post.new(url)
+        req.set_form_data({'api_key'=>"#{@settings.klaviyo_api_key}", 'email'=>"#{@email}", 'confirm_optin'=>false})
+        http = Net::HTTP.new(url.host, url.port)
+        http.use_ssl = (url.scheme == "https")
+        response = http.request(req)
+        puts response.body
       end
       render json: { status: 'ok' }
     end

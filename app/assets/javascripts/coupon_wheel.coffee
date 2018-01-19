@@ -2,20 +2,20 @@ $ ->
   domain = document.domain
   $.ajax
     type: 'POST'
-    url: "https://452d6e11.ngrok.io/clientside"
+    url: "https://744f6c09.ngrok.io/clientside"
     data: { shop_domain: domain }
     dataType: "json"
     success: (data) ->
       settings = data.settings
       slices = data.slices
-      $('body').prepend('
-        <div class="coupon-wheel-modal">
-          <form id="email-form">
-            <input type="email" class="coupon-wheel-email" placeholder="Enter your email" required>
-            <button type="submit" id="coupon-wheel-send"> Send </button>
+      $('body').prepend("
+        <div class='coupon-wheel-modal'>
+          <form id='email-form'>
+            <input type='email' class='coupon-wheel-email' placeholder='Enter your email' required>
+            <button type='submit' id='coupon-wheel-send'> Send </button>
           </form>
         </div>
-      ')
+      ")
     error: (data) ->
       alert('All bad')
 
@@ -26,7 +26,7 @@ $ ->
     email = $this.children('.coupon-wheel-email').val()
     $.ajax
       type: 'POST'
-      url: "https://452d6e11.ngrok.io/collected_emails"
+      url: "https://744f6c09.ngrok.io/collected_emails"
       data: { collected_email: email, shop_domain: domain }
       dataType: "json"
       success: (data) ->

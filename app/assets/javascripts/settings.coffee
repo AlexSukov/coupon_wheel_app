@@ -1,4 +1,4 @@
-@displayList = (api_key, list_id) ->
+@displayMailchimpList = (api_key, list_id) ->
   $.ajax
     type: 'POST'
     url: "/mailchimp_api_key_verification"
@@ -20,6 +20,34 @@
         else
           $('#mailchimp-select').append("
             <option value='#{mailchimp_lists[i].id}'>#{mailchimp_lists[i].name}</option>
+          ")
+    error: (data) ->
+      ShopifyApp.flashError('Something wrong with your API key')
+
+@displayKlaviyoList = (api_key, list_id) ->
+  $.ajax
+    type: 'POST'
+    url: "/klaviyo_api_key_verification"
+    data: { api_key: api_key }
+    dataType: "json"
+    success: (data) ->
+      debugger
+      klaviyo_lists = $.parseJSON(data.klaviyo_lists)
+      klaviyo_lists = klaviyo_lists.data
+      $('#klaviyo').append("
+        <div class='form-group' id='klaviyo-select-form'>
+          <label for='klaviyo-select'>Mailchimp List</label>
+          <select id='klaviyo-select'></select>
+        </div>
+      ")
+      $.each klaviyo_lists, (i) ->
+        if klaviyo_lists[i].id == list_id
+          $('#klaviyo-select').append("
+            <option selected value='#{klaviyo_lists[i].id}'>#{klaviyo_lists[i].name}</option>
+          ")
+        else
+          $('#klaviyo-select').append("
+            <option value='#{klaviyo_lists[i].id}'>#{klaviyo_lists[i].name}</option>
           ")
     error: (data) ->
       ShopifyApp.flashError('Something wrong with your API key')
@@ -104,6 +132,37 @@ $ ->
       error: (data) ->
         ShopifyApp.flashError('Wrong API key. Try again')
 
+  $('#setting_klaviyo_api_key').on 'change', ->
+    klaviyo_api_key = $(this).val()
+    $.ajax
+      type: 'POST'
+      url: "/klaviyo_api_key_verification"
+      data: { api_key: klaviyo_api_key }
+      dataType: "json"
+      success: (data) ->
+        $('#klaviyo-select-form').remove()
+        $('#klaviyo').append("
+          <div class='form-group' id='klaviyo-select-form'>
+            <label for='klaviyo-select'>Klaviyo List</label>
+            <select id='klaviyo-select'>
+              <option disabled selected> -- select a list -- </option>
+            </select>
+          </div>
+        ")
+        klaviyo_lists = $.parseJSON(data.klaviyo_lists)
+        klaviyo_lists = klaviyo_lists.data
+        $.each klaviyo_lists, (i) ->
+          $('#klaviyo-select').append("
+            <option value='#{klaviyo_lists[i].id}'>#{klaviyo_lists[i].name}</option>
+          ")
+      error: (data) ->
+        ShopifyApp.flashError('Wrong API key. Try again')
+
+
   $('body').on 'change','#mailchimp-select', ->
     list_id = $(this).val()
     $('#setting_mailchimp_list_id').val(list_id)
+
+  $('body').on 'change','#klaviyo-select', ->
+    list_id = $(this).val()
+    $('#setting_klaviyo_list_id').val(list_id)
