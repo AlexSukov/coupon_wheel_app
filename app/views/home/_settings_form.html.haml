@@ -208,7 +208,7 @@
     -if setting.mailchimp_api_key?
       -if setting.mailchimp_list_id?
         :javascript
-          displayList("#{setting.mailchimp_api_key}", "#{setting.mailchimp_list_id}")
+          displayMailchimpList("#{setting.mailchimp_api_key}", "#{setting.mailchimp_list_id}")
     .form-group
       = form.hidden_field :mailchimp_list_id, id: :setting_mailchimp_list_id, class: 'form-control'
 
@@ -220,8 +220,11 @@
     .form-group
       = form.label :klaviyo_api_key
       = form.text_field :klaviyo_api_key, id: :setting_klaviyo_api_key, class: 'form-control'
+    -if setting.klaviyo_api_key?
+      -if setting.klaviyo_list_id?
+        :javascript
+          displayKlaviyoList("#{setting.klaviyo_api_key}", "#{setting.klaviyo_list_id}")
     .form-group
-      = form.label :klaviyo_list_id
       = form.hidden_field :klaviyo_list_id, id: :setting_klaviyo_list_id, class: 'form-control'
 
   .actions

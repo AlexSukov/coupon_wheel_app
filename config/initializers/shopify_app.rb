@@ -7,6 +7,6 @@ ShopifyApp.configure do |config|
   config.after_authenticate_job = false
   config.session_repository = Shop
   config.scripttags = [
-    {event:'onload', src: 'https://452d6e11.ngrok.io/assets/coupon_wheel.coffee' }
+    {event:'onload', src: 'https://744f6c09.ngrok.io/assets/coupon_wheel.coffee' }
   ]
 end
