@@ -7,7 +7,7 @@ class CollectedEmailsController < ApplicationController
     @email = params[:collected_email]
     @settings = Setting.find_by( shop_id: @shop.id )
     if CollectedEmail.exists?(email: @email)
-      render json: { status: 'ok' }
+      render json: { status: 'ok', settings: @settings }
     else
       @collected_email = CollectedEmail.create(email: @email, shop_id: @shop.id)
       if @settings.mailchimp_enable
@@ -23,7 +23,7 @@ class CollectedEmailsController < ApplicationController
         response = http.request(req)
         puts response.body
       end
-      render json: { status: 'ok' }
+      render json: { status: 'ok', settings: @settings}
     end
   end
 
