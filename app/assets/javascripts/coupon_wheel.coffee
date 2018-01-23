@@ -17,11 +17,18 @@ $ ->
         return c.substring(name.length, c.length)
       i++
     ''
+  copyToClipboard = (element) ->
+    $temp = $('<input>')
+    $('body').append $temp
+    $temp.val($(element).text()).select()
+    document.execCommand 'copy'
+    $temp.remove()
+
   if getCookie('coupon_wheel_app_do_not_show') != 'true'
     domain = document.domain
     $.ajax
       type: 'POST'
-      url: "https://665a769a.ngrok.io/clientside"
+      url: "https://9b9c5d29.ngrok.io/clientside"
       data: { shop_domain: domain }
       dataType: "json"
       success: (data) ->
@@ -36,7 +43,7 @@ $ ->
             <canvas id='coupon_wheel' width='800' height='500'>
                 Canvas not supported, use another browser.
             </canvas>
-            <button type='button' id='spin'>Spin</button>
+            <button type='button btn' id='spin'>Spin</button>
           </div>
         ")
         segments = []
@@ -45,7 +52,9 @@ $ ->
           if slice.lose
             segments.push({'fillStyle': "#{settings.lose_section_color}", 'text': "#{slice.label}"})
           else
-            segments.push({'fillStyle': "#{settings.win_section_color}", 'text': "#{slice.label}", 'code': "#{slice.code}"})
+            segments.push({'fillStyle': "#{settings.win_section_color}", 'text': "#{slice.label}",
+            'code': "#{slice.code}", 'product_image': "#{slice.product_image}",
+            'slice_type': "#{slice.slice_type}"})
         theWheel = new Winwheel(
           canvasId: 'coupon_wheel'
           numSegments: segments.length
@@ -74,7 +83,25 @@ $ ->
                         })
         window.skra = ->
           winningSegment = theWheel.getIndicatedSegment()
-          alert("You have won " + winningSegment.text + "!");
+          if winningSegment.slice_type == 'Coupon'
+            $('.coupon-wheel-modal').append("
+              <div class='winning_title'>#{settings.winning_title}</div>
+              <div class='winning_text'>#{settings.winning_text}</div>
+              <div class='discount_code_title'>#{settings.discount_code_title}
+                <span class='code'>#{winningSegment.code}</span>
+              </div>
+              <button class='btn continue_button'>#{settings.continue_button}</button>
+              <button class='btn reject_discount_button'>#{settings.reject_discount_button}</button>
+            ")
+          else
+            $('.coupon-wheel-modal').append("
+              <div class='winning_title'>#{settings.winning_title}</div>
+              <div class='winning_text'>#{settings.winning_text}</div>
+              <img src='#{winningSegment.product_image}' class='product_image'>
+              <div class='free_product_description'>#{settings.free_product_description}</div>
+              <a type='button' href='#{winningSegment.code}'class='btn free_product_button'>#{settings.free_product_button}</a>
+              <button class='btn free_product_reject'>#{settings.reject_discount_button}</button>
+            ")
         window.drawTriangle = ->
           # Get the canvas context the wheel uses.
           ctx = theWheel.ctx
@@ -98,9 +125,17 @@ $ ->
 
         drawTriangle()
         $('body').on 'click', '#spin', (e)->
-          stopAt = 140
+          stopAt = 30
           theWheel.animation.stopAngle = stopAt;
           theWheel.startAnimation()
+          $(this).remove()
+        $('body').on 'click', '.continue_button', (e)->
+          copyToClipboard('.code')
+          $(this).text("#{settings.copied_message}")
+          if settings.discount_coupon_auto_apply
+            code = $('.code').text()
+            exp_time = settings.discount_code_bar_countdown_time / 1440
+            setCookie('coupon_wheel_app_code',code, exp_time)
       error: (data) ->
         alert('All bad')
     $('body').on 'submit', '#email-form', (e) ->
@@ -110,7 +145,7 @@ $ ->
       email = $this.children('.coupon-wheel-email').val()
       $.ajax
         type: 'POST'
-        url: "https://665a769a.ngrok.io/collected_emails"
+        url: "https://9b9c5d29.ngrok.io/collected_emails"
         data: { collected_email: email, shop_domain: domain }
         dataType: "json"
         success: (data) ->
@@ -121,3 +156,7 @@ $ ->
           setCookie('coupon_wheel_app_do_not_show', 'true', data.settings.do_not_show_app)
         error: (data) ->
           alert('Email not saved')
+
+  if getCookie('coupon_wheel_app_code') != ''
+    code = getCookie('coupon_wheel_app_code')
+    $("form[action='/cart']").attr('action','/cart?discount=' + code)
