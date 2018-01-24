@@ -33,14 +33,20 @@ class SettingsController < ApplicationController
   def add_url_filter
     url = params[:url_filters]
     @setting.url_filters.push(url)
-    @setting.save
-    render json: { url: url}
+    if @setting.save
+      render json: { url: url}
+    else
+      render json: {status: :unprocessable_entity}
+    end
   end
 
   def remove_url_filter
     @setting.url_filters.delete(params[:url_filters])
-    @setting.save
-    render json: { status: 'ok' }
+    if @setting.save
+      render json: { status: 'ok' }
+    else
+      render json: {status: :unprocessable_entity}
+    end
   end
 
   def clientside

@@ -22,7 +22,8 @@
           %p.home-info 350x150 px, max 100 kB, PNG/JPEG/GIF image
           = form.label :big_logo, class: "add-image" do
             = image_tag ("AddLogoButton.png")
-            = form.file_field :big_logo, id: :setting_big_logo, class: 'form-control'
+            = form.file_field :big_logo, id: :setting_big_logo, class: 'form-control',
+            onchange: "readURL(this,'.big-logo-wrapper','big-logo')"
         .big-logo-wrapper
           - if setting.big_logo.present?
             = image_tag setting.big_logo, class: "big-logo"
@@ -32,7 +33,8 @@
           %p.home-info 150x150 px, max 100 kB, PNG/JPEG/GIF image
           = form.label :small_logo, class: "add-image" do
             = image_tag ("AddLogoButton.png")
-            = form.file_field :small_logo, id: :setting_small_logo, class: 'form-control'
+            = form.file_field :small_logo, id: :setting_small_logo, class: 'form-control',
+            onchange: "readURL(this,'.small-logo-wrapper','small-logo')"
         .small-logo-wrapper
           - if setting.small_logo.present?
             = image_tag setting.small_logo, class: "small-logo"
@@ -116,7 +118,7 @@
     .form-group
       = form.label :lose_section_color
       = form.hidden_field :lose_section_color, id: :setting_lose_section_color, class: 'form-control'
-
+    %canvas#wheel_preview
   .section-block
     %h2.home-title Slices
     %table#slice-container
@@ -131,6 +133,19 @@
       - slices.each_with_index do |slice, index|
         = render 'slice_form', slice: slice, index: index+1
     %button.create_slice{'data-setting': @settings.id, type: 'button' } Add Slice
+    %br
+
+  #discount-container.section-block
+    %h2.home-title Discount Codes
+    %table#discount-codes
+      %tr
+        %th Code
+        %th Type
+        %th Value
+        %th Actions
+      - @discounts.each do |discount|
+        = render 'discount_form', discount: discount
+    %button.add_discount_code_form{type: 'button' } Add Discount Code
     %br
 
   .section-block

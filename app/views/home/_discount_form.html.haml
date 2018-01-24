@@ -1,0 +1,9 @@
+%tr.discount
+  %td.discount_code
+    =discount.title
+  %td.discount_type
+    =discount.value_type
+  %td.discount_value
+    =discount.value
+  %td.discount_actions
+    %button.destroy_discount_code{'data-id': discount.id, type: 'button'} Delete Discount Code

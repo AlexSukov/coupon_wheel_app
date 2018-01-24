@@ -5,6 +5,8 @@ class SlicesController < ApplicationController
     @slice = Slice.new(slice_params)
     if @slice.save
       render json: { slice: @slice }
+    else
+      render json: {status: :unprocessable_entity}
     end
   end
 
@@ -13,6 +15,8 @@ class SlicesController < ApplicationController
   def update
     if @slice.update(slice_params)
       render json: { slice: @slice }
+    else
+      render json: {status: :unprocessable_entity}
     end
   end
 
