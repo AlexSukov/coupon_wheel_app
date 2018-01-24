@@ -17,16 +17,18 @@
 %input#shop_domain{type: 'hidden', value: @shop.shopify_domain}
 = render 'settings_form', setting: @settings, slices: @slices
 
-#collected_emails
-  %h2 Collected Emails
-  - @collected_emails.each do |collected_email|
-    .collected-email
-      %p= collected_email.email
-      %button.remove-email{type: 'button', 'data-email-id': collected_email.id } Remove
-#discount_codes
-  %h2 Discount codes
-  - @discounts.each do |discount|
-    .discount
-      %p= discount.title
-      %p= discount.value_type
-      %p= discount.value
+.section-block
+  #collected_emails
+    %h2 Collected Emails
+    - @collected_emails.each do |collected_email|
+      .collected-email
+        %p= collected_email.email
+        %button.remove-email{type: 'button', 'data-email-id': collected_email.id } Remove
+.section-block
+  #discount_codes
+    %h2 Discount codes
+    - @discounts.each do |discount|
+      .discount
+        %p= discount.title
+        %p= discount.value_type
+        %p= discount.value

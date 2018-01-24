@@ -31,7 +31,6 @@
     data: { api_key: api_key }
     dataType: "json"
     success: (data) ->
-      debugger
       klaviyo_lists = $.parseJSON(data.klaviyo_lists)
       klaviyo_lists = klaviyo_lists.data
       $('#klaviyo').append("

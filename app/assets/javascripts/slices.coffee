@@ -9,20 +9,22 @@ $ ->
       success: (data) ->
         slice_index = $('.slice-index').last().data('slice-index') + 1
         $('#slice-container').append("
-          <div class='slice' data-slice-id='#{data.slice.id}'>
-            <span class='slice-index' data-slice-index=#{slice_index}>#{slice_index}</span>
-            <select class='slice-type'>
+          <tr class='slice' data-slice-id='#{data.slice.id}'>
+            <td class='slice-index' data-slice-index=#{slice_index}>#{slice_index}</td>
+            <td><select class='slice-type'>
               <option value='Coupon' selected>Coupon</option>
               <option value='Free Product'>Free Product</option>
-            </select>
-            <button type='button' class='slice-choose-product' hidden>Choose Product</button>
-            <input class='slice-label' type='text' value='#{data.slice.label}'>
-            <input class='slice-code' type='text' value='#{data.slice.code}'>
-            <input class='slice-gravity' type='number' min='0' max='100' value='#{data.slice.gravity}'>
-            <input class='slice-product-image' type='text' hidden>
-            <button type='button' class='slice-save'>Save</button>
-            <button type='button' class='slice-delete'>Delete</button>
-          </div>
+            </select></td>
+            <td>
+              <button type='button' class='slice-choose-product' hidden>Choose Product</button>
+              <input class='slice-label' type='text' value='#{data.slice.label}'>
+              <input class='slice-product-image' type='text' hidden>
+            </td>
+            <td><input class='slice-code' type='text' value='#{data.slice.code}'></td>
+            <td><input class='slice-gravity' type='number' min='0' max='100' value='#{data.slice.gravity}'></td>
+            <td><button type='button' class='slice-save'></button></td>
+            <td><button type='button' class='slice-delete'></button></td>
+          </tr>
         ")
         $.ajax
           type: 'POST'
@@ -32,12 +34,12 @@ $ ->
           success: (data) ->
             slice_index = $('.slice-index').last().data('slice-index') + 1
             $('#slice-container').append("
-              <div class='slice' data-slice-id='#{data.slice.id}'>
-                <span class='slice-index' data-slice-index=#{slice_index}>#{slice_index}</span>
-                <input class='slice-type' type='text' value='#{data.slice.slice_type}' disabled>
-                <input class='slice-label' type='text' value='#{data.slice.label}'>
-                <button type='button' class='slice-save'>Save</button>
-              </div>
+              <tr class='slice' data-slice-id='#{data.slice.id}'>
+                <td class='slice-index' data-slice-index=#{slice_index}>#{slice_index}</td>
+                <td><input class='slice-type' type='text' value='#{data.slice.slice_type}' disabled></td>
+                <td><input class='slice-label' type='text' value='#{data.slice.label}'></td>
+                <td><button type='button' class='slice-save'></button></td>
+              </tr>
             ")
             ShopifyApp.flashNotice("Winning and Losing slices are successfully created")
           error: (data) ->
@@ -46,7 +48,7 @@ $ ->
         ShopifyApp.flashError("Something went wrong with winning slice creation")
 
   $('#slice-container').on 'click', '.slice-delete', ->
-    $parent = $(this).parent()
+    $parent = $(this).parent().parent()
     slice_id = $parent.data('slice-id')
     $.ajax
       type: 'DELETE'
@@ -61,13 +63,13 @@ $ ->
         ShopifyApp.flashError("Something went wrong with slice deletion")
 
   $('#slice-container').on 'click', '.slice-save', ->
-    $parent = $(this).parent()
+    $parent = $(this).parent().parent()
     slice_id = $parent.data('slice-id')
-    slice_type = $parent.children('.slice-type').val()
-    slice_label = $parent.children('.slice-label').val()
-    slice_code = $parent.children('.slice-code').val()
-    slice_gravity = $parent.children('.slice-gravity').val()
-    slice_product_image = $parent.children('.slice-product-image').val()
+    slice_type = $parent.children('td').children('.slice-type').val()
+    slice_label = $parent.children('td').children('.slice-label').val()
+    slice_code = $parent.children('td').children('.slice-code').val()
+    slice_gravity = $parent.children('td').children('.slice-gravity').val()
+    slice_product_image = $parent.children('td').children('.slice-product-image').val()
     if (slice_type == 'Losing')
       data_slice = { slice: { label: slice_label } }
     else
@@ -83,22 +85,22 @@ $ ->
         ShopifyApp.flashError("Something went wrong with slice update")
 
   $('#slice-container').on 'change', '.slice-type', ->
-    parent = $(this).parent()
+    parent = $(this).parent().parent()
     if $(this).val() == 'Coupon'
-      parent.children('.slice-code').val('000-000-000')
-    parent.children('.slice-product-image').val('')
-    parent.children('.slice-choose-product').toggle()
-    parent.children('.slice-code').toggle()
+      parent.children('td').children('.slice-code').val('000-000-000')
+    parent.children('td').children('.slice-product-image').val('')
+    parent.children('td').children('.slice-choose-product').toggle()
+    parent.children('td').children('.slice-code').toggle()
 
   $('#slice-container').on 'click', '.slice-choose-product', ->
-    $parent = $(this).parent()
+    $parent = $(this).parent().parent()
     $shop_domain = $('#shop_domain').val()
     singleProductOptions = 'selectMultiple': false
     ShopifyApp.Modal.productPicker singleProductOptions, (success, data) ->
       if success
         product = data.products[0]
-        $parent.children('.slice-code').val($shop_domain + '/products/' + product.handle)
-        $parent.children('.slice-label').val(product.title)
-        $parent.children('.slice-product-image').val(product.image.src)
+        $parent.children('td').children('.slice-code').val($shop_domain + '/products/' + product.handle)
+        $parent.children('td').children('.slice-label').val(product.title)
+        $parent.children('td').children('.slice-product-image').val(product.image.src)
       if data.errors
         console.error data.errors
