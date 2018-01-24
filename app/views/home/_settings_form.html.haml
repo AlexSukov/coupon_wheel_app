@@ -105,20 +105,28 @@
       = form.select :theme, options_for_select(theme_options, selected_theme), {}, {class: 'form-control custom-select', id: 'setting_theme' }
     .form-group
       = form.label :background_color
-      = form.hidden_field :background_color, id: :setting_background_color, class: 'form-control'
+      = form.hidden_field :background_color, id: :setting_background_color, class: 'form-control',
+      onchange: "collecting_data_for_preview();"
     .form-group
       = form.label :font_color
-      = form.hidden_field :font_color, id: :setting_font_color, class: 'form-control'
+      = form.hidden_field :font_color, id: :setting_font_color, class: 'form-control',
+      onchange: "collecting_data_for_preview();"
     .form-group
       = form.label :bold_text_and_button_color
       = form.hidden_field :bold_text_and_button_color, id: :setting_bold_text_and_button_color, class: 'form-control'
     .form-group
       = form.label :win_section_color
-      = form.hidden_field :win_section_color, id: :setting_win_section_color, class: 'form-control'
+      = form.hidden_field :win_section_color, id: :setting_win_section_color, class: 'form-control',
+      onchange: "collecting_data_for_preview();"
     .form-group
       = form.label :lose_section_color
-      = form.hidden_field :lose_section_color, id: :setting_lose_section_color, class: 'form-control'
-    %canvas#wheel_preview
+      = form.hidden_field :lose_section_color, id: :setting_lose_section_color, class: 'form-control',
+      onchange: "collecting_data_for_preview();"
+    .canvas-container
+      %canvas#wheel_preview{height: 500, width: 500}
+        Canvas not supported, use another browser.
+      :javascript
+        wheel_preview(#{setting.to_json.html_safe}, #{slices.to_json.html_safe})
   .section-block
     %h2.home-title Slices
     %table#slice-container

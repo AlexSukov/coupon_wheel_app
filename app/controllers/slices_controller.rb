@@ -24,6 +24,7 @@ class SlicesController < ApplicationController
     @next_slice = Slice.where(["id > ? and setting_id = ?", @slice.id, @slice.setting_id]).first
     @next_slice.destroy
     @slice.destroy
+    render json: {status: :ok}
   end
   private
     # Use callbacks to share common setup or constraints between actions.

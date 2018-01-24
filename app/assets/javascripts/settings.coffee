@@ -60,6 +60,47 @@
         <img src='#{e.target.result}' class='#{$class}'>
       ")
     reader.readAsDataURL input.files[0]
+@wheel_preview = (settings, slices) ->
+  segments = []
+  $.each slices, (i) ->
+    slice = slices[i]
+    if slice.lose
+      segments.push({ fillStyle: settings.lose_section_color, text: slice.label})
+    else
+      segments.push({ fillStyle: settings.win_section_color, text: slice.label})
+  Wheel = new Winwheel(
+    canvasId: 'wheel_preview'
+    numSegments: segments.length
+    segments: segments
+    textAlignment : 'center'
+    innerRadius   : 32
+    outerRadius   : 212
+    textFillStyle : settings.font_color
+    pins : {
+        number     : segments.length,
+        outerRadius : 10,
+        margin      : -10,
+        fillStyle   : '#7734c3',
+        strokeStyle : '#ffffff'
+    })
+  $('.canvas-container').css('background-color', settings.background_color)
+@collecting_data_for_preview = ->
+  settings = {}
+  slices = []
+  settings['background_color'] = $('#setting_background_color').val()
+  settings['font_color'] = $('#setting_font_color').val()
+  settings['win_section_color'] = $('#setting_win_section_color').val()
+  settings['lose_section_color'] = $('#setting_lose_section_color').val()
+  $('.slice').each ->
+    type = $(this).find('.slice-type').val()
+    if type == 'Losing'
+      lose = true
+    else
+      lose = false
+    label = $(this).find('.slice-label').val()
+    slices.push({label: label, lose: lose})
+  wheel_preview(settings, slices)
+
 $ ->
   $('#setting_background_color').minicolors theme: 'bootstrap'
   $('#setting_font_color').minicolors theme: 'bootstrap'
@@ -174,26 +215,3 @@ $ ->
   $('body').on 'change','#klaviyo-select', ->
     list_id = $(this).val()
     $('#setting_klaviyo_list_id').val(list_id)
-@wheel_preview = (settings, slices) ->
-  segments = []
-  $.each slices, (i) ->
-    slice = slices[i]
-    if slice.lose
-      segments.push({'fillStyle': "#{settings.lose_section_color}", 'text': "#{slice.label}"})
-    else
-      segments.push({'fillStyle': "#{settings.win_section_color}", 'text': "#{slice.label}",
-      'code': "#{slice.code}", 'product_image': "#{slice.product_image}",
-      'slice_type': "#{slice.slice_type}"})
-  theWheel = new Winwheel(
-    canvasId: 'wheel_preview'
-    numSegments: segments.length
-    segments: segments
-    textAlignment : 'center'
-    innerRadius   : 32
-    pins : {
-        number     : segments.length,
-        outerRadius : 10,
-        margin      : -10,
-        fillStyle   : '#7734c3',
-        strokeStyle : '#ffffff'
-    }

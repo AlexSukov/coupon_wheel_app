@@ -7,7 +7,10 @@ $ ->
       data: { slice: { setting_id: setting_id, lose: false, slice_type: 'Coupon', label: 'Coupon Name', code: '000-000-000', gravity: 0 } }
       dataType: "json"
       success: (data) ->
-        slice_index = $('.slice-index').last().data('slice-index') + 1
+        if $('.slice-index').length != 0
+          slice_index = $('.slice-index').last().data('slice-index') + 1
+        else
+          slice_index = 1
         $('#slice-container').append("
           <tr class='slice' data-slice-id='#{data.slice.id}'>
             <td class='slice-index' data-slice-index=#{slice_index}>#{slice_index}</td>
@@ -17,7 +20,7 @@ $ ->
             </select></td>
             <td>
               <button type='button' class='slice-choose-product' hidden>Choose Product</button>
-              <input class='slice-label' type='text' value='#{data.slice.label}'>
+              <input class='slice-label' type='text' value='#{data.slice.label}' onchange='collecting_data_for_preview();'>
               <input class='slice-product-image' type='text' hidden>
             </td>
             <td><input class='slice-code' type='text' value='#{data.slice.code}'></td>
@@ -37,11 +40,12 @@ $ ->
               <tr class='slice' data-slice-id='#{data.slice.id}'>
                 <td class='slice-index' data-slice-index=#{slice_index}>#{slice_index}</td>
                 <td><input class='slice-type' type='text' value='#{data.slice.slice_type}' disabled></td>
-                <td><input class='slice-label' type='text' value='#{data.slice.label}'></td>
+                <td><input class='slice-label' type='text' value='#{data.slice.label}' onchange='collecting_data_for_preview();'></td>
                 <td><button type='button' class='slice-save'></button></td>
               </tr>
             ")
             ShopifyApp.flashNotice("Winning and Losing slices are successfully created")
+            collecting_data_for_preview()
           error: (data) ->
             ShopifyApp.flashError("Something went wrong with losing slice creation")
       error: (data) ->
@@ -59,6 +63,7 @@ $ ->
         $parent.next().remove()
         $parent.remove()
         ShopifyApp.flashNotice("Slices successfully deleted")
+        collecting_data_for_preview()
       error: (data) ->
         ShopifyApp.flashError("Something went wrong with slice deletion")
 
