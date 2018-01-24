@@ -33,12 +33,26 @@ a {
   }
 }
 
+tr{
+  border-bottom: 1px solid #adb7be;
+  border-top: 1px solid #adb7be;
+  padding: 10px;
+}
+
 th {
-  padding-bottom: 5px;
+  background-color: #e1f2ff;
+  text-align: center;
+  padding: 10px;
 }
 
 td {
-  padding: 0 5px 7px;
+  padding: 10px 5px;
+  text-align: center;
+}
+
+td input, td select{
+  border-radius: 5px;
+  padding-left: 5px;
 }
 
 div {
@@ -276,4 +290,38 @@ div.minicolors{
   border: 1px solid #adb7be;
   border-radius: 5px;
   width: 10%;
+}
+
+.slice-type, .slice-code{
+  width: 60%;
+}
+
+.slice-type.custom-select{
+  background-position: 95% 50%;
+  background-size: 10%;
+}
+
+.slice-save, .slice-delete{
+  border: none;
+  background: none;
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 25px;
+  width: 25px;
+}
+.slice-save{
+  background-image: url(asset_path('save.png'));
+}
+.slice-delete{
+  background-image: url(asset_path('remove.png'));
+}
+.create_slice{
+  display: block;
+  background-color: #01ac3a;
+  border-color: #01ac3a;
+  text-transform: uppercase;
+  color: white;
+  border-radius: 5px;
+  width: 20%;
+  margin: 20px auto 0;
 }

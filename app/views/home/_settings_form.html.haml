@@ -119,7 +119,15 @@
 
   .section-block
     %h2.home-title Slices
-    #slice-container
+    %table#slice-container
+      %tr
+        %th Slice
+        %th Type
+        %th Coupon Name
+        %th Coupon Code
+        %th Slice Color
+        %th Gravity
+        %th Probability
       - slices.each_with_index do |slice, index|
         = render 'slice_form', slice: slice, index: index+1
     %button.create_slice{'data-setting': @settings.id, type: 'button' } Add Slice
