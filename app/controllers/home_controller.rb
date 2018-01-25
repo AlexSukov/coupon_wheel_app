@@ -6,7 +6,7 @@ class HomeController < ShopifyApp::AuthenticatedController
     @customers = ShopifyAPI::Customer.find(:all)
     @shop = Shop.find_by(shopify_domain: ShopifyAPI::Shop.current.domain)
     @settings = Setting.find_or_create_by(shop_id: @shop.id)
-    @slices = Slice.where(setting_id: @settings.id)
+    @slices = Slice.where(setting_id: @settings.id).order("id ASC")
     @collected_emails = CollectedEmail.where(shop_id: @shop.id)
   end
 

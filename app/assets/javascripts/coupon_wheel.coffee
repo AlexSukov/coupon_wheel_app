@@ -24,11 +24,45 @@ $ ->
     document.execCommand 'copy'
     $temp.remove()
 
+  random_item = (items) ->
+    items[Math.floor(Math.random() * items.length)]
+
+  calculate_prob_and_get_slice_id = (slices) ->
+    gravity_sum = 0
+    prob = 0
+    window.slice_id = undefined
+    $.each slices, (i) ->
+      slice = slices[i]
+      if !slice.lose
+        gravity_sum += slice.gravity
+    slices_probability = []
+    if gravity_sum != 0
+      $.each slices, (i) ->
+        slice = slices[i]
+        if !slice.lose
+          probability = slice.gravity / gravity_sum * 100
+          probability = Math.round(probability)
+          i = 0
+          while i < probability
+            slices_probability.push(slice.id)
+            i++
+      slice_id = random_item(slices_probability)
+    else
+      $.each slices, (i) ->
+        slice = slices[i]
+        if !slice.lose
+          probability = 100 / (slices.length / 2)
+          probability = Math.round(probability)
+          slices_probability.push({slice_id: slice.id, probability: probability})
+      random_slice = random_item(slices_probability)
+      slice_id = random_slice.slice_id
+    return slice_id
+
   if getCookie('coupon_wheel_app_do_not_show') != 'true'
     domain = document.domain
     $.ajax
       type: 'POST'
-      url: "https://a3a6a972.ngrok.io/clientside"
+      url: "https://f8a8ec82.ngrok.io/clientside"
       data: { shop_domain: domain }
       dataType: "json"
       success: (data) ->
@@ -124,7 +158,11 @@ $ ->
 
         drawTriangle()
         $('body').on 'click', '#spin', (e)->
-          stopAt = 30
+          slice_id = calculate_prob_and_get_slice_id(slices)
+          slice_index = slices.map((o) ->
+            o.id
+          ).indexOf(slice_id) + 1
+          stopAt = theWheel.getRandomForSegment(slice_index)
           theWheel.animation.stopAngle = stopAt;
           theWheel.startAnimation()
           $(this).remove()
@@ -144,7 +182,7 @@ $ ->
       email = $this.children('.coupon-wheel-email').val()
       $.ajax
         type: 'POST'
-        url: "https://a3a6a972.ngrok.io/collected_emails"
+        url: "https://f8a8ec82.ngrok.io/collected_emails"
         data: { collected_email: email, shop_domain: domain }
         dataType: "json"
         success: (data) ->
