@@ -5,7 +5,7 @@
     %td
       %input.slice-type{type: "text", value: slice.slice_type, disabled: true }
     %td
-      %input.slice-label{type: "text", value: slice.label }
+      %input.slice-label{type: "text", value: slice.label, onchange: "collecting_data_for_preview();" }
     %td
       %button.slice-save{type: 'button'}
   - else
@@ -17,7 +17,7 @@
       = select_tag "slice-type", options_for_select(slice_type_options, slice.slice_type), class: "slice-type custom-select"
     %td
       %button.slice-choose-product{type: 'button', hidden: !free } Choose Product
-      %input.slice-label{type: "text", value: slice.label }
+      %input.slice-label{type: "text", value: slice.label, onchange: "collecting_data_for_preview();" }
       %input.slice-product-image{type: 'text', value: slice.product_image, hidden: true}
     %td
       %input.slice-code{type: "text", value: slice.code, hidden: free }

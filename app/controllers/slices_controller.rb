@@ -5,6 +5,8 @@ class SlicesController < ApplicationController
     @slice = Slice.new(slice_params)
     if @slice.save
       render json: { slice: @slice }
+    else
+      render json: {status: :unprocessable_entity}
     end
   end
 
@@ -13,6 +15,8 @@ class SlicesController < ApplicationController
   def update
     if @slice.update(slice_params)
       render json: { slice: @slice }
+    else
+      render json: {status: :unprocessable_entity}
     end
   end
 
@@ -20,6 +24,7 @@ class SlicesController < ApplicationController
     @next_slice = Slice.where(["id > ? and setting_id = ?", @slice.id, @slice.setting_id]).first
     @next_slice.destroy
     @slice.destroy
+    render json: {status: :ok}
   end
   private
     # Use callbacks to share common setup or constraints between actions.

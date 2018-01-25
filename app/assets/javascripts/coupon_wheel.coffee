@@ -28,7 +28,7 @@ $ ->
     domain = document.domain
     $.ajax
       type: 'POST'
-      url: "https://7382cd95.ngrok.io/clientside"
+      url: "https://a3a6a972.ngrok.io/clientside"
       data: { shop_domain: domain }
       dataType: "json"
       success: (data) ->
@@ -50,11 +50,10 @@ $ ->
         $.each slices, (i) ->
           slice = slices[i]
           if slice.lose
-            segments.push({'fillStyle': "#{settings.lose_section_color}", 'text': "#{slice.label}"})
+            segments.push({fillStyle: settings.lose_section_color, text: slice.label})
           else
-            segments.push({'fillStyle': "#{settings.win_section_color}", 'text': "#{slice.label}",
-            'code': "#{slice.code}", 'product_image': "#{slice.product_image}",
-            'slice_type': "#{slice.slice_type}"})
+            segments.push({fillStyle: settings.win_section_color, text: slice.label,
+            code: slice.code, product_image: slice.product_image, slice_type: slice.slice_type})
         theWheel = new Winwheel(
           canvasId: 'coupon_wheel'
           numSegments: segments.length
@@ -78,10 +77,10 @@ $ ->
                             type: 'spinToStop'
                             duration : 5
                             spins    : 8
-                            callbackFinished: 'skra()'
+                            callbackFinished: 'showWinner()'
                             callbackAfter : 'drawTriangle()'
                         })
-        window.skra = ->
+        window.showWinner = ->
           winningSegment = theWheel.getIndicatedSegment()
           if winningSegment.slice_type == 'Coupon'
             $('.coupon-wheel-modal').append("
@@ -145,7 +144,7 @@ $ ->
       email = $this.children('.coupon-wheel-email').val()
       $.ajax
         type: 'POST'
-        url: "https://7382cd95.ngrok.io/collected_emails"
+        url: "https://a3a6a972.ngrok.io/collected_emails"
         data: { collected_email: email, shop_domain: domain }
         dataType: "json"
         success: (data) ->
