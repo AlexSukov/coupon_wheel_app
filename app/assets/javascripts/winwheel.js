@@ -58,7 +58,8 @@ function Winwheel(options, drawWheel)
         'drawText'          : true,         // By default the text of the segments is rendered in code drawMode and not in image drawMode.
         'pointerAngle'      : 0,            // Location of the pointer that indicates the prize when wheel has stopped. Default is 0 so the (corrected) 12 o'clock position.
         'wheelImage'        : null,         // Must be set to image data in order to use image to draw the wheel - drawMode must also be 'image'.
-        'imageDirection'    : 'N'           // Used when drawMode is segmentImage. Default is north, can also be (E)ast, (S)outh, (W)est.
+        'imageDirection'    : 'N',          // Used when drawMode is segmentImage. Default is north, can also be (E)ast, (S)outh, (W)est.
+        'special_settings'  : null
     };
 
     // -----------------------------------------
