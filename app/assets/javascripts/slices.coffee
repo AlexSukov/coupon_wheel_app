@@ -45,7 +45,7 @@ $ ->
     $.ajax
       type: 'POST'
       url: "/slices"
-      data: { slice: { setting_id: setting_id, lose: false, slice_type: 'Coupon', label: 'Coupon Name', code: '000-000-000', gravity: 0 } }
+      data: { slice: { setting_id: setting_id, lose: false, slice_type: 'Coupon', label: 'Coupon Name', code: '000-000-000', gravity: 0, color: '#00ff99' } }
       dataType: "json"
       success: (data) ->
         if $('.slice-index').length != 0
@@ -55,26 +55,27 @@ $ ->
         $('#slice-container').append("
           <tr class='slice' data-slice-id='#{data.slice.id}'>
             <td class='slice-index' data-slice-index=#{slice_index}>#{slice_index}</td>
-            <td><select class='slice-type'>
+            <td><select class='slice-type custom-select'>
               <option value='Coupon' selected>Coupon</option>
               <option value='Free Product'>Free Product</option>
             </select></td>
             <td>
-              <button type='button' class='slice-choose-product' hidden>Choose Product</button>
+              <button type='button' class='slice-choose-product' hidden>Add Product</button>
               <input class='slice-label' type='text' value='#{data.slice.label}' onchange='collecting_data_for_preview();'>
               <input class='slice-product-image' type='text' hidden>
             </td>
             <td><input class='slice-code' type='text' value='#{data.slice.code}'></td>
-            <td><input class='slice-gravity' type='number' min='0' max='100' value='#{data.slice.gravity}' onchange='collecting_data_for_probability();></td>
+            <td class='slice-color-td' data-color-id='#{data.slice.id}'><input class='slice-color' type='hidden' value='#{data.slice.color}'></td>
+            <td><input class='slice-gravity' type='number' min='0' max='100' value='#{data.slice.gravity}' onchange='collecting_data_for_probability();'></td>
             <td class='slice-probability'></td>
-            <td></button></td>
             <td><button type='button' class='slice-save'><button type='button' class='slice-delete'></button></td>
           </tr>
         ")
+        $(".slice-color-td[data-color-id='#{data.slice.id}']").children('.slice-color').minicolors theme: 'bootstrap'
         $.ajax
           type: 'POST'
           url: "/slices"
-          data: { slice: { setting_id: setting_id, lose: true, slice_type: 'Losing', label: 'Losing Name' } }
+          data: { slice: { setting_id: setting_id, lose: true, slice_type: 'Losing', label: 'Losing Name'} }
           dataType: "json"
           success: (data) ->
             slice_index = $('.slice-index').last().data('slice-index') + 1
@@ -83,11 +84,11 @@ $ ->
                 <td class='slice-index' data-slice-index=#{slice_index}>#{slice_index}</td>
                 <td><input class='slice-type' type='text' value='#{data.slice.slice_type}' disabled></td>
                 <td><input class='slice-label' type='text' value='#{data.slice.label}' onchange='collecting_data_for_preview();'></td>
-                <td><input class='slice-code' type='text' value='#{data.slice.code}'></td>
+                <td></td>
+                <td class='slice-color-td'></td>
                 <td></td>
                 <td></td>
                 <td><button type='button' class='slice-save'></button></td>
-                <td></td>
               </tr>
             ")
             ShopifyApp.flashNotice("Winning and Losing slices are successfully created")
@@ -120,13 +121,14 @@ $ ->
     slice_label = $parent.children('td').children('.slice-label').val()
     slice_code = $parent.children('td').children('.slice-code').val()
     slice_gravity = $parent.children('td').children('.slice-gravity').val()
+    slice_color = $parent.children('.slice-color-td').children().children('.slice-color').val()
     if slice_gravity == ''
       slice_gravity = 0
     slice_product_image = $parent.children('td').children('.slice-product-image').val()
     if (slice_type == 'Losing')
       data_slice = { slice: { label: slice_label } }
     else
-      data_slice = { slice: { slice_type: slice_type, label: slice_label, code: slice_code, gravity: slice_gravity, product_image: slice_product_image } }
+      data_slice = { slice: { slice_type: slice_type, label: slice_label, code: slice_code, gravity: slice_gravity, product_image: slice_product_image, color: slice_color } }
     $.ajax
       type: 'PUT'
       url: "/slices/#{slice_id}"

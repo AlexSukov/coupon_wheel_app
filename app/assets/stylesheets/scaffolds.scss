@@ -1,3 +1,15 @@
+#setting_save{
+  display: block;
+  background-color: #01ac3a;
+  border-color: #01ac3a;
+  text-transform: uppercase;
+  color: white;
+  border-radius: 10px;
+  padding: 10px 20px;
+  width: auto;
+  margin: 20px auto 0;
+}
+
 body {
   background-color: #f4f6f8;;
   color: #333;
@@ -48,11 +60,22 @@ th {
 td {
   padding: 10px 0;
   text-align: center;
+  background-color: white;
 }
 
 td input, td select{
   border-radius: 5px;
   padding-left: 5px;
+}
+
+.new-url{
+  border-radius: 5px;
+  padding-left: 5px;
+  width: 50%;
+  margin-right: 10%;
+}
+.new-url-form{
+  margin: 15px 0;
 }
 
 div {
@@ -96,6 +119,8 @@ div {
 
 label {
   display: block;
+  font-size: 1.1vw;
+  font-weight: normal;
 }
 
 // Custom CSS
@@ -177,54 +202,60 @@ label {
   border-radius: 50%;
 }
 
-#setting_big_logo, #setting_small_logo{
+#setting_big_logo, #setting_small_logo, #setting_tab_icon{
   display: none;
 }
 
 .home-title{
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #f4f6f8;
   padding-bottom: 10px;
   padding-left: 20px;
   color: #1f2124;
-  font-size: 30px;
+  font-size: 1.5vw;
   margin: 0 -20px 30px -20px;
 }
 .home-subtitle{
-  font-size: 20px;
-  line-height: 20px;
+  font-size: 1.1vw;
+  line-height: 1.1vw;
   color: #1f2124;
   margin-top: 0;
 }
 .home-info {
-  font-size: 16px;
-  line-height: 16px;
+  font-size: 0.9vw;
+  line-height: 0.9vw;
   font-weight: 200;
   color: #1f2124;
   opacity: 0.5;
 }
 
 .form-title{
-  line-height: 20px;
-  font-size: 20px;
+  line-height: 1.1vw;
+  font-size: 1.1vw;
   float: left;
   margin-right: 15px;
+}
+
+.small-logo-wrapper, .big-logo-wrapper, .tab-icon-wrapper{
+  background-color: #f0f5f9;
+  border-radius: 5px;
 }
 
 .big-logo-wrapper{
   height: 150px;
   width: 350px;
-  background-color: #f0f5f9;
-  border-radius: 5px;
 }
 
 .small-logo-wrapper{
   height: 150px;
   width: 150px;
-  background-color: #f0f5f9;
-  border-radius: 5px;
 }
 
-.big-logo-wrapper img, .small-logo-wrapper img{
+.tab-icon-wrapper{
+  height: 100px;
+  width: 100px;
+}
+
+.big-logo-wrapper img, .small-logo-wrapper img, .tab-icon-wrapper img{
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -244,6 +275,7 @@ label {
   right: 15%;
   top: 50%;
   transform: translateY(-50%);
+  cursor: pointer;
 }
 .full{
   width: 100%;
@@ -292,6 +324,16 @@ div.minicolors{
   width: 15%;
 }
 
+table{
+  width: 100%;
+}
+
+table div.minicolors{
+  border: 1px solid #adb7be;
+  width: 60%;
+  margin: 0 auto;
+}
+
 .slice-type, .slice-code{
   width: 60%;
 }
@@ -301,21 +343,27 @@ div.minicolors{
   background-size: 10%;
 }
 
-.slice-save, .slice-delete{
+.slice-type.custom-select:focus{
+  background-position: 95% 50%;
+}
+
+.slice-save, .slice-delete, .create_discount_code, .url_delete, .destroy_discount_code, .cancel_discount_code, .remove-email, .add-new-url, .remove-new-url-form{
   border: none;
   background: none;
   background-repeat: no-repeat;
   background-size: contain;
   height: 25px;
   width: 25px;
+  vertical-align: middle;
 }
-.slice-save{
+.slice-save, .create_discount_code, .add-new-url{
   background-image: url(asset_path('save.png'));
 }
-.slice-delete{
+.slice-delete, .url_delete, .destroy_discount_code, .cancel_discount_code, .remove-email, .remove-new-url-form {
   background-image: url(asset_path('remove.png'));
+  margin-left: 10px;
 }
-.create_slice{
+.create_slice, .add_discount_code_form, .add_url, .show-advanced, .close-advanced{
   display: block;
   background-color: #01ac3a;
   border-color: #01ac3a;
@@ -336,22 +384,147 @@ div.minicolors{
 
 .select-title{
   line-height: 34px;
-  font-size: 20px;
+  font-size: 1.1vw;
   float: left;
   margin-right: 15px;
   width: 60%;
+}
+.time{
+  line-height: 34px;
+}
+.time-input{
+    width: 10%;
+    float: left;
+    margin-right: 15px;
+}
+.one-third{
+  width: 33%;
+}
+.two-third{
+  width: 66%;
+}
+.left-intent{
+  margin-left: 5%;
+}
+.left-intent-big{
+  margin-left: 30%;
+}
+
+.one-six{
+  width: 15%;
+}
+.one-quarter{
+  width: 25%;
+}
+.quarter{
+  width: 25%;
+  float: left;
 }
 
 .flex{
   display: flex;
   flex-wrap: wrap;
 }
+.flex .form-title{
+  width: 75%;
+}
+.flex .form-title.time{
+  width: auto;
+}
+
 .around{
   justify-content: space-around;
 }
 .row{
   width:50%;
 }
-.flex .form-title{
+
+.slice-choose-product{
+  background-color: #01ac3a;
+  border-color: #01ac3a;
+  text-transform: uppercase;
+  color: white;
+  border-radius: 5px;
+  width: auto;
+  margin: 2% 25%;
+}
+.slice-label{
+  width: 40%;
+}
+.slice-gravity{
   width: 75%;
+}
+
+#discount_code_type{
+  width: 60%;
+}
+
+#collected_emails{
+  width: 50%;
+  margin: 0 auto;
+}
+
+@media only screen and (max-width: 1050px){
+  .logo-block {
+      width: 100%;
+      margin-bottom: 10px;
+  }
+  .half, .left, .right, .row{
+    width: 100%;
+    padding: 0;
+    float: none;
+  }
+  .slice-delete, .url_delete, .destroy_discount_code, .cancel_discount_code, .remove-email, .remove-new-url-form{
+    margin: 0;
+  }
+  .home-title{
+    font-size: 20px;
+    line-height: 20px;
+  }
+  .home-subtitle, label{
+    font-size: 16px;
+    line-height: 16px;
+  }
+  .form-title{
+    font-size: 16px;
+  }
+  .home-info{
+    font-size: 13px;
+    line-height: 13px;
+  }
+  .select-title{
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 767px){
+  body{
+    margin: 3px;
+  }
+  .add-image {
+    right: 0;
+    top: 15%;
+  }
+  .big-logo-wrapper {
+    height: 107px;
+    width: 250px;
+  }
+  .create_slice, .add_discount_code_form, .add_url{
+    width: 50%;
+  }
+  .form-title{
+    font-size: 16px;
+    line-height: 16px;
+  }
+  .quarter, .one-third, .one-quarter{
+    width: 50%;
+  }
+  .two-third{
+    width: 100%;
+  }
+  .time-input {
+    width: 30%;
+    float: none;
+    margin: 5px auto;
+  }
 }
