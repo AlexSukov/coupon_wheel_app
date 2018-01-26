@@ -7,7 +7,7 @@
     %td
       %input.slice-label{type: "text", value: slice.label, onchange: "collecting_data_for_preview();" }
     %td
-    %td
+    %td.slice-color-td
     %td
     %td
     %td
@@ -20,14 +20,15 @@
     %td
       = select_tag "slice-type", options_for_select(slice_type_options, slice.slice_type), class: "slice-type custom-select"
     %td
-      %button.slice-choose-product{type: 'button', hidden: !free } Choose Product
+      %button.slice-choose-product{type: 'button', hidden: !free } Add Product
       %input.slice-label{type: "text", value: slice.label, onchange: "collecting_data_for_preview();" }
       %input.slice-product-image{type: 'text', value: slice.product_image, hidden: true}
     %td
       %input.slice-code{type: "text", value: slice.code, hidden: free }
+    %td.slice-color-td
+      %input.slice-color{type: "hidden", value: slice.color }
     %td
-    %td
-      %input.slice-gravity{max: "100", min: "0", type: "number", value: slice.gravity,
+      %input.slice-gravity{min: "0", max: "100", type: "number", value: slice.gravity,
       onchange: "collecting_data_for_probability();" }
     %td.slice-probability
     %td

@@ -6,10 +6,10 @@
     dataType: "json"
     success: (data) ->
       mailchimp_lists = data.mailchimp_lists.body.lists
-      $('#mailchimp').append("
-        <div class='form-group' id='mailchimp-select-form'>
+      $('#mailchimp-container').append("
+        <div class='form-group left-intent' id='mailchimp-select-form'>
           <label for='mailchimp-select'>Mailchimp List</label>
-          <select id='mailchimp-select'></select>
+          <select id='mailchimp-select' class='custom-select one-quarter'></select>
         </div>
       ")
       $.each mailchimp_lists, (i) ->
@@ -33,10 +33,10 @@
     success: (data) ->
       klaviyo_lists = $.parseJSON(data.klaviyo_lists)
       klaviyo_lists = klaviyo_lists.data
-      $('#klaviyo').append("
-        <div class='form-group' id='klaviyo-select-form'>
-          <label for='klaviyo-select'>Mailchimp List</label>
-          <select id='klaviyo-select'></select>
+      $('#klaviyo-container').append("
+        <div class='form-group left-intent' id='klaviyo-select-form'>
+          <label for='klaviyo-select'>Klaviyo List</label>
+          <select id='klaviyo-select' class='custom-select one-quarter'></select>
         </div>
       ")
       $.each klaviyo_lists, (i) ->
@@ -113,8 +113,8 @@ $ ->
     $('#url_filters').append("
       <div class='new-url-form'>
         <input type='text' class='new-url' placeholder='Enter url' value=''>
-        <button type='button' class='add-new-url'>Save Url</button>
-        <button type='button' class='remove-new-url-form'>Remove Form</button>
+        <button type='button' class='add-new-url'></button>
+        <button type='button' class='remove-new-url-form'></button>
       </div>")
     $(this).prop('disabled', true)
 
@@ -135,7 +135,7 @@ $ ->
         $('#url_filters').append("
           <div class='url'>
             #{data.url}
-            <button type='button' class='url_delete' data-url='#{data.url}'>Delete URL</button>
+            <button type='button' class='url_delete' data-url='#{data.url}'></button>
           </div>")
         $('.add_url').prop('disabled', false)
       error: (data) ->
@@ -165,10 +165,10 @@ $ ->
       dataType: "json"
       success: (data) ->
         $('#mailchimp-select-form').remove()
-        $('#mailchimp').append("
-          <div class='form-group' id='mailchimp-select-form'>
+        $('#mailchimp-container').append("
+          <div class='form-group left-intent' id='mailchimp-select-form'>
             <label for='mailchimp-select'>Mailchimp List</label>
-            <select id='mailchimp-select'>
+            <select id='mailchimp-select' class='custom-select one-quarter'>
               <option disabled selected> -- select a list -- </option>
             </select>
           </div>
@@ -190,10 +190,10 @@ $ ->
       dataType: "json"
       success: (data) ->
         $('#klaviyo-select-form').remove()
-        $('#klaviyo').append("
-          <div class='form-group' id='klaviyo-select-form'>
+        $('#klaviyo-container').append("
+          <div class='form-group left-intent' id='klaviyo-select-form'>
             <label for='klaviyo-select'>Klaviyo List</label>
-            <select id='klaviyo-select'>
+            <select id='klaviyo-select' class='custom-select one-quarter'>
               <option disabled selected> -- select a list -- </option>
             </select>
           </div>
@@ -215,3 +215,41 @@ $ ->
   $('body').on 'change','#klaviyo-select', ->
     list_id = $(this).val()
     $('#setting_klaviyo_list_id').val(list_id)
+
+  $('#setting_duo_color').on 'change', ->
+    $('#duo-color-settings').toggle();
+    $('#each-slice-color-note').toggle();
+    if $('#duo-color-settings')[0].style.display == 'block'
+      $('.slice-color-td').hide()
+    else
+      $('.slice-color-td').show()
+      $('.slice-color').minicolors theme: 'bootstrap'
+
+  $('#setting_enable_discount_code_bar').on 'change', ->
+    $('#discount-code-bar-container').fadeToggle('fast');
+
+  $('#setting_enable_progress_bar').on 'change', ->
+    $('#progress-bar-container').fadeToggle('fast');
+
+  $('#setting_show_on_desktop').on 'change', ->
+    $('#desktop-container').fadeToggle('fast');
+
+  $('#setting_show_on_mobile').on 'change', ->
+    $('#mobile-container').fadeToggle('fast');
+
+  $('#setting_show_pull_out_tab').on 'change', ->
+    $('#pull-out-tab-container').fadeToggle('fast');
+
+  $('#setting_mailchimp_enable').on 'change', ->
+    $('#mailchimp-container').fadeToggle('fast');
+
+  $('#setting_klaviyo_enable').on 'change', ->
+    $('#klaviyo-container').fadeToggle('fast');
+
+  $('.show-advanced').on 'click', ->
+    $('#advanced-settings').fadeIn();
+    $(this).hide()
+
+  $('.close-advanced').on 'click', ->
+    $('#advanced-settings').fadeOut();
+    $('.show-advanced').show();

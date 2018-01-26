@@ -7,17 +7,17 @@ $ ->
         To create new discount code enter desired values below and press 'Create discount code'
       </caption>
       <tr>
-        <th>Code</th>
+        <th>Name</th>
         <th>Type</th>
         <th>Value</th>
         <th>Actions</th>
       </tr>
       <tr>
         <td>
-          <input type='text' id='discount_code_title' placeholder='Enter desired discount code'>
+          <input type='text' id='discount_code_title' placeholder='Enter desired discount name'>
         </td>
         <td>
-          <select id='discount_code_type'>
+          <select id='discount_code_type' class='custom-select'>
             <option value='fixed_amount'>Fixed amount</option>
             <option value='percentage'>Percentage</option>
           </select>
@@ -26,8 +26,8 @@ $ ->
           <input type='number' id='discount_code_value' step='1' min='-100' max='100' value='0'>
         </td>
         <td>
-          <button type='button' id='create_discount_code'>Create discount code</button>
-          <button type='button' id='cancel_discount_code'>Cancel</button>
+          <button type='button' id='create_discount_code' class='create_discount_code'></button>
+          <button type='button' id='cancel_discount_code' class='cancel_discount_code'></button>
         </td>
       </tr>
     </table>
@@ -52,6 +52,12 @@ $ ->
       dataType: "json"
       success: (data) ->
         discount = data.discount
+        if discount.value_type == 'fixed_amount'
+          value_type_final = 'Fixed Amount'
+        else if discount.value_type == 'percentage'
+          value_type_final = 'Percentage'
+        else
+          value_type_final = discount.value_type
         $('#discount-form').remove()
         $('.add_discount_code_form').prop('disabled', false)
         $('#discount-codes tr:first-child').after("
@@ -60,13 +66,13 @@ $ ->
               #{discount.title}
             </td>
             <td>
-              #{discount.value_type}
+              #{value_type_final}
             </td>
             <td>
               #{discount.value}
             </td>
             <td>
-              <button type='button' class='destroy_discount_code' data-id='#{discount.id}'>Delete discount code</button>
+              <button type='button' class='destroy_discount_code' data-id='#{discount.id}'></button>
             </td>
           </tr>
         ")

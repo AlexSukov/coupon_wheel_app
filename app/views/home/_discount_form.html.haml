@@ -2,8 +2,13 @@
   %td.discount_code
     =discount.title
   %td.discount_type
-    =discount.value_type
+    -if discount.value_type == 'fixed_amount'
+      = 'Fixed Amount'
+    -elsif discount.value_type == 'percentage'
+      = 'Persentage'
+    -else
+      =discount.value_type
   %td.discount_value
     =discount.value
   %td.discount_actions
-    %button.destroy_discount_code{'data-id': discount.id, type: 'button'} Delete Discount Code
+    %button.destroy_discount_code{'data-id': discount.id, type: 'button'}
