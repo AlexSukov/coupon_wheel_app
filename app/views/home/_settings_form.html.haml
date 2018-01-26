@@ -138,9 +138,12 @@
         %th Slice Color
         %th Gravity
         %th Probability
+        %th Actions
       - slices.each_with_index do |slice, index|
         = render 'slice_form', slice: slice, index: index+1
     %button.create_slice{'data-setting': @settings.id, type: 'button' } Add Slice
+    :javascript
+      calculate_probability(#{slices.to_json.html_safe})
     %br
 
   #discount-container.section-block

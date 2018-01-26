@@ -1,34 +1,122 @@
+@setCookie = (cname, cvalue, exdays) ->
+  d = new Date
+  d.setTime d.getTime() + exdays * 24 * 60 * 60 * 1000
+  expires = 'expires=' + d.toUTCString()
+  document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
+
+@getCookie = (cname) ->
+  name = cname + '='
+  ca = document.cookie.split(';')
+  i = 0
+  while i < ca.length
+    c = ca[i]
+    while c.charAt(0) == ' '
+      c = c.substring(1)
+    if c.indexOf(name) == 0
+      return c.substring(name.length, c.length)
+    i++
+  ''
+@copyToClipboard = (element) ->
+  $temp = $('<input>')
+  $('body').append $temp
+  $temp.val($(element).text()).select()
+  document.execCommand 'copy'
+  $temp.remove()
+
+@random_item = (items) ->
+  items[Math.floor(Math.random() * items.length)]
+
+@shuffle = (a) ->
+  j = undefined
+  x = undefined
+  i = undefined
+  i = a.length - 1
+  while i > 0
+    j = Math.floor(Math.random() * (i + 1))
+    x = a[i]
+    a[i] = a[j]
+    a[j] = x
+    i--
+  return
+
+@calculate_prob_and_get_slice_id = (slices) ->
+  gravity_sum = 0
+  slice_id = undefined
+  $.each slices, (i) ->
+    slice = slices[i]
+    if !slice.lose
+      gravity_sum += slice.gravity
+  slices_probability = []
+  if gravity_sum != 0
+    $.each slices, (i) ->
+      slice = slices[i]
+      if !slice.lose
+        probability = slice.gravity / gravity_sum * 100
+        probability = Math.round(probability)
+        i = 0
+        while i < probability
+          slices_probability.push(slice.id)
+          i++
+    shuffle(slices_probability)
+    slice_id = random_item(slices_probability)
+  else
+    $.each slices, (i) ->
+      slice = slices[i]
+      if !slice.lose
+        probability = 100 / (slices.length / 2)
+        probability = Math.round(probability)
+        slices_probability.push({slice_id: slice.id, probability: probability})
+    shuffle(slices_probability)
+    random_slice = random_item(slices_probability)
+    slice_id = random_slice.slice_id
+  return slice_id
+
+@showWinner = (winningSegment, settings) ->
+  if winningSegment.slice_type == 'Coupon'
+    $('.coupon-wheel-modal').append("
+      <div class='winning_title'>#{settings.winning_title}</div>
+      <div class='winning_text'>#{settings.winning_text}</div>
+      <div class='discount_code_title'>#{settings.discount_code_title}
+        <span class='code'>#{winningSegment.code}</span>
+      </div>
+      <button class='btn continue_button'>#{settings.continue_button}</button>
+      <button class='btn reject_discount_button'>#{settings.reject_discount_button}</button>
+    ")
+  else
+    $('.coupon-wheel-modal').append("
+      <div class='winning_title'>#{settings.winning_title}</div>
+      <div class='winning_text'>#{settings.winning_text}</div>
+      <img src='#{winningSegment.product_image}' class='product_image'>
+      <div class='free_product_description'>#{settings.free_product_description}</div>
+      <a type='button' href='#{winningSegment.code}'class='btn free_product_button'>#{settings.free_product_button}</a>
+      <button class='btn free_product_reject'>#{settings.reject_discount_button}</button>
+    ")
+@drawTriangle = (theWheel) ->
+  # Get the canvas context the wheel uses.
+  ctx = theWheel.ctx
+  ctx.strokeStyle = 'navy'
+  # Set line colour.
+  ctx.fillStyle = 'aqua'
+  # Set fill colour.
+  ctx.lineWidth = 2
+  ctx.beginPath()
+  # Begin path.
+  ctx.moveTo 370, 5
+  # Move to initial position.
+  ctx.lineTo 430, 5
+  # Draw lines to make the shape.
+  ctx.lineTo 400, 40
+  ctx.lineTo 371, 5
+  ctx.stroke()
+  # Complete the path by stroking (draw lines).
+  ctx.fill()
+  # Then fill.
 $ ->
-  setCookie = (cname, cvalue, exdays) ->
-    d = new Date
-    d.setTime d.getTime() + exdays * 24 * 60 * 60 * 1000
-    expires = 'expires=' + d.toUTCString()
-    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/'
-
-  getCookie = (cname) ->
-    name = cname + '='
-    ca = document.cookie.split(';')
-    i = 0
-    while i < ca.length
-      c = ca[i]
-      while c.charAt(0) == ' '
-        c = c.substring(1)
-      if c.indexOf(name) == 0
-        return c.substring(name.length, c.length)
-      i++
-    ''
-  copyToClipboard = (element) ->
-    $temp = $('<input>')
-    $('body').append $temp
-    $temp.val($(element).text()).select()
-    document.execCommand 'copy'
-    $temp.remove()
-
   if getCookie('coupon_wheel_app_do_not_show') != 'true'
     domain = document.domain
     $.ajax
       type: 'POST'
-      url: "https://a3a6a972.ngrok.io/clientside"
+      url: "https://5123671c.ngrok.io/clientside"
       data: { shop_domain: domain }
       dataType: "json"
       success: (data) ->
@@ -61,6 +149,7 @@ $ ->
           textAlignment : 'center'
           innerRadius   : 32
           outerRadius   : 212
+          special_settings: settings
           pins : {
               number     : segments.length,
               outerRadius : 10,
@@ -77,54 +166,16 @@ $ ->
                             type: 'spinToStop'
                             duration : 5
                             spins    : 8
-                            callbackFinished: 'showWinner()'
-                            callbackAfter : 'drawTriangle()'
+                            callbackFinished: 'showWinner(winwheelToDrawDuringAnimation, winwheelToDrawDuringAnimation.special_settings)'
+                            callbackAfter : 'drawTriangle(winwheelToDrawDuringAnimation)'
                         })
-        window.showWinner = ->
-          winningSegment = theWheel.getIndicatedSegment()
-          if winningSegment.slice_type == 'Coupon'
-            $('.coupon-wheel-modal').append("
-              <div class='winning_title'>#{settings.winning_title}</div>
-              <div class='winning_text'>#{settings.winning_text}</div>
-              <div class='discount_code_title'>#{settings.discount_code_title}
-                <span class='code'>#{winningSegment.code}</span>
-              </div>
-              <button class='btn continue_button'>#{settings.continue_button}</button>
-              <button class='btn reject_discount_button'>#{settings.reject_discount_button}</button>
-            ")
-          else
-            $('.coupon-wheel-modal').append("
-              <div class='winning_title'>#{settings.winning_title}</div>
-              <div class='winning_text'>#{settings.winning_text}</div>
-              <img src='#{winningSegment.product_image}' class='product_image'>
-              <div class='free_product_description'>#{settings.free_product_description}</div>
-              <a type='button' href='#{winningSegment.code}'class='btn free_product_button'>#{settings.free_product_button}</a>
-              <button class='btn free_product_reject'>#{settings.reject_discount_button}</button>
-            ")
-        window.drawTriangle = ->
-          # Get the canvas context the wheel uses.
-          ctx = theWheel.ctx
-          ctx.strokeStyle = 'navy'
-          # Set line colour.
-          ctx.fillStyle = 'aqua'
-          # Set fill colour.
-          ctx.lineWidth = 2
-          ctx.beginPath()
-          # Begin path.
-          ctx.moveTo 370, 5
-          # Move to initial position.
-          ctx.lineTo 430, 5
-          # Draw lines to make the shape.
-          ctx.lineTo 400, 40
-          ctx.lineTo 371, 5
-          ctx.stroke()
-          # Complete the path by stroking (draw lines).
-          ctx.fill()
-          # Then fill.
-
-        drawTriangle()
+        drawTriangle(theWheel)
         $('body').on 'click', '#spin', (e)->
-          stopAt = 30
+          slice_id = calculate_prob_and_get_slice_id(slices)
+          slice_index = slices.map((o) ->
+            o.id
+          ).indexOf(slice_id) + 1
+          stopAt = theWheel.getRandomForSegment(slice_index)
           theWheel.animation.stopAngle = stopAt;
           theWheel.startAnimation()
           $(this).remove()
@@ -144,7 +195,7 @@ $ ->
       email = $this.children('.coupon-wheel-email').val()
       $.ajax
         type: 'POST'
-        url: "https://a3a6a972.ngrok.io/collected_emails"
+        url: "https://5123671c.ngrok.io/collected_emails"
         data: { collected_email: email, shop_domain: domain }
         dataType: "json"
         success: (data) ->

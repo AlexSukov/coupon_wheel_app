@@ -1,3 +1,44 @@
+@calculate_probability = (slices) ->
+  gravity_sum = 0
+  slice_id = undefined
+  $.each slices, (i) ->
+    slice = slices[i]
+    if !slice.lose
+      gravity_sum += slice.gravity
+  slices_probability = []
+  if gravity_sum != 0
+    $.each slices, (i) ->
+      slice = slices[i]
+      if !slice.lose
+        probability = slice.gravity / gravity_sum * 100
+        probability = Math.round(probability)
+        slices_probability.push({slice_id: slice.id, probability: probability})
+  else
+    $.each slices, (i) ->
+      slice = slices[i]
+      if !slice.lose
+        probability = 100 / (slices.length / 2)
+        probability = Math.round(probability)
+        slices_probability.push({slice_id: slice.id, probability: probability})
+  $.each slices_probability, (i) ->
+    slice = slices_probability[i]
+    parent = $('#slice-container').find("[data-slice-id='" + slice.slice_id + "']")
+    td = parent.find('.slice-probability')
+    td.html("#{slice.probability}%")
+
+@collecting_data_for_probability = ->
+  slices = []
+  $('.slice').each ->
+    type = $(this).find('.slice-type').val()
+    if type == 'Losing'
+      lose = true
+    else
+      lose = false
+    id = $(this).data('slice-id')
+    gravity = parseInt($(this).find('.slice-gravity').val())
+    slices.push({id: id, lose: lose, gravity: gravity})
+  calculate_probability(slices)
+
 $ ->
   $('.create_slice').on 'click' , ->
     setting_id = $(this).data('setting')
@@ -24,9 +65,10 @@ $ ->
               <input class='slice-product-image' type='text' hidden>
             </td>
             <td><input class='slice-code' type='text' value='#{data.slice.code}'></td>
-            <td><input class='slice-gravity' type='number' min='0' max='100' value='#{data.slice.gravity}'></td>
-            <td><button type='button' class='slice-save'></button></td>
-            <td><button type='button' class='slice-delete'></button></td>
+            <td><input class='slice-gravity' type='number' min='0' max='100' value='#{data.slice.gravity}' onchange='collecting_data_for_probability();></td>
+            <td class='slice-probability'></td>
+            <td></button></td>
+            <td><button type='button' class='slice-save'><button type='button' class='slice-delete'></button></td>
           </tr>
         ")
         $.ajax
@@ -41,7 +83,11 @@ $ ->
                 <td class='slice-index' data-slice-index=#{slice_index}>#{slice_index}</td>
                 <td><input class='slice-type' type='text' value='#{data.slice.slice_type}' disabled></td>
                 <td><input class='slice-label' type='text' value='#{data.slice.label}' onchange='collecting_data_for_preview();'></td>
+                <td><input class='slice-code' type='text' value='#{data.slice.code}'></td>
+                <td></td>
+                <td></td>
                 <td><button type='button' class='slice-save'></button></td>
+                <td></td>
               </tr>
             ")
             ShopifyApp.flashNotice("Winning and Losing slices are successfully created")
@@ -74,6 +120,8 @@ $ ->
     slice_label = $parent.children('td').children('.slice-label').val()
     slice_code = $parent.children('td').children('.slice-code').val()
     slice_gravity = $parent.children('td').children('.slice-gravity').val()
+    if slice_gravity == ''
+      slice_gravity = 0
     slice_product_image = $parent.children('td').children('.slice-product-image').val()
     if (slice_type == 'Losing')
       data_slice = { slice: { label: slice_label } }

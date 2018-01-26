@@ -7,6 +7,10 @@
     %td
       %input.slice-label{type: "text", value: slice.label, onchange: "collecting_data_for_preview();" }
     %td
+    %td
+    %td
+    %td
+    %td
       %button.slice-save{type: 'button'}
   - else
     - if slice.slice_type == 'Free Product'
@@ -22,8 +26,10 @@
     %td
       %input.slice-code{type: "text", value: slice.code, hidden: free }
     %td
-      %input.slice-gravity{max: "100", min: "0", type: "number", value: slice.gravity }
+    %td
+      %input.slice-gravity{max: "100", min: "0", type: "number", value: slice.gravity,
+      onchange: "collecting_data_for_probability();" }
+    %td.slice-probability
     %td
       %button.slice-save{type: 'button'}
-    %td
       %button.slice-delete{type: 'button'}
