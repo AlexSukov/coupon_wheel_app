@@ -2,7 +2,6 @@ $ ->
   $('.remove-email').on 'click', ->
     $parent = $(this).parent().parent()
     email_id = $(this).data('email-id')
-    debugger
     $.ajax
       type: 'DELETE'
       url: "collected_emails/#{email_id}"
