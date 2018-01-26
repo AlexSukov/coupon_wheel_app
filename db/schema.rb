@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180118101132) do
+ActiveRecord::Schema.define(version: 20180125070524) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 20180118101132) do
     t.boolean "klaviyo_enable"
     t.string "klaviyo_api_key"
     t.string "klaviyo_list_id"
+    t.boolean "duo_color"
     t.index ["shop_id"], name: "index_settings_on_shop_id"
   end
 
@@ -102,6 +103,7 @@ ActiveRecord::Schema.define(version: 20180118101132) do
     t.bigint "setting_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "color"
     t.index ["setting_id"], name: "index_slices_on_setting_id"
   end
 

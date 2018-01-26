@@ -157,3 +157,5 @@ $ ->
         $parent.children('td').children('.slice-product-image').val(product.image.src)
       if data.errors
         console.error data.errors
+
+  $('.slice-color').minicolors theme: 'bootstrap'

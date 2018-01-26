@@ -98,35 +98,39 @@
 
   .section-block
     %h2.home-title Colors
-    .form-group
-      - theme_options = [ ["Default", 'Default'], ["Madrid", 'Madrid'] ]
-      - selected_theme = setting.theme
-      = form.label :theme
-      = form.select :theme, options_for_select(theme_options, selected_theme), {}, {class: 'form-control custom-select', id: 'setting_theme' }
-    .form-group
-      = form.label :background_color
-      = form.hidden_field :background_color, id: :setting_background_color, class: 'form-control',
-      onchange: "collecting_data_for_preview();"
-    .form-group
-      = form.label :font_color
-      = form.hidden_field :font_color, id: :setting_font_color, class: 'form-control',
-      onchange: "collecting_data_for_preview();"
-    .form-group
-      = form.label :bold_text_and_button_color
-      = form.hidden_field :bold_text_and_button_color, id: :setting_bold_text_and_button_color, class: 'form-control'
-    .form-group
-      = form.label :win_section_color
-      = form.hidden_field :win_section_color, id: :setting_win_section_color, class: 'form-control',
-      onchange: "collecting_data_for_preview();"
-    .form-group
-      = form.label :lose_section_color
-      = form.hidden_field :lose_section_color, id: :setting_lose_section_color, class: 'form-control',
-      onchange: "collecting_data_for_preview();"
-    .canvas-container
-      %canvas#wheel_preview{height: 500, width: 500}
-        Canvas not supported, use another browser.
-      :javascript
-        wheel_preview(#{setting.to_json.html_safe}, #{slices.to_json.html_safe})
+    .flex.around
+      .row
+        .form-group
+          - theme_options = [ ["Default", 'Default'], ["Madrid", 'Madrid'] ]
+          - selected_theme = setting.theme
+          .select-title Theme
+          = form.select :theme, options_for_select(theme_options, selected_theme), {}, {class: 'form-control custom-select', id: 'setting_theme' }
+        .form-group.flex
+          .form-title Background Color
+          = form.hidden_field :background_color, id: :setting_background_color, class: 'form-control',
+          onchange: "collecting_data_for_preview();"
+        .form-group.flex
+          .form-title Font Color
+          = form.hidden_field :font_color, id: :setting_font_color, class: 'form-control',
+          onchange: "collecting_data_for_preview();"
+        .form-group.flex
+          .form-title Bold text and button color
+          = form.hidden_field :bold_text_and_button_color, id: :setting_bold_text_and_button_color, class: 'form-control'
+      .row
+        .form-group.flex
+          .select-title Use special color for each slice
+          = form.label :duo_color, id: "duo_color", class: "switch" do
+            = form.check_box :duo_color, id: :setting_duo_color
+            %span.slider.round
+        .form-group.flex
+          .form-title Win section color
+          = form.hidden_field :win_section_color, id: :setting_win_section_color, class: 'form-control',
+          onchange: "collecting_data_for_preview();"
+        .form-group.flex
+          .form-title Lose section color
+          = form.hidden_field :lose_section_color, id: :setting_lose_section_color, class: 'form-control',
+          onchange: "collecting_data_for_preview();"
+
   .section-block
     %h2.home-title Slices
     %table#slice-container
@@ -135,8 +139,8 @@
         %th Type
         %th Coupon Name
         %th Coupon Code
-        %th Slice Color
         %th Gravity
+        %th Slice Color
         %th Probability
         %th Actions
       - slices.each_with_index do |slice, index|
@@ -145,6 +149,14 @@
     :javascript
       calculate_probability(#{slices.to_json.html_safe})
     %br
+
+  .section-block
+    %h2.home-title Preview
+    .canvas-container
+      %canvas#wheel_preview{height: 500, width: 500}
+        Canvas not supported, use another browser.
+      :javascript
+        wheel_preview(#{setting.to_json.html_safe}, #{slices.to_json.html_safe})
 
   #discount-container.section-block
     %h2.home-title Discount Codes

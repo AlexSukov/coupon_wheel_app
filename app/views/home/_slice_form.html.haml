@@ -26,10 +26,14 @@
     %td
       %input.slice-code{type: "text", value: slice.code, hidden: free }
     %td
+      %input.slice-color{type: "hidden", value: slice.color }
     %td
       %input.slice-gravity{max: "100", min: "0", type: "number", value: slice.gravity,
       onchange: "collecting_data_for_probability();" }
-    %td.slice-probability
+    %td
+      %input.slice-probability{disabled: true, value: 'test'}
+    %td
+      %button.slice-save{type: 'button'}
     %td
       %button.slice-save{type: 'button'}
       %button.slice-delete{type: 'button'}

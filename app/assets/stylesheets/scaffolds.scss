@@ -289,7 +289,7 @@ select.form-control::-ms-expand {
 div.minicolors{
   border: 1px solid #adb7be;
   border-radius: 5px;
-  width: 10%;
+  width: 15%;
 }
 
 .slice-type, .slice-code{
@@ -324,4 +324,34 @@ div.minicolors{
   border-radius: 5px;
   width: 20%;
   margin: 20px auto 0;
+}
+
+#setting_theme{
+  width: 30%;
+}
+
+#duo_color{
+  margin-top: 7px;
+}
+
+.select-title{
+  line-height: 34px;
+  font-size: 20px;
+  float: left;
+  margin-right: 15px;
+  width: 60%;
+}
+
+.flex{
+  display: flex;
+  flex-wrap: wrap;
+}
+.around{
+  justify-content: space-around;
+}
+.row{
+  width:50%;
+}
+.flex .form-title{
+  width: 75%;
 }
