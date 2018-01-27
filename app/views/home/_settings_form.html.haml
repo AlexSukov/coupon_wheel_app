@@ -164,6 +164,12 @@
   .section-block
     %h2.home-title Preview
     .canvas-container
+      .canvas-back
+        =image_tag(asset_path('Back-2.png'))
+      .canvas-centerpiece
+        =image_tag(asset_path('Center.png'))
+      .canvas-marker
+        =image_tag(asset_path('Marker.png'))
       %canvas#wheel_preview
         Canvas not supported, use another browser.
       :javascript

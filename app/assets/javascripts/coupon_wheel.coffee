@@ -116,7 +116,7 @@ $ ->
     domain = document.domain
     $.ajax
       type: 'POST'
-      url: "https://ce7f6d7f.ngrok.io/clientside"
+      url: "https://f9158330.ngrok.io/clientside"
       data: { shop_domain: domain }
       dataType: "json"
       success: (data) ->
@@ -199,7 +199,7 @@ $ ->
       email = $this.children('.coupon-wheel-email').val()
       $.ajax
         type: 'POST'
-        url: "https://ce7f6d7f.ngrok.io/collected_emails"
+        url: "https://f9158330.ngrok.io/collected_emails"
         data: { collected_email: email, shop_domain: domain }
         dataType: "json"
         success: (data) ->

@@ -3,5 +3,64 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .canvas-container{
   width: 100%;
-  height: 70vh;
+  height: 100vh;
+  position: relative;
+}
+.canvas-back {
+  position: absolute;
+  top: 16%;
+  left: 32.7%;
+  z-index: 1;
+}
+.canvas-marker{
+  position: absolute;
+  z-index: 3;
+}
+.canvas-centerpiece{
+  position: absolute;
+  z-index: 3;
+  width: 80px;
+  top: 46%;
+  left: 47.5%;
+}
+.canvas-back img, .canvas-centerpiece img, .canvas-marker img{
+  width: 100%;
+}
+#wheel_preview{
+  z-index: 2;
+  position: absolute;
+}
+@media only screen and (max-width: 1200px){
+  .canvas-back {
+    top: 0%;
+    left: 22.7%;
+  }
+  .canvas-centerpiece {
+    top: 44%;
+    left: 46%;
+  }
+}
+@media only screen and (max-width: 1050px){
+  .canvas-back {
+    top: 17%;
+    left: 21%;
+  }
+  .canvas-centerpiece {
+    top: 46%;
+    left: 45.6%;
+  }
+  .canvas-marker{
+    top: 16%;
+    left: 46%;
+  }
+}
+@media only screen and (max-width: 800px){
+  .canvas-back {
+    top: 26.5%;
+    left: 10.7%;
+  }
+  .canvas-centerpiece {
+    top: 47%;
+    left: 44.3%;
+  }
 }

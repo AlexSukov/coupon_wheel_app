@@ -81,8 +81,9 @@
     numSegments: segments.length
     segments: segments
     textAlignment : 'center'
+    textFontSize : 14
     innerRadius   : 32
-    outerRadius   : 212
+    outerRadius   : 200
     textFillStyle : settings.font_color
     pins : {
         number     : segments.length,
