@@ -76,21 +76,33 @@
       else
         fillStyle = settings.win_section_color
     segments.push({ fillStyle: fillStyle, text: slice.label})
+  if $(window).width() > 767
+    outerRadius = 200
+    innerRadius = 40
+    textFontSize = 14
+  else if $(window).width() > 340
+    outerRadius = 125
+    innerRadius = 20
+    textFontSize = 12
+  else
+    outerRadius = 100
+    innerRadius = 15
+    textFontSize = 10
   Wheel = new Winwheel(
     canvasId: 'wheel_preview'
     numSegments: segments.length
     segments: segments
     textAlignment : 'center'
-    textFontSize : 14
-    innerRadius   : 32
-    outerRadius   : 200
+    textFontSize : textFontSize
+    innerRadius   : innerRadius
+    outerRadius   : outerRadius
     textFillStyle : settings.font_color
     pins : {
         number     : segments.length,
-        outerRadius : 10,
-        margin      : -10,
-        fillStyle   : '#7734c3',
-        strokeStyle : '#ffffff'
+        outerRadius : 5,
+        margin      : -5,
+        fillStyle   : '#3f3f3f',
+        strokeStyle : '#3f3f3f'
     })
   $('.canvas-container').css('background-color', settings.background_color)
 @collecting_data_for_preview = ->

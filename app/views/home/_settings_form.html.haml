@@ -19,22 +19,22 @@
       .logo-block
         .logo-text
           %h3.home-subtitle Big Logo
-          %p.home-info 350x150 px, max 100 kB, PNG/JPEG/GIF image
+          %p.home-info 300x150 px, max 100 kB, PNG/JPEG/GIF image
           = form.label :big_logo, class: "add-image" do
             = image_tag ("AddLogoButton.png")
             = form.file_field :big_logo, id: :setting_big_logo, class: 'form-control',
-            onchange: "readURL(this,'.big-logo-wrapper','.big-logo')"
+            onchange: "readURL(this,'.big-logo-wrapper','big-logo')"
         .big-logo-wrapper
           - if setting.big_logo.present?
             = image_tag setting.big_logo, class: "big-logo"
       .logo-block
         .logo-text
           %h3.home-subtitle Small Logo
-          %p.home-info 150x150 px, max 100 kB, PNG/JPEG/GIF image
+          %p.home-info 100x100 px, max 100 kB, PNG/JPEG/GIF image
           = form.label :small_logo, class: "add-image" do
             = image_tag ("AddLogoButton.png")
             = form.file_field :small_logo, id: :setting_small_logo, class: 'form-control',
-            onchange: "readURL(this,'.small-logo-wrapper','.small-logo')"
+            onchange: "readURL(this,'.small-logo-wrapper','small-logo'); readURL(this,'.canvas-logo','canvas-logo-img');"
         .small-logo-wrapper
           - if setting.small_logo.present?
             = image_tag setting.small_logo, class: "small-logo"
@@ -168,6 +168,9 @@
         =image_tag(asset_path('Back-2.png'))
       .canvas-centerpiece
         =image_tag(asset_path('Center.png'))
+        .canvas-logo
+          -if setting.small_logo.present?
+            =image_tag setting.small_logo, class: 'canvas-logo-img'
       .canvas-marker
         =image_tag(asset_path('Marker.png'))
       %canvas#wheel_preview
@@ -293,7 +296,7 @@
       .form-group.half.right
         .logo-text
           %h3.home-subtitle Tab icon
-          %p.home-info 100x100 px, max 100 kB, PNG/JPEG/GIF image
+          %p.home-info 64x64 px, max 100 kB, PNG/JPEG/GIF image
           = form.label :tab_icon, class: "add-image" do
             = image_tag ("AddLogoButton.png")
             = form.file_field :tab_icon, id: :setting_tab_icon, class: 'form-control',
