@@ -214,6 +214,8 @@ $ ->
             #coupon_wheel{
               position: absolute;
               z-index: 2;
+              top: 0;
+              left: 0;
             }
             .canvas-back img, .canvas-centerpiece img, .canvas-marker img{
               width: 100%;
@@ -260,10 +262,80 @@ $ ->
             .free_product_link:hover, .free_product_link:focus{
               opacity: 1;
             }
+            @media only screen and (max-width: 1400px){
+              .canvas-back {
+                top: 53%;
+                width: 98%;
+              }
+              .canvas-centerpiece{
+                width: 80%;
+
+              }
+              .coupon-wheel-text-container{
+                margin-right: 0;
+                margin-left:10%;
+              }
+              .canvas-marker{
+                top:22%;
+              }
+            }
+            @media only screen and (max-width: 767px){
+              .canvas-container, .coupon-wheel-text-container{
+                width: 100%;
+              }
+              .canvas-container{
+                height: 60%;
+              }
+              .big-logo{
+                display: none;
+              }
+              .coupon-wheel-text-container{
+                padding: 0;
+                margin: 0;
+                overflow: auto;
+                height: 35%;
+              }
+              .canvas-centerpiece{
+                width: 70%;
+              }
+              .coupon-wheel-modal-wrapper{
+                height: 95%;
+                width: 95%;
+                display: flex;
+                flex-wrap: wrap-reverse;
+              }
+              .coupon-wheel-modal-wrapper-blur{
+                filter: blur(5px);
+              }
+              img.canvas-logo-img{
+                width: 45px;
+                height: 45px;
+              }
+              .canvas-marker {
+                width: 12%;
+                top: 13%;
+              }
+              .canvas-back {
+                top: 55%;
+                width: 88%;
+              }
+              .coupon-wheel-text-container p{
+                margin-bottom: 10px;
+              }
+              #coupon-wheel-send{
+                padding: 5px 5px;
+                display: block;
+                margin: 15px auto;
+              }
+              .coupon-wheel-email {
+                padding: 7px 7px;
+              }
+            }
           </style>
         ")
         height = $('.canvas-container').height()
         width = $('.canvas-container').width()
+        $('.coupon-wheel-modal').css('height', $(window).height())
         $('#coupon_wheel').attr('width', width)
         $('#coupon_wheel').attr('height', height)
         segments = []
