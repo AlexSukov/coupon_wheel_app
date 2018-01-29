@@ -116,7 +116,7 @@ $ ->
     domain = document.domain
     $.ajax
       type: 'POST'
-      url: "https://5123671c.ngrok.io/clientside"
+      url: "https://f9158330.ngrok.io/clientside"
       data: { shop_domain: domain }
       dataType: "json"
       success: (data) ->
@@ -137,11 +137,15 @@ $ ->
         segments = []
         $.each slices, (i) ->
           slice = slices[i]
-          if slice.lose
-            segments.push({fillStyle: settings.lose_section_color, text: slice.label})
+          if settings.duo_color
+              fillStyle = slice.color
           else
-            segments.push({fillStyle: settings.win_section_color, text: slice.label,
-            code: slice.code, product_image: slice.product_image, slice_type: slice.slice_type})
+            if slice.lose
+              fillStyle = settings.lose_section_color
+            else
+              fillStyle = settings.win_section_color
+          segments.push({fillStyle: fillStyle, text: slice.label,
+          code: slice.code, product_image: slice.product_image, slice_type: slice.slice_type})
         theWheel = new Winwheel(
           canvasId: 'coupon_wheel'
           numSegments: segments.length
@@ -195,7 +199,7 @@ $ ->
       email = $this.children('.coupon-wheel-email').val()
       $.ajax
         type: 'POST'
-        url: "https://5123671c.ngrok.io/collected_emails"
+        url: "https://f9158330.ngrok.io/collected_emails"
         data: { collected_email: email, shop_domain: domain }
         dataType: "json"
         success: (data) ->

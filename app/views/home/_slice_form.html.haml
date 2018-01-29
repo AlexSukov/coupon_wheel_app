@@ -8,6 +8,7 @@
       %input.slice-label{type: "text", value: slice.label, onchange: "collecting_data_for_preview();" }
     %td
     %td.slice-color-td
+      %input.slice-color{type: "hidden", value: slice.color, onchange: "collecting_data_for_preview();" }
     %td
     %td
     %td
@@ -26,7 +27,7 @@
     %td
       %input.slice-code{type: "text", value: slice.code, hidden: free }
     %td.slice-color-td
-      %input.slice-color{type: "hidden", value: slice.color }
+      %input.slice-color{type: "hidden", value: slice.color, onchange: "collecting_data_for_preview();" }
     %td
       %input.slice-gravity{min: "0", max: "100", type: "number", value: slice.gravity,
       onchange: "collecting_data_for_probability();" }

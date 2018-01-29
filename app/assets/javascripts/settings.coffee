@@ -61,20 +61,29 @@
       ")
     reader.readAsDataURL input.files[0]
 @wheel_preview = (settings, slices) ->
+  height = $('.canvas-container').height()
+  width = $('.canvas-container').width()
+  $('#wheel_preview').attr('width', width)
+  $('#wheel_preview').attr('height', height)
   segments = []
   $.each slices, (i) ->
     slice = slices[i]
-    if slice.lose
-      segments.push({ fillStyle: settings.lose_section_color, text: slice.label})
+    if settings.duo_color
+        fillStyle = slice.color
     else
-      segments.push({ fillStyle: settings.win_section_color, text: slice.label})
+      if slice.lose
+        fillStyle = settings.lose_section_color
+      else
+        fillStyle = settings.win_section_color
+    segments.push({ fillStyle: fillStyle, text: slice.label})
   Wheel = new Winwheel(
     canvasId: 'wheel_preview'
     numSegments: segments.length
     segments: segments
     textAlignment : 'center'
+    textFontSize : 14
     innerRadius   : 32
-    outerRadius   : 212
+    outerRadius   : 200
     textFillStyle : settings.font_color
     pins : {
         number     : segments.length,
@@ -91,6 +100,7 @@
   settings['font_color'] = $('#setting_font_color').val()
   settings['win_section_color'] = $('#setting_win_section_color').val()
   settings['lose_section_color'] = $('#setting_lose_section_color').val()
+  settings['duo_color'] = $('#setting_duo_color').is(':checked')
   $('.slice').each ->
     type = $(this).find('.slice-type').val()
     if type == 'Losing'
@@ -98,7 +108,8 @@
     else
       lose = false
     label = $(this).find('.slice-label').val()
-    slices.push({label: label, lose: lose})
+    color = $(this).find('.slice-color').val()
+    slices.push({label: label, lose: lose, color: color})
   wheel_preview(settings, slices)
 
 $ ->
