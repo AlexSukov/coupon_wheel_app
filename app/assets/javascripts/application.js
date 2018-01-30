@@ -18,3 +18,4 @@
 //= require jquery.minicolors
 //= require_tree .
 //= stub coupon_wheel
+//= stub jquery.countdown.min
