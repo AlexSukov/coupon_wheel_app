@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180125070524) do
+ActiveRecord::Schema.define(version: 20180131065036) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -82,6 +82,15 @@ ActiveRecord::Schema.define(version: 20180125070524) do
     t.string "klaviyo_api_key"
     t.string "klaviyo_list_id"
     t.boolean "duo_color"
+    t.boolean "facebook_enable"
+    t.string "facebook_title", default: "YOU WON!"
+    t.string "facebook_desc", default: "SHARE YOUR LUCK WITH FRIENDS TO GET ANOTHER SPIN"
+    t.string "facebook_button", default: "SHARE ON FACEBOOK"
+    t.string "facebook_text_color", default: "#ffffff"
+    t.string "facebook_button_text_color", default: "#000000"
+    t.string "facebook_button_color", default: "#ffffff"
+    t.string "facebook_image"
+    t.string "facebook_image_mobile"
     t.index ["shop_id"], name: "index_settings_on_shop_id"
   end
 
@@ -103,7 +112,7 @@ ActiveRecord::Schema.define(version: 20180125070524) do
     t.bigint "setting_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "color", default: "#00ff99"
+    t.string "color"
     t.index ["setting_id"], name: "index_slices_on_setting_id"
   end
 

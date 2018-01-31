@@ -202,7 +202,7 @@ label {
   border-radius: 50%;
 }
 
-#setting_big_logo, #setting_small_logo, #setting_tab_icon{
+#setting_big_logo, #setting_small_logo, #setting_tab_icon, #setting_facebook_image, #setting_facebook_image_mobile{
   display: none;
 }
 
@@ -235,7 +235,7 @@ label {
   margin-right: 15px;
 }
 
-.small-logo-wrapper, .big-logo-wrapper, .tab-icon-wrapper{
+.small-logo-wrapper, .big-logo-wrapper, .tab-icon-wrapper, .facebook-image-wrapper, .facebook-image-mobile-wrapper{
   background-color: #f0f5f9;
   border-radius: 5px;
 }
@@ -255,7 +255,16 @@ label {
   width: 100px;
 }
 
-.big-logo-wrapper img, .small-logo-wrapper img, .tab-icon-wrapper img{
+.facebook-image-wrapper{
+  width: 600px;
+  height: 400px;
+}
+.facebook-image-mobile-wrapper{
+  width: 300px;
+  height: 500px;
+}
+
+.big-logo-wrapper img, .small-logo-wrapper img, .tab-icon-wrapper img, .facebook-image-wrapper img{
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -426,6 +435,7 @@ table div.minicolors{
 .flex{
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
 }
 .flex .form-title{
   width: 75%;
@@ -437,7 +447,7 @@ table div.minicolors{
 .around{
   justify-content: space-around;
 }
-.row{
+.row-flex{
   width:50%;
 }
 
@@ -471,7 +481,7 @@ table div.minicolors{
       width: 100%;
       margin-bottom: 10px;
   }
-  .half, .left, .right, .row{
+  .half, .left, .right, .row-flex{
     width: 100%;
     padding: 0;
     float: none;

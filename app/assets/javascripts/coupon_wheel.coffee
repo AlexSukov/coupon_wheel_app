@@ -476,16 +476,124 @@
     if !$('.coupon-wheel-modal').hasClass('coupon-wheel-progress-finished')
       animate_progress_bar(settings.progress_bar_percentage)
       $('.coupon-wheel-modal').addClass('coupon-wheel-progress-finished')
+@show_facebook_sharer = (settings, link) ->
+  if settings.facebook_enable
+    url = encodeURIComponent($("meta[property='og:url']").attr('content'))
+    $('body').prepend("
+      <div class='facebook-modal'>
+        <div class='facebook-modal-wrapper'></div>
+        <div class='facebook-modal-container'>
+          <div class='facebook-modal-container-wrapper'>
+            <span class='close-facebook-modal'>x</span>
+            <div class='facebook-text-container'>
+              <h2 class='facebook-title'>#{settings.facebook_title}</h2>
+              <p class='facebook-desc'>#{settings.facebook_desc}</p>
+              <a href='https://www.facebook.com/sharer/sharer.php?u=#{url}' target='_blank' class='facebook-link'>
+              <svg version='1.1' id='Capa_1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' x='0px' y='0px'
+              	 width='20px' height='20px' viewBox='0 0 612 612' style='fill: #{settings.facebook_button_text_color}; vertical-align: middle;' xml:space='preserve'>
+              	<g>
+              		<path d='M612,306C612,137.004,474.995,0,306,0C137.004,0,0,137.004,0,306c0,168.995,137.004,306,306,306
+              			C474.995,612,612,474.995,612,306z M27.818,306C27.818,152.36,152.36,27.818,306,27.818S584.182,152.36,584.182,306
+              			S459.64,584.182,306,584.182S27.818,459.64,27.818,306z'/>
+              		<path d='M317.739,482.617V306h58.279l9.208-58.529h-67.487v-29.348c0-15.272,5.007-29.849,26.928-29.849h43.813v-58.418h-62.201
+              			c-52.298,0-66.569,34.438-66.569,82.175v35.413h-35.885V306h35.885v176.617H317.739L317.739,482.617z'/>
+              	</g>
+              </svg>
+              #{settings.facebook_button}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <style>
+        .facebook-modal{
+          position: fixed;
+          height: 100vh;
+          width: 100vw;
+          z-index: 1000;
+        }
+        .facebook-modal-wrapper{
+          height: 100vh;
+          width: 100vw;
+          filter: blur(5px);
+          background-color: rgba(255,255,255,0.9);
+        }
+        .facebook-modal-container{
+          background-image: url(#{link}#{settings.facebook_image.url});
+          background-size: cover;
+          background-repeat: no-repeat;
+          width: 50%;
+          height: 50%;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+        }
+        .facebook-modal-container-wrapper{
+          width: 100%;
+          height: 100%;
+          position:relative;
+        }
+        .facebook-text-container{
+          width: 30%;
+          text-align: center;
+          position: absolute;
+          top: 50%;
+          left: 70%;
+          min-width: 210px;
+          transform: translate(-50%,-50%);
+        }
+        .facebook-title{
+          border-bottom: 1px solid;
+          padding-bottom: 10px;
+        }
+        .facebook-title, .facebook-desc{
+          color: #{settings.facebook_text_color};
+        }
+        .facebook-link{
+          color: #{settings.facebook_button_text_color};
+          background-color: #{settings.facebook_button_color};
+          border-color: #{settings.facebook_button_color};
+          border-radius: 5px;
+          padding: 5px 10px;
+        }
+        .facebook-link:hover{
+          opacity: 1;
+        }
+        .close-facebook-modal{
+          cursor: pointer;
+          color: #{settings.facebook_text_color};
+          position: absolute;
+          right: 10px;
+          top: 10px;
+          font-size: 24px;
+        }
+        @media only screen and (max-width: 767px){
+          .facebook-modal-container{
+            width: 95%;
+            height: 95%;
+            background-image: url(#{link}#{settings.facebook_image_mobile.url});
+          }
+          .facebook-text-container{
+            top: 75%;
+            left: 50%;
+          }
+        }
+      </style>
+    ")
+    $('body').on 'click', '.close-facebook-modal', ->
+      $('.facebook-modal').fadeOut()
 $ ->
     domain = document.domain
     $.ajax
       type: 'POST'
-      url: "https://3e667c66.ngrok.io/clientside"
+      url: "https://a431b5c2.ngrok.io/clientside"
       data: { shop_domain: domain }
       dataType: "json"
       success: (data) ->
         settings = data.settings
         slices = data.slices
+        show_facebook_sharer(settings, 'https://a431b5c2.ngrok.io')
         countdown = getCookie('coupon_wheel_app_countdown')
         url_filters = settings.url_filters
         permitted_url = true
@@ -499,7 +607,7 @@ $ ->
           if settings.enable
             if permitted_url
               if $(window).width() > 800 && settings.show_on_desktop
-                body_prepend(settings, 'https://3e667c66.ngrok.io')
+                body_prepend(settings, 'https://a431b5c2.ngrok.io')
                 if settings.show_on_desktop_leave_intent
                   $(document).mouseleave ->
                     show_coupon_wheel_modal(settings)
@@ -508,7 +616,7 @@ $ ->
                     show_coupon_wheel_modal(settings)
                   ), settings.show_on_desktop_seconds * 1000
               if $(window).width() < 800 && settings.show_on_mobile
-                body_prepend(settings, 'https://3e667c66.ngrok.io')
+                body_prepend(settings, 'https://a431b5c2.ngrok.io')
                 if settings.show_on_mobile_leave_intent
                   scroll = $(document).scrollTop()
                   $(document).scroll ->
@@ -580,7 +688,7 @@ $ ->
                 email = $this.children('.coupon-wheel-email').val()
                 $.ajax
                   type: 'POST'
-                  url: "https://3e667c66.ngrok.io/collected_emails"
+                  url: "https://a431b5c2.ngrok.io/collected_emails"
                   data: { collected_email: email, shop_domain: domain }
                   dataType: "json"
                   success: (data) ->

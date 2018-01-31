@@ -102,7 +102,7 @@
   .section-block
     %h2.home-title Colors
     .flex.around
-      .row
+      .row-flex
         .form-group
           - theme_options = [ ["Default", 'Default'], ["Madrid", 'Madrid'] ]
           - selected_theme = setting.theme
@@ -119,7 +119,7 @@
         .form-group.flex
           .form-title Bold text and button color
           = form.hidden_field :bold_text_and_button_color, id: :setting_bold_text_and_button_color, class: 'form-control'
-      .row
+      .row-flex
         .form-group.flex
           .select-title Use special color for each slice
           = form.label :duo_color, id: "duo_color", class: "switch" do
@@ -220,14 +220,14 @@
         %span.slider.round
     #progress-bar-container{hidden: !setting.enable_progress_bar }
       .flex.around
-        .row
+        .row-flex
           .form-group
             = form.label :progress_bar_text
             = form.text_field :progress_bar_text, id: :setting_progress_bar_text, class: 'form-control half'
           .form-group
             = form.label :progress_bar_percentage
             = form.number_field :progress_bar_percentage, id: :setting_progress_bar_percentage, min: 0, max: 100, class: 'form-control one-six'
-        .row
+        .row-flex
           .form-group
             = form.label :progress_bar_color
             = form.hidden_field :progress_bar_color, id: :setting_progress_bar_color, class: 'form-control'
@@ -240,7 +240,7 @@
   .section-block
     %h2.home-title Show on devices
     .flex.around
-      .row
+      .row-flex
         .form-group
           .form-title Show on desktop computer
           = form.label :show_on_desktop, class: "switch" do
@@ -262,7 +262,7 @@
             .form-title.time.left-intent-big After
             = form.number_field :show_on_desktop_seconds, id: :setting_show_on_desktop_seconds, min: 0, class: 'form-control time-input'
             .form-title.time seconds
-      .row
+      .row-flex
         .form-group
           .form-title Show on tablets and mobile
           = form.label :show_on_mobile, class: "switch" do
@@ -333,9 +333,60 @@
       %p.home-info Auto apply coupon on checkout page
 
   .section-block
+    %h2.home-title Facebook sharer
+    .form-group
+      .form-title Enable Facebook sharer
+      = form.label :facebook_enable, class: "switch" do
+        = form.check_box :facebook_enable, id: :setting_facebook_enable
+        %span.slider.round
+      %p.home-info If customer shares on Facebook allow another spin
+    #facebook-container{hidden: !setting.facebook_enable}
+      .form-group
+        = form.label :facebook_title
+        = form.text_field :facebook_title, id: :setting_facebook_title, class: 'form-control'
+      .form-group
+        = form.label :facebook_desc
+        = form.text_field :facebook_desc, id: :setting_facebook_desc, class: 'form-control'
+      .form-group
+        = form.label :facebook_button
+        = form.text_field :facebook_button, id: :setting_facebook_button, class: 'form-control'
+      .row-flex
+        .form-group.flex
+          .form-title Text color
+          = form.hidden_field :facebook_text_color, id: :setting_facebook_text_color, class: 'form-control'
+        .form-group.flex
+          .form-title Button text color
+          = form.hidden_field :facebook_button_text_color, id: :setting_facebook_button_text_color, class: 'form-control'
+        .form-group.flex
+          .form-title Button color
+          = form.hidden_field :facebook_button_color, id: :setting_facebook_button_color, class: 'form-control'
+      .form-group
+        .logo-text
+          %h3.home-subtitle Background Image
+          %p.home-info 600x400 px, max 500 kB, PNG/JPEG/GIF image
+          = form.label :facebook_image, class: "add-image" do
+            = image_tag ("AddLogoButton.png")
+            = form.file_field :facebook_image, id: :setting_facebook_image, class: 'form-control',
+            onchange: "readURL(this,'.facebook-image-wrapper','facebook-image')"
+        .facebook-image-wrapper
+          - if setting.facebook_image.present?
+            = image_tag setting.facebook_image, class: "facebook-image"
+      .form-group
+        .logo-text
+          %h3.home-subtitle Background Image for Mobile
+          %p.home-info 300x500 px, max 500 kB, PNG/JPEG/GIF image
+          = form.label :facebook_image_mobile, class: "add-image" do
+            = image_tag ("AddLogoButton.png")
+            = form.file_field :facebook_image_mobile, id: :setting_facebook_image_mobile, class: 'form-control',
+            onchange: "readURL(this,'.facebook-image-mobile-wrapper','facebook-image')"
+        .facebook-image-mobile-wrapper
+          - if setting.facebook_image_mobile.present?
+            = image_tag setting.facebook_image_mobile, class: "facebook-image"
+
+  .section-block
     %h2.home-title E-mails Integration
     .flex.around
-      .row
+      .row-flex
         %h3.home-subtitle Mailchimp
         #mailchimp
           .form-group.left-intent
@@ -353,7 +404,7 @@
                   displayMailchimpList("#{setting.mailchimp_api_key}", "#{setting.mailchimp_list_id}")
             .form-group
               = form.hidden_field :mailchimp_list_id, id: :setting_mailchimp_list_id, class: 'form-control'
-      .row
+      .row-flex
         %h3.home-subtitle Klaviyo
         #klaviyo
           .form-group.left-intent
