@@ -8,20 +8,24 @@
 }
 .canvas-back {
   position: absolute;
-  top: 16%;
-  left: 32.7%;
+  top: 52.4%;
+  left: 50%;
+  transform: translate(-50%,-50%);
   z-index: 1;
 }
 .canvas-marker{
   position: absolute;
   z-index: 3;
+  top: 24%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 .canvas-centerpiece{
   position: absolute;
   z-index: 3;
-  width: 80px;
-  top: 46%;
-  left: 47.5%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 .canvas-back img, .canvas-centerpiece img, .canvas-marker img{
   width: 100%;
@@ -30,37 +34,43 @@
   z-index: 2;
   position: absolute;
 }
-@media only screen and (max-width: 1200px){
-  .canvas-back {
-    top: 0%;
-    left: 22.7%;
+.canvas-logo{
+  position: absolute;
+  z-index: 4;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}
+img.canvas-logo-img{
+  width: 70px;
+  object-fit: cover;
+  height: 70px;
+  border-radius: 50%;
+}
+
+@media only screen and (max-width: 767px){
+  .canvas-back, .canvas-centerpiece{
+    width: 100%;
+  }
+  .canvas-marker {
+    top: 27%;
+    width: 15%;
   }
   .canvas-centerpiece {
-    top: 44%;
-    left: 46%;
+    top: 53%;
+  }
+  img.canvas-logo-img {
+    width: 60px;
+    height: 60px;
+  }
+  .canvas-back {
+    top: 57%;
   }
 }
-@media only screen and (max-width: 1050px){
-  .canvas-back {
-    top: 17%;
-    left: 21%;
-  }
-  .canvas-centerpiece {
-    top: 46%;
-    left: 45.6%;
-  }
-  .canvas-marker{
-    top: 16%;
-    left: 46%;
-  }
-}
-@media only screen and (max-width: 800px){
-  .canvas-back {
-    top: 26.5%;
-    left: 10.7%;
-  }
-  .canvas-centerpiece {
-    top: 47%;
-    left: 44.3%;
+
+@media only screen and (max-width: 340px){
+  img.canvas-logo-img {
+    width: 50px;
+    height: 50px;
   }
 }

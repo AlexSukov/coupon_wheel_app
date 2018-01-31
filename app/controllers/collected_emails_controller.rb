@@ -29,10 +29,7 @@ class CollectedEmailsController < ApplicationController
 
   def destroy
     @collected_email.destroy
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Collected email was successfully destroyed.' }
-      format.json { render status: 'ok' }
-    end
+    render json: { status: 'ok'}
   end
 
   private
