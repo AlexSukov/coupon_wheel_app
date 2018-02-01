@@ -131,6 +131,7 @@ $ ->
   $('#setting_win_section_color').minicolors theme: 'bootstrap'
   $('#setting_lose_section_color').minicolors theme: 'bootstrap'
   $('#setting_progress_bar_color').minicolors theme: 'bootstrap'
+  $('#setting_facebook_text_color, #setting_facebook_button_text_color, #setting_facebook_button_color').minicolors theme: 'bootstrap'
 
   $('.add_url').on 'click' , ->
     $('#url_filters').append("
@@ -268,6 +269,9 @@ $ ->
 
   $('#setting_klaviyo_enable').on 'change', ->
     $('#klaviyo-container').fadeToggle('fast');
+
+  $('#setting_facebook_enable').on 'change', ->
+    $('#facebook-container').fadeToggle('fast');
 
   $('.show-advanced').on 'click', ->
     $('#advanced-settings').fadeIn();

@@ -97,6 +97,8 @@ class SettingsController < ApplicationController
       :show_on_desktop, :show_on_mobile, :show_on_desktop_leave_intent, :show_on_mobile_leave_intent,
       :show_on_desktop_after, :show_on_mobile_after, :show_on_desktop_seconds, :show_on_mobile_seconds,
       :show_pull_out_tab, :tab_icon, :do_not_show_app, :discount_coupon_auto_apply, :url_filters,
-      :mailchimp_enable, :mailchimp_list_id, :mailchimp_api_key, :klaviyo_enable, :klaviyo_api_key, :klaviyo_list_id, :duo_color)
+      :mailchimp_enable, :mailchimp_list_id, :mailchimp_api_key, :klaviyo_enable, :klaviyo_api_key, :klaviyo_list_id, :duo_color,
+      :facebook_enable, :facebook_title, :facebook_desc, :facebook_button, :facebook_text_color, :facebook_button_text_color,
+      :facebook_button_color, :facebook_image, :facebook_image_mobile)
     end
 end

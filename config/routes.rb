@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   delete 'remove_url_filter/:id', to: 'settings#remove_url_filter'
   post 'create_discount_code', to: 'home#create_discount_code'
   delete 'destroy_discount_code/:id', to: 'home#destroy_discount_code'
-  
+  get 'activatecharge', to: 'home#activatecharge'
   root to: 'home#index'
   mount ShopifyApp::Engine, at: '/'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
