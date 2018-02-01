@@ -112,7 +112,7 @@ ActiveRecord::Schema.define(version: 20180131065036) do
     t.bigint "setting_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "color"
+    t.string "color", default: "#00ff99"
     t.index ["setting_id"], name: "index_slices_on_setting_id"
   end
 
