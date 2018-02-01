@@ -1,4 +1,6 @@
 class HomeController < ShopifyApp::AuthenticatedController
+  before_action :create_recurring_application_charge, only: :index
+
   def index
     @discounts = ShopifyAPI::PriceRule.find(:all)
     @shop = Shop.find_by(shopify_domain: ShopifyAPI::Shop.current.domain)
@@ -30,6 +32,32 @@ class HomeController < ShopifyApp::AuthenticatedController
     else
       render json: {status: :unprocessable_entity}
     end
+  end
+
+  def create_recurring_application_charge
+    @charge = ShopifyAPI::RecurringApplicationCharge.current
+    unless @charge
+      recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.new(
+              name: "Test plan",
+              price: 9.99,
+              return_url: "https://f9b8ea26.ngrok.io/activatecharge",
+              test: true,
+              trial_days: 7,
+              capped_amount: 100,
+              terms: "$0.99 for every order created")
+
+      if recurring_application_charge.save
+        redirect_to recurring_application_charge.confirmation_url
+      end
+    end
+  end
+
+  def activatecharge
+    recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.find(request.params['charge_id'])
+    if recurring_application_charge.status == "accepted"
+      recurring_application_charge.activate
+    end
+    redirect_to 'https://f9b8ea26.ngrok.io'
   end
 
   def destroy_discount_code

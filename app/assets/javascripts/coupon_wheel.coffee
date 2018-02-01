@@ -82,6 +82,10 @@
       <button class='continue_button'>#{settings.continue_button}</button>
       <button class='reject_discount_button'>#{settings.reject_discount_button}</button>
     ")
+    code = getCookie('coupon_wheel_app_code')
+    if code != ''
+      $("<p>Your prize from previous spin is: '#{code}'. Be aware that you can use only one discount code at checkout!</p>").insertAfter('.discount_code_title')
+
   else
     $('.coupon-wheel-text-container').append("
       <h2 class='winning_title'>#{settings.winning_title}</h2>
@@ -117,7 +121,7 @@
           <p class='guiding-text'>#{settings.guiding_text}</p>
           <form id='email-form'>
             <input type='email' class='coupon-wheel-email' placeholder='#{settings.enter_email}' required>
-            <button type='submit' id='coupon-wheel-send'> #{settings.spin_button} </button>
+            <button type='submit' id='coupon-wheel-send' class='coupon-wheel-send'> #{settings.spin_button} </button>
           </form>
           <button type='button' class='coupon-wheel-close'>#{settings.close_button} x</button>
         </div>
@@ -223,7 +227,7 @@
         float: right;
         color: #{settings.font_color};
       }
-      #coupon-wheel-send{
+      .coupon-wheel-send{
         background-color: #{settings.bold_text_and_button_color};
         border-color: #{settings.bold_text_and_button_color};
         border-radius: 5px;
@@ -310,7 +314,7 @@
         .coupon-wheel-text-container p{
           margin-bottom: 10px;
         }
-        #coupon-wheel-send{
+        .coupon-wheel-send{
           padding: 5px 5px;
           display: block;
           margin: 15px auto;
@@ -389,6 +393,25 @@
         border-radius: 5px;
       }
     </style>" ).insertAfter(progress_bar_position)
+  $('body').on 'click', '.pull-out-tab', ->
+    show_coupon_wheel_modal(settings)
+  $('body').on 'click', '.coupon-wheel-close, .free_product_reject, .reject_discount_button', ->
+    close_coupon_wheel_modal()
+    setCookie('coupon_wheel_app_do_not_show', 'true', settings.do_not_show_app)
+  $('body').on 'click', '.continue_button', (e)->
+    copyToClipboard('.code')
+    close_coupon_wheel_modal()
+    $(this).text("#{settings.copied_message}")
+    if settings.enable_discount_code_bar && getCookie('coupon_wheel_app_facebook') == ''
+      countdown = new Date
+      countdown.setTime countdown.getTime() + settings.discount_code_bar_countdown_time * 60 * 1000
+      exp_time = settings.discount_code_bar_countdown_time / 1440
+      setCookie('coupon_wheel_app_countdown', countdown, exp_time )
+      discount_code_bar(settings, countdown)
+    if settings.discount_coupon_auto_apply
+      code = $('.code').text()
+      exp_time = settings.discount_code_bar_countdown_time / 1440
+      setCookie('coupon_wheel_app_code', code, exp_time)
 @animate_progress_bar = (percentage) ->
   elem = $('#coupon-wheel-bar')
   width = 0
@@ -581,19 +604,90 @@
         }
       </style>
     ")
-    $('body').on 'click', '.close-facebook-modal', ->
-      $('.facebook-modal').fadeOut()
+@draw_wheel = (settings, slices) ->
+  height = $('.canvas-container').height()
+  width = $('.canvas-container').width()
+  if $(window).width() < 767
+    $('.coupon-wheel-modal-wrapper').css('height', $(window).height())
+  $('#coupon_wheel').attr('width', width)
+  $('#coupon_wheel').attr('height', height)
+  segments = []
+  $.each slices, (i) ->
+    slice = slices[i]
+    if settings.duo_color
+        fillStyle = slice.color
+    else
+      if slice.lose
+        fillStyle = settings.lose_section_color
+      else
+        fillStyle = settings.win_section_color
+    segments.push({fillStyle: fillStyle, text: slice.label,
+    code: slice.code, product_image: slice.product_image, slice_type: slice.slice_type})
+  if $(window).width() > 767
+    outerRadius = 200
+    innerRadius = 40
+    textFontSize = 14
+  else if $(window).width() > 340
+    outerRadius = 125
+    innerRadius = 20
+    textFontSize = 12
+  else
+    outerRadius = 100
+    innerRadius = 15
+    textFontSize = 10
+  theWheel = new Winwheel(
+    canvasId: 'coupon_wheel'
+    numSegments: segments.length
+    segments: segments
+    textAlignment : 'center'
+    innerRadius   : innerRadius
+    outerRadius   : outerRadius
+    textFontSize  : textFontSize
+    textFillStyle : settings.font_color
+    special_settings: settings
+    pins : {
+        number     : segments.length,
+        outerRadius : 5,
+        margin      : -5,
+        fillStyle   : '#3f3f3f',
+        strokeStyle : '#3f3f3f'
+    }
+    animation : {
+                      type: 'spinToStop'
+                      duration : 5
+                      spins    : 8
+                      callbackFinished: 'showWinner(winwheelToDrawDuringAnimation.getIndicatedSegment(), winwheelToDrawDuringAnimation.special_settings)'
+                  })
+  return theWheel
+
+@second_spin = (settings, slices)->
+  body_prepend(settings, 'https://f9b8ea26.ngrok.io')
+  $('#email-form').remove()
+  $("
+    <button type='button' class='spin coupon-wheel-send'>#{settings.spin_button}</button>
+  ").insertAfter('.guiding-text')
+  theWheel = draw_wheel(settings, slices)
+  slice_id = calculate_prob_and_get_slice_id(slices)
+  slice_index = slices.map((o) ->
+    o.id
+  ).indexOf(slice_id) + 1
+  stopAt = theWheel.getRandomForSegment(slice_index)
+  theWheel.animation.stopAngle = stopAt;
+  show_coupon_wheel_modal(settings)
+  $('body').on 'click', '.spin', ->
+    $('.coupon-wheel-text-container').html('')
+    theWheel.startAnimation()
+
 $ ->
     domain = document.domain
     $.ajax
       type: 'POST'
-      url: "https://a431b5c2.ngrok.io/clientside"
+      url: "https://f9b8ea26.ngrok.io/clientside"
       data: { shop_domain: domain }
       dataType: "json"
       success: (data) ->
         settings = data.settings
         slices = data.slices
-        show_facebook_sharer(settings, 'https://a431b5c2.ngrok.io')
         countdown = getCookie('coupon_wheel_app_countdown')
         url_filters = settings.url_filters
         permitted_url = true
@@ -603,11 +697,24 @@ $ ->
         if countdown != ''
           countdown = new Date(countdown)
           discount_code_bar(settings, countdown)
+        if getCookie('coupon_wheel_app_facebook') == ''
+          $("form[action*='/cart'] [name='checkout']").one 'click', (e) ->
+            $this = $(this)
+            e.preventDefault()
+            show_facebook_sharer(settings, 'https://f9b8ea26.ngrok.io')
+            $('body').on 'click', '.close-facebook-modal', ->
+              $('.facebook-modal').fadeOut()
+              setCookie('coupon_wheel_app_facebook', true, settings.do_not_show_app)
+              $this.click()
+            $('body').on 'click', '.facebook-link', ->
+              setCookie('coupon_wheel_app_facebook', true, settings.do_not_show_app)
+              $('.facebook-modal').fadeOut()
+              second_spin(settings, slices)
         if getCookie('coupon_wheel_app_do_not_show') != 'true'
           if settings.enable
             if permitted_url
               if $(window).width() > 800 && settings.show_on_desktop
-                body_prepend(settings, 'https://a431b5c2.ngrok.io')
+                body_prepend(settings, 'https://f9b8ea26.ngrok.io')
                 if settings.show_on_desktop_leave_intent
                   $(document).mouseleave ->
                     show_coupon_wheel_modal(settings)
@@ -616,7 +723,7 @@ $ ->
                     show_coupon_wheel_modal(settings)
                   ), settings.show_on_desktop_seconds * 1000
               if $(window).width() < 800 && settings.show_on_mobile
-                body_prepend(settings, 'https://a431b5c2.ngrok.io')
+                body_prepend(settings, 'https://f9b8ea26.ngrok.io')
                 if settings.show_on_mobile_leave_intent
                   scroll = $(document).scrollTop()
                   $(document).scroll ->
@@ -627,60 +734,7 @@ $ ->
                   setTimeout (->
                     show_coupon_wheel_modal(settings)
                   ), settings.show_on_mobile_seconds * 1000
-              height = $('.canvas-container').height()
-              width = $('.canvas-container').width()
-              if $(window).width() < 767
-                $('.coupon-wheel-modal-wrapper').css('height', $(window).height())
-              $('#coupon_wheel').attr('width', width)
-              $('#coupon_wheel').attr('height', height)
-              segments = []
-              $.each slices, (i) ->
-                slice = slices[i]
-                if settings.duo_color
-                    fillStyle = slice.color
-                else
-                  if slice.lose
-                    fillStyle = settings.lose_section_color
-                  else
-                    fillStyle = settings.win_section_color
-                segments.push({fillStyle: fillStyle, text: slice.label,
-                code: slice.code, product_image: slice.product_image, slice_type: slice.slice_type})
-              if $(window).width() > 767
-                outerRadius = 200
-                innerRadius = 40
-                textFontSize = 14
-              else if $(window).width() > 340
-                outerRadius = 125
-                innerRadius = 20
-                textFontSize = 12
-              else
-                outerRadius = 100
-                innerRadius = 15
-                textFontSize = 10
-              theWheel = new Winwheel(
-                canvasId: 'coupon_wheel'
-                numSegments: segments.length
-                segments: segments
-                textAlignment : 'center'
-                innerRadius   : innerRadius
-                outerRadius   : outerRadius
-                textFontSize  : textFontSize
-                textFillStyle : settings.font_color
-                special_settings: settings
-                pins : {
-                    number     : segments.length,
-                    outerRadius : 5,
-                    margin      : -5,
-                    fillStyle   : '#3f3f3f',
-                    strokeStyle : '#3f3f3f'
-                }
-                animation : {
-                                  type: 'spinToStop'
-                                  duration : 5
-                                  spins    : 8
-                                  callbackFinished: 'showWinner(winwheelToDrawDuringAnimation.getIndicatedSegment(), winwheelToDrawDuringAnimation.special_settings)'
-                              })
-
+              theWheel = draw_wheel(settings, slices)
               $('body').on 'submit', '#email-form', (e) ->
                 e.preventDefault()
                 $this = $(this)
@@ -688,7 +742,7 @@ $ ->
                 email = $this.children('.coupon-wheel-email').val()
                 $.ajax
                   type: 'POST'
-                  url: "https://a431b5c2.ngrok.io/collected_emails"
+                  url: "https://f9b8ea26.ngrok.io/collected_emails"
                   data: { collected_email: email, shop_domain: domain }
                   dataType: "json"
                   success: (data) ->
@@ -700,31 +754,17 @@ $ ->
                     stopAt = theWheel.getRandomForSegment(slice_index)
                     theWheel.animation.stopAngle = stopAt;
                     theWheel.startAnimation()
-                    #setCookie('coupon_wheel_app_do_not_show', 'true', data.settings.do_not_show_app)
+                    setCookie('coupon_wheel_app_do_not_show', 'true', data.settings.do_not_show_app)
                   error: (data) ->
                     alert('Email not saved')
-              $('body').on 'click', '.pull-out-tab', ->
-                show_coupon_wheel_modal(settings)
-              $('body').on 'click', '.coupon-wheel-close, .free_product_reject, .reject_discount_button', ->
-                close_coupon_wheel_modal()
-                #setCookie('coupon_wheel_app_do_not_show', 'true', settings.do_not_show_app)
-              $('body').on 'click', '.continue_button', (e)->
-                copyToClipboard('.code')
-                close_coupon_wheel_modal()
-                $(this).text("#{settings.copied_message}")
-                if settings.discount_coupon_code_bar
-                  countdown = new Date
-                  countdown.setTime countdown.getTime() + settings.discount_code_bar_countdown_time * 60 * 1000
-                  exp_time = settings.discount_code_bar_countdown_time / 1440
-                  setCookie('coupon_wheel_app_countdown', countdown, exp_time )
-                  discount_code_bar(settings, countdown)
-                if settings.discount_coupon_auto_apply
-                  code = $('.code').text()
-                  exp_time = settings.discount_code_bar_countdown_time / 1440
-                  setCookie('coupon_wheel_app_code',code, exp_time)
       error: (data) ->
         alert('All bad')
 
   code = getCookie('coupon_wheel_app_code')
   if code != ''
-    $("form[action='/cart']").attr('action','/cart?discount=' + code)
+    attribute = $("form[action*='/cart']").attr('action')
+    if attribute == '/cart'
+      attribute = attribute + '?discount=' + code
+    else
+      attribute = attribute + '&discount=' + code
+    $("form[action*='/cart']").attr('action', attribute)
