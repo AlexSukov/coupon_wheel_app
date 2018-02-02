@@ -76,12 +76,16 @@
       else
         fillStyle = settings.win_section_color
     segments.push({ fillStyle: fillStyle, text: slice.label})
-  if $(window).width() > 767
+  if $(window).width() > 1400
     outerRadius = 200
     innerRadius = 40
     textFontSize = 14
+  else if $(window).width() > 767
+    outerRadius = 160
+    innerRadius = 30
+    textFontSize = 14
   else if $(window).width() > 340
-    outerRadius = 125
+    outerRadius = 115
     innerRadius = 20
     textFontSize = 12
   else

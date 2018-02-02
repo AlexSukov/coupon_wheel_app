@@ -264,7 +264,7 @@ label {
   height: 500px;
 }
 
-.big-logo-wrapper img, .small-logo-wrapper img, .tab-icon-wrapper img, .facebook-image-wrapper img{
+.big-logo-wrapper img, .small-logo-wrapper img, .tab-icon-wrapper img, .facebook-image-wrapper img, .facebook-image-mobile-wrapper img{
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -435,6 +435,8 @@ table div.minicolors{
 .flex{
   display: flex;
   flex-wrap: wrap;
+}
+.align-center{
   align-items: center;
 }
 .flex .form-title{
@@ -521,7 +523,7 @@ table div.minicolors{
     height: 107px;
     width: 250px;
   }
-  .create_slice, .add_discount_code_form, .add_url{
+  .create_slice, .add_discount_code_form, .add_url, .show-advanced{
     width: 50%;
   }
   .form-title{
@@ -538,5 +540,13 @@ table div.minicolors{
     width: 30%;
     float: none;
     margin: 5px auto;
+  }
+  .facebook-image-wrapper{
+    width: 200px;
+    height: 100px;
+  }
+  .facebook-image-mobile-wrapper{
+    width: 100px;
+    height: 170px;
   }
 }

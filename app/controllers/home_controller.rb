@@ -40,11 +40,9 @@ class HomeController < ShopifyApp::AuthenticatedController
       recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.new(
               name: "Test plan",
               price: 9.99,
-              return_url: "https://579eb1cb.ngrok.io/activatecharge",
+              return_url: "https://4e05a47d.ngrok.io/activatecharge",
               test: true,
-              trial_days: 7,
-              capped_amount: 100,
-              terms: "$0.99 for every order created")
+              trial_days: 7)
       if recurring_application_charge.save
         response.headers.delete('X-Frame-Options')
         fullpage_redirect_to recurring_application_charge.confirmation_url
@@ -56,14 +54,10 @@ class HomeController < ShopifyApp::AuthenticatedController
     recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.find(request.params['charge_id'])
     if recurring_application_charge.status == "accepted"
       recurring_application_charge.activate
-      redirect_to 'https://579eb1cb.ngrok.io'
+      redirect_to root_path
     else
       render 'accept_charge'
     end
-  end
-
-  def dick
-    render layout: false
   end
 
   def destroy_discount_code
