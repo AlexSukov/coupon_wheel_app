@@ -271,6 +271,38 @@
           top:22%;
         }
       }
+      @media only screen and (max-width: 1025px){
+        .coupon-wheel-modal-wrapper{
+          height: 95%;
+          width: 95%;
+          display: flex;
+          flex-wrap: wrap;
+        }
+        .canvas-container, .coupon-wheel-text-container{
+          width: 100%;
+        }
+        .canvas-container{
+          height: 45%;
+        }
+        .coupon-wheel-text-container{
+          margin: 0;
+          height: 55%;
+          padding: 10% 10% 0 10%;
+        }
+        .big-logo{
+          display: none;
+        }
+        .canvas-centerpiece {
+          width: 55%;
+        }
+        .canvas-back {
+          top: 56%;
+          width: 67%;
+        }
+        .canvas-marker {
+          top: 7%;
+        }
+      }
       @media only screen and (max-width: 767px){
         .canvas-container, .coupon-wheel-text-container{
           width: 100%;
@@ -288,7 +320,8 @@
           height: 35%;
         }
         .canvas-centerpiece{
-          width: 70%;
+          width: 76%;
+          top: 53%;
         }
         .coupon-wheel-modal-wrapper{
           height: 95%;
@@ -308,8 +341,8 @@
           top: 13%;
         }
         .canvas-back {
-          top: 55%;
-          width: 88%;
+          top: 57%;
+          width: 92%;
         }
         .coupon-wheel-text-container p{
           margin-bottom: 10px;
@@ -661,7 +694,7 @@
   return theWheel
 
 @second_spin = (settings, slices)->
-  body_prepend(settings, 'https://f9b8ea26.ngrok.io')
+  body_prepend(settings, 'https://579eb1cb.ngrok.io')
   $('#email-form').remove()
   $("
     <button type='button' class='spin coupon-wheel-send'>#{settings.spin_button}</button>
@@ -682,7 +715,7 @@ $ ->
     domain = document.domain
     $.ajax
       type: 'POST'
-      url: "https://f9b8ea26.ngrok.io/clientside"
+      url: "https://579eb1cb.ngrok.io/clientside"
       data: { shop_domain: domain }
       dataType: "json"
       success: (data) ->
@@ -701,7 +734,7 @@ $ ->
           $("form[action*='/cart'] [name='checkout']").one 'click', (e) ->
             $this = $(this)
             e.preventDefault()
-            show_facebook_sharer(settings, 'https://f9b8ea26.ngrok.io')
+            show_facebook_sharer(settings, 'https://579eb1cb.ngrok.io')
             $('body').on 'click', '.close-facebook-modal', ->
               $('.facebook-modal').fadeOut()
               setCookie('coupon_wheel_app_facebook', true, settings.do_not_show_app)
@@ -714,7 +747,7 @@ $ ->
           if settings.enable
             if permitted_url
               if $(window).width() > 800 && settings.show_on_desktop
-                body_prepend(settings, 'https://f9b8ea26.ngrok.io')
+                body_prepend(settings, 'https://579eb1cb.ngrok.io')
                 if settings.show_on_desktop_leave_intent
                   $(document).mouseleave ->
                     show_coupon_wheel_modal(settings)
@@ -723,7 +756,7 @@ $ ->
                     show_coupon_wheel_modal(settings)
                   ), settings.show_on_desktop_seconds * 1000
               if $(window).width() < 800 && settings.show_on_mobile
-                body_prepend(settings, 'https://f9b8ea26.ngrok.io')
+                body_prepend(settings, 'https://579eb1cb.ngrok.io')
                 if settings.show_on_mobile_leave_intent
                   scroll = $(document).scrollTop()
                   $(document).scroll ->
@@ -742,7 +775,7 @@ $ ->
                 email = $this.children('.coupon-wheel-email').val()
                 $.ajax
                   type: 'POST'
-                  url: "https://f9b8ea26.ngrok.io/collected_emails"
+                  url: "https://579eb1cb.ngrok.io/collected_emails"
                   data: { collected_email: email, shop_domain: domain }
                   dataType: "json"
                   success: (data) ->
