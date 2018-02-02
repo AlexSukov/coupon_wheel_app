@@ -48,23 +48,42 @@ img.canvas-logo-img{
   border-radius: 50%;
 }
 
-@media only screen and (max-width: 767px){
-  .canvas-back, .canvas-centerpiece{
-    width: 100%;
+@media only screen and (max-width: 1400px){
+  .canvas-marker{
+    top: 17%;
+    width: 5%;
   }
-  .canvas-marker {
-    top: 27%;
-    width: 15%;
-  }
-  .canvas-centerpiece {
+  .canvas-back{
     top: 53%;
+    width: 40%;
   }
-  img.canvas-logo-img {
+  .canvas-centerpiece{
+    width: 33%;
+  }
+  img.canvas-logo-img{
     width: 60px;
     height: 60px;
   }
-  .canvas-back {
-    top: 57%;
+}
+
+@media only screen and (max-width: 767px){
+  .canvas-back{
+    width: 95%;
+    top: 58%;
+  }
+  .canvas-centerpiece{
+    width: 80%;
+  }
+  .canvas-marker {
+    top: 26%;
+    width: 15%;
+  }
+  .canvas-centerpiece {
+    top: 55%;
+  }
+  img.canvas-logo-img {
+    width: 45px;
+    height: 45px;
   }
 }
 

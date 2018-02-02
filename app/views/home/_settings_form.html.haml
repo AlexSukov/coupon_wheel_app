@@ -103,34 +103,34 @@
     %h2.home-title Colors
     .flex.around
       .row-flex
-        .form-group
-          - theme_options = [ ["Default", 'Default'], ["Madrid", 'Madrid'] ]
-          - selected_theme = setting.theme
-          .select-title Theme
-          = form.select :theme, options_for_select(theme_options, selected_theme), {}, {class: 'form-control custom-select', id: 'setting_theme' }
-        .form-group.flex
+        -# .form-group
+            - theme_options = [ ["Default", 'Default'], ["Madrid", 'Madrid'] ]
+            - selected_theme = setting.theme
+            .select-title Theme
+            = form.select :theme, options_for_select(theme_options, selected_theme), {}, {class: 'form-control custom-select', id: 'setting_theme' }
+        .form-group.flex.align-center
           .form-title Background Color
           = form.hidden_field :background_color, id: :setting_background_color, class: 'form-control',
           onchange: "collecting_data_for_preview();"
-        .form-group.flex
+        .form-group.flex.align-center
           .form-title Font Color
           = form.hidden_field :font_color, id: :setting_font_color, class: 'form-control',
           onchange: "collecting_data_for_preview();"
-        .form-group.flex
+        .form-group.flex.align-center
           .form-title Bold text and button color
           = form.hidden_field :bold_text_and_button_color, id: :setting_bold_text_and_button_color, class: 'form-control'
       .row-flex
-        .form-group.flex
+        .form-group.flex.align-center
           .select-title Use special color for each slice
           = form.label :duo_color, id: "duo_color", class: "switch" do
             = form.check_box :duo_color, id: :setting_duo_color, onchange: "collecting_data_for_preview();"
             %span.slider.round
         #duo-color-settings{hidden: setting.duo_color }
-          .form-group.flex
+          .form-group.flex.align-center
             .form-title Win section color
             = form.hidden_field :win_section_color, id: :setting_win_section_color, class: 'form-control',
             onchange: "collecting_data_for_preview();"
-          .form-group.flex
+          .form-group.flex.align-center
             .form-title Lose section color
             = form.hidden_field :lose_section_color, id: :setting_lose_section_color, class: 'form-control',
             onchange: "collecting_data_for_preview();"
@@ -148,7 +148,7 @@
       %tr
         %th Slice
         %th Type
-        %th Coupon Name
+        %th Discount Name
         %th Coupon Code
         %th.slice-color-td Slice Color
         %th Gravity
@@ -228,7 +228,7 @@
             = form.label :progress_bar_percentage
             = form.number_field :progress_bar_percentage, id: :setting_progress_bar_percentage, min: 0, max: 100, class: 'form-control one-six'
         .row-flex
-          .form-group
+          .form-group.align-center
             = form.label :progress_bar_color
             = form.hidden_field :progress_bar_color, id: :setting_progress_bar_color, class: 'form-control'
           .form-group
@@ -309,7 +309,7 @@
     %h2.home-title Don't show app
     .form-group.float-container
       .form-title.time Don't show app for
-      = form.number_field :do_not_show_app, id: :setting_do_not_show_app, min: 0, class: 'form-control time-input'
+      = form.number_field :do_not_show_app, id: :setting_do_not_show_app, min: 1, class: 'form-control time-input'
       .form-title.time days
 
   .section-block
@@ -351,13 +351,13 @@
         = form.label :facebook_button
         = form.text_field :facebook_button, id: :setting_facebook_button, class: 'form-control'
       .row-flex
-        .form-group.flex
+        .form-group.flex.align-center
           .form-title Text color
           = form.hidden_field :facebook_text_color, id: :setting_facebook_text_color, class: 'form-control'
-        .form-group.flex
+        .form-group.flex.align-center
           .form-title Button text color
           = form.hidden_field :facebook_button_text_color, id: :setting_facebook_button_text_color, class: 'form-control'
-        .form-group.flex
+        .form-group.flex.align-center
           .form-title Button color
           = form.hidden_field :facebook_button_color, id: :setting_facebook_button_color, class: 'form-control'
       .form-group

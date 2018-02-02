@@ -167,7 +167,8 @@
         color: #{settings.font_color};
         width: 40%;
         margin-right: 10%;
-        height:100%
+        height: 100%;
+        overflow: auto;
       }
       .disclaimer-text, .guiding-text, .winning_text, .discount_code_title, .free_product_description{
         color: #{settings.font_color};
@@ -224,7 +225,8 @@
       .coupon-wheel-close, .reject_discount_button, .free_product_reject{
         background-color: transparent;
         border: none;
-        float: right;
+        width: 100%;
+        text-align: right;
         color: #{settings.font_color};
       }
       .coupon-wheel-send{
@@ -254,27 +256,64 @@
       .coupon-wheel-modal-showing{
         left: 0;
       }
-      @media only screen and (max-width: 1400px){
-        .canvas-back {
-          top: 53%;
-          width: 98%;
-        }
-        .canvas-centerpiece{
-          width: 80%;
-
-        }
-        .coupon-wheel-text-container{
-          margin-right: 0;
-          margin-left:10%;
-        }
-        .canvas-marker{
-          top:22%;
-        }
+      .big-logo{
+        max-width: 300px;
+        max-height: 168px;
       }
-      @media only screen and (max-width: 1025px){
+      @media only screen and (max-width: 1400px){
+        .coupon-wheel-modal-wrapper-blur{
+          filter: blur(5px);
+        }
         .coupon-wheel-modal-wrapper{
           height: 95%;
           width: 95%;
+        }
+        .canvas-back {
+          top: 54%;
+          width: 80%;
+        }
+        .canvas-centerpiece {
+          width: 65%;
+        }
+        .coupon-wheel-text-container{
+          margin-right: 0;
+          margin-left: 10%;
+          padding-top: 5%
+        }
+        .canvas-marker{
+          top:15%;
+        }
+      }
+      @media only screen and (max-width: 1300px){
+        .canvas-back {
+          top: 53%;
+          width: 85%;
+        }
+        .canvas-centerpiece {
+          width: 66%;
+          top: 50.5%;
+        }
+        .coupon-wheel-text-container {
+          padding-top: 20%;
+        }
+        .canvas-marker{
+          top:27%;
+        }
+      }
+      @media only screen and (max-width: 1100px){
+        .canvas-marker {
+          top: 35%;
+        }
+        .canvas-back {
+          top: 52%;
+          width: 100%;
+        }
+        .coupon-wheel-text-container {
+          padding-top: 40%;
+        }
+      }
+      @media only screen and (max-width: 1023px){
+        .coupon-wheel-modal-wrapper{
           display: flex;
           flex-wrap: wrap;
         }
@@ -282,12 +321,13 @@
           width: 100%;
         }
         .canvas-container{
-          height: 45%;
+          height: 55%;
         }
         .coupon-wheel-text-container{
           margin: 0;
-          height: 55%;
+          height: 45%;
           padding: 10% 10% 0 10%;
+          overflow: auto;
         }
         .big-logo{
           display: none;
@@ -296,11 +336,11 @@
           width: 55%;
         }
         .canvas-back {
-          top: 56%;
-          width: 67%;
+          top: 54.5%;
+          width: 70%;
         }
         .canvas-marker {
-          top: 7%;
+          top: 8%;
         }
       }
       @media only screen and (max-width: 767px){
@@ -358,6 +398,33 @@
         .continue_button, .free_product_button{
           width: 100%;
           margin: 20px auto;
+        }
+      }
+      @media only screen and (device-width: 414px){
+        .canvas-back {
+          top: 57%;
+          width: 87%;
+        }
+        .coupon-wheel-text-container {
+          height: 40%;
+        }
+      }
+      @media only screen and (device-width: 375px){
+        .canvas-back {
+          top: 59%;
+          width: 92%;
+        }
+        .coupon-wheel-text-container {
+          height: 40%;
+        }
+      }
+      @media only screen and (device-width: 320px){
+        .canvas-back {
+          top: 61%;
+          width: 89%;
+        }
+        .coupon-wheel-text-container {
+          height: 40%;
         }
       }
     </style>
@@ -430,11 +497,13 @@
     show_coupon_wheel_modal(settings)
   $('body').on 'click', '.coupon-wheel-close, .free_product_reject, .reject_discount_button', ->
     close_coupon_wheel_modal()
+    window.coupon = true
     setCookie('coupon_wheel_app_do_not_show', 'true', settings.do_not_show_app)
   $('body').on 'click', '.continue_button', (e)->
-    copyToClipboard('.code')
+    if $(window).width() > 767
+      copyToClipboard('.code')
+      $(this).text("#{settings.copied_message}")
     close_coupon_wheel_modal()
-    $(this).text("#{settings.copied_message}")
     if settings.enable_discount_code_bar && getCookie('coupon_wheel_app_facebook') == ''
       countdown = new Date
       countdown.setTime countdown.getTime() + settings.discount_code_bar_countdown_time * 60 * 1000
@@ -694,7 +763,7 @@
   return theWheel
 
 @second_spin = (settings, slices)->
-  body_prepend(settings, 'https://579eb1cb.ngrok.io')
+  body_prepend(settings, 'https://4e05a47d.ngrok.io')
   $('#email-form').remove()
   $("
     <button type='button' class='spin coupon-wheel-send'>#{settings.spin_button}</button>
@@ -715,12 +784,13 @@ $ ->
     domain = document.domain
     $.ajax
       type: 'POST'
-      url: "https://579eb1cb.ngrok.io/clientside"
+      url: "https://4e05a47d.ngrok.io/clientside"
       data: { shop_domain: domain }
       dataType: "json"
       success: (data) ->
         settings = data.settings
         slices = data.slices
+        window.coupon = false
         countdown = getCookie('coupon_wheel_app_countdown')
         url_filters = settings.url_filters
         permitted_url = true
@@ -734,7 +804,7 @@ $ ->
           $("form[action*='/cart'] [name='checkout']").one 'click', (e) ->
             $this = $(this)
             e.preventDefault()
-            show_facebook_sharer(settings, 'https://579eb1cb.ngrok.io')
+            show_facebook_sharer(settings, 'https://4e05a47d.ngrok.io')
             $('body').on 'click', '.close-facebook-modal', ->
               $('.facebook-modal').fadeOut()
               setCookie('coupon_wheel_app_facebook', true, settings.do_not_show_app)
@@ -747,22 +817,26 @@ $ ->
           if settings.enable
             if permitted_url
               if $(window).width() > 800 && settings.show_on_desktop
-                body_prepend(settings, 'https://579eb1cb.ngrok.io')
+                body_prepend(settings, 'https://4e05a47d.ngrok.io')
                 if settings.show_on_desktop_leave_intent
                   $(document).mouseleave ->
-                    show_coupon_wheel_modal(settings)
+                    if $('#discount-code-bar').length == 0 && window.coupon == false
+                      show_coupon_wheel_modal(settings)
                 if settings.show_on_desktop_after
                   setTimeout (->
                     show_coupon_wheel_modal(settings)
                   ), settings.show_on_desktop_seconds * 1000
               if $(window).width() < 800 && settings.show_on_mobile
-                body_prepend(settings, 'https://579eb1cb.ngrok.io')
+                body_prepend(settings, 'https://4e05a47d.ngrok.io')
                 if settings.show_on_mobile_leave_intent
-                  scroll = $(document).scrollTop()
-                  $(document).scroll ->
-                    if $(this).scrollTop() < scroll
-                      show_coupon_wheel_modal(settings)
-                    scroll = $(this).scrollTop()
+                  scroll = $(window).scrollTop()
+                  $(window).scroll ->
+
+                    if $(this).scrollTop() < scroll-30
+                      if $('#discount-code-bar').length == 0 && window.coupon == false
+                        show_coupon_wheel_modal(settings)
+                    else
+                      scroll = $(this).scrollTop()
                 if settings.show_on_mobile_after
                   setTimeout (->
                     show_coupon_wheel_modal(settings)
@@ -775,7 +849,7 @@ $ ->
                 email = $this.children('.coupon-wheel-email').val()
                 $.ajax
                   type: 'POST'
-                  url: "https://579eb1cb.ngrok.io/collected_emails"
+                  url: "https://4e05a47d.ngrok.io/collected_emails"
                   data: { collected_email: email, shop_domain: domain }
                   dataType: "json"
                   success: (data) ->
