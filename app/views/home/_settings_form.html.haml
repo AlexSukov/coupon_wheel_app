@@ -20,6 +20,7 @@
         .logo-text
           %h3.home-subtitle Big Logo
           %p.home-info 300x150 px, max 100 kB, PNG/JPEG/GIF image
+          %p.home-info Big logo will be shown above title
           = form.label :big_logo, class: "add-image" do
             = image_tag ("AddLogoButton.png")
             = form.file_field :big_logo, id: :setting_big_logo, class: 'form-control',
@@ -31,6 +32,7 @@
         .logo-text
           %h3.home-subtitle Small Logo
           %p.home-info 100x100 px, max 100 kB, PNG/JPEG/GIF image
+          %p.home-info Big logo will be shown in the center of the wheel
           = form.label :small_logo, class: "add-image" do
             = image_tag ("AddLogoButton.png")
             = form.file_field :small_logo, id: :setting_small_logo, class: 'form-control',
@@ -144,6 +146,7 @@
 
   .section-block
     %h2.home-title Slices
+    %p.home-info Bear in mind, that our wheel will never stop on a losing slice.
     %table#slice-container
       %tr
         %th Slice
@@ -190,7 +193,9 @@
         = render 'discount_form', discount: discount, inxed: index+1
     %button.add_discount_code_form{type: 'button' } Add Discount Code
     %br
+    %p.home-info Be aware, that discount codes created from this app can be only applied once per customer, and apply to whole cart.
     %p.home-info For more detailed settings go to a Discounts tab on admin panel.
+
 
   .section-block
     %h2.home-title Discount code bar
@@ -314,7 +319,7 @@
 
   .section-block
     %h2.home-title URL filters
-    %p.home-info Choose where to not show your Wheel
+    %p.home-info Choose where to not show your Wheel. If left blank, wheel will be shown on every page.
     #url_filters{'data-setting-id': setting.id}
       -if setting.url_filters?
         -setting.url_filters.each do |url|
@@ -395,6 +400,9 @@
               = form.check_box :mailchimp_enable, id: :setting_mailchimp_enable
               %span.slider.round
           #mailchimp-container{hidden: !setting.mailchimp_enable}
+            %p.home-info
+              To find your API Key go to
+              %a{href:'https://kb.mailchimp.com/integrations/api-integrations/about-api-keys', target: '_blank'}='official Mailchimp page'
             .form-group.left-intent
               = form.label :mailchimp_api_key
               = form.text_field :mailchimp_api_key, id: :setting_mailchimp_api_key, class: 'form-control two-third'
@@ -413,6 +421,9 @@
               = form.check_box :klaviyo_enable, id: :setting_klaviyo_enable
               %span.slider.round
           #klaviyo-container{hidden: !setting.klaviyo_enable}
+            %p.home-info
+              To find your API Key go to
+              %a{href:'https://help.klaviyo.com/hc/en-us/articles/115005062267-Manage-Your-Account-s-API-Keys', target: '_blank'}='official Klaviyo page'
             .form-group.left-intent
               = form.label :klaviyo_api_key
               = form.text_field :klaviyo_api_key, id: :setting_klaviyo_api_key, class: 'form-control two-third'
@@ -426,12 +437,11 @@
   .section-block
     %h2.home-title Collected Emails
     %table#collected_emails
-      - collected_emails.each_with_index do |collected_email, index|
-        %tr.collected-email
-          %td= index+1
-          %td= collected_email.email
-          %td
-            %button.remove-email{type: 'button', 'data-email-id': collected_email.id }
+      = render 'collected_emails'
+    #pagination
+      = paginate @collected_emails, params: {controller: 'home', action: 'collected_emails_pagination'}, remote: true
+    #page-entries
+      = page_entries_info @collected_emails
 
   .section-block
     .actions

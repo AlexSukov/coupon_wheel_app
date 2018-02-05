@@ -12,3 +12,5 @@ $ ->
         ShopifyApp.flashNotice("Email successfully deleted")
       error: (data) ->
         ShopifyApp.flashError("Something went wrong with email deletion")
+  $('#pagination').on 'click', "span:not('.current')", ->
+    ShopifyApp.flashNotice('Fetching collected emails. Please wait')

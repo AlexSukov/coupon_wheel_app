@@ -6,7 +6,12 @@ class HomeController < ShopifyApp::AuthenticatedController
     @shop = Shop.find_by(shopify_domain: ShopifyAPI::Shop.current.domain)
     @settings = Setting.find_or_create_by(shop_id: @shop.id)
     @slices = Slice.where(setting_id: @settings.id).order("id ASC")
-    @collected_emails = CollectedEmail.where(shop_id: @shop.id)
+    @collected_emails = CollectedEmail.where(shop_id: @shop.id).page(params[:page]).per(3)
+  end
+
+  def collected_emails_pagination
+    @shop = Shop.find_by(shopify_domain: ShopifyAPI::Shop.current.domain)
+    @collected_emails = CollectedEmail.where(shop_id: @shop.id).page(params[:page]).per(3)
   end
 
   def create_discount_code
@@ -40,7 +45,7 @@ class HomeController < ShopifyApp::AuthenticatedController
       recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.new(
               name: "Test plan",
               price: 9.99,
-              return_url: "https://4e05a47d.ngrok.io/activatecharge",
+              return_url: "https://e683b6db.ngrok.io/activatecharge",
               test: true,
               trial_days: 7)
       if recurring_application_charge.save

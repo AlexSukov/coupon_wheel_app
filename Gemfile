@@ -55,9 +55,20 @@ gem 'jquery-rails'
 gem 'bootstrap-sass'
 gem 'rack-cors', require: 'rack/cors'
 gem 'pg', '~> 0.18'
+
+# Image uploading
 gem 'carrierwave'
 gem 'mini_magick'
+
+# Color-picker
 gem 'jquery-minicolors-rails'
+
+# Mailchimp
 gem 'gibbon'
+
+# Klaviyo
 gem 'klaviyo'
 gem 'pry-rails'
+
+# Pagination
+gem 'kaminari'

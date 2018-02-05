@@ -1,0 +1,10 @@
+- @collected_emails.each_with_index do |collected_email, index|
+  %tr.collected-email
+    -if @collected_emails.prev_page
+      %td= @collected_emails.prev_page * @collected_emails.limit_value + index + 1
+    -else
+      %td= index+1
+    %td
+      = collected_email.email
+    %td
+      %button.remove-email{type: 'button', 'data-email-id': collected_email.id }
