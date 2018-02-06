@@ -1,0 +1,3 @@
+$("#collected_emails").html("<%=j render partial: 'collected_emails'%>");
+$('#pagination').html("<%= j paginate @collected_emails, params: {controller: 'home', action: 'collected_emails_pagination'}, remote: true %>");
+$('#page-entries').html("<%= j page_entries_info @collected_emails %>");

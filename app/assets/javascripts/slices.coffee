@@ -61,14 +61,25 @@ $ ->
             </select></td>
             <td>
               <button type='button' class='slice-choose-product' hidden>Add Product</button>
-              <input class='slice-label' type='text' value='#{data.slice.label}' onchange='collecting_data_for_preview();'>
+              <input class='slice-label' type='text' value='#{data.slice.label}'
+                onchange='collecting_data_for_preview();'>
               <input class='slice-product-image' type='text' hidden>
             </td>
-            <td><input class='slice-code' type='text' value='#{data.slice.code}'></td>
-            <td class='slice-color-td' data-color-id='#{data.slice.id}'><input class='slice-color' type='hidden' value='#{data.slice.color}'></td>
-            <td><input class='slice-gravity' type='number' min='0' max='100' value='#{data.slice.gravity}' onchange='collecting_data_for_probability();'></td>
+            <td>
+              <input class='slice-code' type='text' value='#{data.slice.code}'
+                list='suggested_discounts'>
+            </td>
+            <td class='slice-color-td' data-color-id='#{data.slice.id}'>
+              <input class='slice-color'type='hidden' value='#{data.slice.color}'>
+            </td>
+            <td><input class='slice-gravity' type='number' min='0' max='100'
+            value='#{data.slice.gravity}' onchange='collecting_data_for_probability();'>
+            </td>
             <td class='slice-probability'></td>
-            <td><button type='button' class='slice-save'><button type='button' class='slice-delete'></button></td>
+            <td>
+              <button type='button' class='slice-save'><button type='button' class='slice-delete'>
+              </button>
+            </td>
           </tr>
         ")
         $(".slice-color-td[data-color-id='#{data.slice.id}']").children('.slice-color').minicolors theme: 'bootstrap'
@@ -83,7 +94,8 @@ $ ->
               <tr class='slice' data-slice-id='#{data.slice.id}'>
                 <td class='slice-index' data-slice-index=#{slice_index}>#{slice_index}</td>
                 <td><input class='slice-type' type='text' value='#{data.slice.slice_type}' disabled></td>
-                <td><input class='slice-label' type='text' value='#{data.slice.label}' onchange='collecting_data_for_preview();'></td>
+                <td><input class='slice-label' type='text' value='#{data.slice.label}'
+                  onchange='collecting_data_for_preview();'></td>
                 <td></td>
                 <td class='slice-color-td'></td>
                 <td></td>

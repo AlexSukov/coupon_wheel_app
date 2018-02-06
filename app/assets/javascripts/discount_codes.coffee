@@ -1,3 +1,17 @@
+#надо повесить эту функцию на change инпута
+@discount_code_verification = (input) ->
+  value = input.val()
+  flag = undefined
+  $('#suggested_discounts').children().each ->
+    if $(this).val() == value
+      flag = true
+      return false
+    else
+      flag = false
+  if flag
+    input.removeClass('wrong_discount_code')
+  else
+    input.addClass('wrong_discount_code')
 $ ->
   $('.add_discount_code_form').on 'click' ,->
     $(this).prop('disabled', true)
@@ -76,6 +90,9 @@ $ ->
             </td>
           </tr>
         ")
+        $('#suggested_discounts').prepend("
+          <option data-discount-id='#{discount.id}' value='#{discount.title}'></option>
+        ")
         ShopifyApp.flashNotice("Discount code successfully created")
       error: (data) ->
         ShopifyApp.flashError("Something went wrong with discount code creation")
@@ -83,12 +100,16 @@ $ ->
   $('#discount-codes').on 'click', '.destroy_discount_code', ->
     $tr = $(this).parent().parent()
     id = $(this).data('id')
+    $suggested_discount_option = $("option[data-discount-id=#{id}]")
     $.ajax
       type: 'DELETE'
       url: "/destroy_discount_code/#{id}"
       dataType: "json"
       success: (data) ->
         $tr.remove()
+        $suggested_discount_option.remove()
+        $('.slice-code').each ->
+          discount_code_verification($(this))
         ShopifyApp.flashNotice("Discount successfully deleted")
       error: (data) ->
         ShopifyApp.flashError("Something went wrong with discount code deletion")
