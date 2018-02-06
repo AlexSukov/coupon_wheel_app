@@ -32,7 +32,7 @@
         .logo-text
           %h3.home-subtitle Small Logo
           %p.home-info 100x100 px, max 100 kB, PNG/JPEG/GIF image
-          %p.home-info Big logo will be shown in the center of the wheel
+          %p.home-info Small logo will be shown in the center of the wheel
           = form.label :small_logo, class: "add-image" do
             = image_tag ("AddLogoButton.png")
             = form.file_field :small_logo, id: :setting_small_logo, class: 'form-control',
@@ -167,7 +167,6 @@
       - @discounts.each do |discount|
         %option{value: discount.title, 'data-discount-id': discount.id}
 
-
   .section-block
     %h2.home-title Preview
     .canvas-container
@@ -205,6 +204,7 @@
     %h2.home-title Discount code bar
     .form-group.float-container
       .form-title Enable discount code bar
+      %p.home-info Little trick to stimulate the customer to buy as soon as possible. The coupon will not be canceled when the time will end.
       = form.label :enable_discount_code_bar, class: "switch" do
         = form.check_box :enable_discount_code_bar, id: :setting_enable_discount_code_bar
         %span.slider.round
@@ -224,6 +224,7 @@
     %h2.home-title Progress bar
     .form-group.float-container
       .form-title Enable progress bar
+      %p.home-info Show customers how much coupons already used.
       = form.label :enable_progress_bar, class: "switch" do
         = form.check_box :enable_progress_bar, id: :setting_enable_progress_bar
         %span.slider.round
@@ -298,6 +299,7 @@
     %h2.home-title Pull-out-tab
     .form-group.half.left
       .form-title Show pull out tab
+      %p.home-info Use this if you don't want to show Wheel automatically. User should click on pull out tab to see pop-up.
       = form.label :show_pull_out_tab, class: "switch" do
         = form.check_box :show_pull_out_tab, id: :setting_show_pull_out_tab
         %span.slider.round
@@ -316,6 +318,7 @@
 
   .section-block
     %h2.home-title Don't show app
+    %p.home-info Choose how often your customers can use Coupon Wheel.
     .form-group.float-container
       .form-title.time Don't show app for
       = form.number_field :do_not_show_app, id: :setting_do_not_show_app, min: 1, class: 'form-control time-input'
@@ -406,7 +409,7 @@
           #mailchimp-container{hidden: !setting.mailchimp_enable}
             %p.home-info
               To find your API Key go to
-              %a{href:'https://kb.mailchimp.com/integrations/api-integrations/about-api-keys', target: '_blank'}='official Mailchimp page'
+              %a{href:'https://kb.mailchimp.com/integrations/api-integrations/about-api-keys', class:'mailer-link', target: '_blank'}='official Mailchimp page'
             .form-group.left-intent
               = form.label :mailchimp_api_key
               = form.text_field :mailchimp_api_key, id: :setting_mailchimp_api_key, class: 'form-control two-third'
@@ -427,7 +430,7 @@
           #klaviyo-container{hidden: !setting.klaviyo_enable}
             %p.home-info
               To find your API Key go to
-              %a{href:'https://help.klaviyo.com/hc/en-us/articles/115005062267-Manage-Your-Account-s-API-Keys', target: '_blank'}='official Klaviyo page'
+              %a{href:'https://help.klaviyo.com/hc/en-us/articles/115005062267-Manage-Your-Account-s-API-Keys', target: '_blank', class:'mailer-link'}='official Klaviyo page'
             .form-group.left-intent
               = form.label :klaviyo_api_key
               = form.text_field :klaviyo_api_key, id: :setting_klaviyo_api_key, class: 'form-control two-third'
