@@ -25,7 +25,7 @@
       %input.slice-label{type: "text", value: slice.label, onchange: "collecting_data_for_preview();" }
       %input.slice-product-image{type: 'text', value: slice.product_image, hidden: true}
     %td
-      %input.slice-code{type: "text", value: slice.code, hidden: free }
+      %input.slice-code{type: "text", value: slice.code, hidden: free, list: 'suggested_discounts' }
     %td.slice-color-td
       %input.slice-color{type: "hidden", value: slice.color, onchange: "collecting_data_for_preview();" }
     %td

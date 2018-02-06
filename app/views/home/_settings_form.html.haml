@@ -163,6 +163,10 @@
     :javascript
       calculate_probability(#{slices.to_json.html_safe})
     %br
+    %datalist#suggested_discounts
+      - @discounts.each do |discount|
+        %option{value: discount.title, 'data-discount-id': discount.id}
+
 
   .section-block
     %h2.home-title Preview
@@ -319,7 +323,7 @@
 
   .section-block
     %h2.home-title URL filters
-    %p.home-info Choose where to not show your Wheel. If left blank, wheel will be shown on every page.
+    %p.home-info Choose where to not show your Wheel. If left blank, wheel will be shown on all pages.
     #url_filters{'data-setting-id': setting.id}
       -if setting.url_filters?
         -setting.url_filters.each do |url|
