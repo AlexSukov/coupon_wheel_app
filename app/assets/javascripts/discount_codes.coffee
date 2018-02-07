@@ -1,17 +1,16 @@
-#надо повесить эту функцию на change инпута
 @discount_code_verification = (input) ->
   value = input.val()
   flag = undefined
   $('#suggested_discounts').children().each ->
     if $(this).val() == value
-      flag = true
-      return false
-    else
       flag = false
+    else
+      flag = true
   if flag
-    input.removeClass('wrong_discount_code')
-  else
     input.addClass('wrong_discount_code')
+  else
+    input.removeClass('wrong_discount_code')
+
 $ ->
   $('.add_discount_code_form').on 'click' ,->
     $(this).prop('disabled', true)
@@ -113,3 +112,6 @@ $ ->
         ShopifyApp.flashNotice("Discount successfully deleted")
       error: (data) ->
         ShopifyApp.flashError("Something went wrong with discount code deletion")
+
+  $('body').on 'change', '.slice-code', ->
+    discount_code_verification($(this))

@@ -385,6 +385,21 @@ table div.minicolors{
   margin: 20px auto 0;
 }
 
+.mailer-link{
+  color:#4caf50;
+  text-decoration: underline;
+}
+.page a, .next a, .last a, .prev a, .first a{
+  color:#4caf50;
+}
+.mailer-link:hover, .page a:hover, .next a:hover, .last a:hover, .prev a:hover, .first a:hover{
+  color: white;
+  background-color: #4caf50;
+}
+.mailer-link:visited, .page a:visited, .next a:visited, .last a:visited, .prev a:visited, .first a:visited{
+  color: #4caf50;
+}
+
 #setting_theme{
   width: 30%;
 }
