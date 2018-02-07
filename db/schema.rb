@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180131065036) do
+ActiveRecord::Schema.define(version: 20180207094436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20180131065036) do
     t.string "facebook_button_color", default: "#ffffff"
     t.string "facebook_image"
     t.string "facebook_image_mobile"
+    t.string "default_tab_icon", default: "/tab-icon/tab_icon.png"
     t.index ["shop_id"], name: "index_settings_on_shop_id"
   end
 
@@ -112,7 +113,7 @@ ActiveRecord::Schema.define(version: 20180131065036) do
     t.bigint "setting_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "color", default: "#00ff99"
+    t.string "color"
     t.index ["setting_id"], name: "index_slices_on_setting_id"
   end
 

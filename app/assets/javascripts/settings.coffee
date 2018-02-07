@@ -284,3 +284,15 @@ $ ->
   $('.close-advanced').on 'click', ->
     $('#advanced-settings').fadeOut();
     $('.show-advanced').show();
+
+  $('#setting_default_tab_icon').on 'change', ->
+    image = $(this).val()
+    if image == 'Custom'
+      $('#custom-tab-icon').fadeIn()
+      if $('#setting_tab_icon').val() != ''
+        $('#setting_tab_icon').trigger('change')
+    else
+      $('#custom-tab-icon').fadeOut()
+      $('.tab-icon-wrapper').html("
+        <img src='#{image}' class='tab-icon'>
+      ")
