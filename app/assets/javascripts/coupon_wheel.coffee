@@ -437,8 +437,12 @@
         <img class='canvas-logo-img' src='#{link}/#{settings.small_logo.url}'>
       </div>")
   if settings.show_pull_out_tab
+    if settings.default_tab_icon == 'Custom'
+      image = settings.tab_icon.url
+    else
+      image = settings.default_tab_icon
     $('body').prepend("
-      <button type='button' class='pull-out-tab'><img class='tab-icon' src='#{link}/#{settings.tab_icon.url}'></button>
+      <button type='button' class='pull-out-tab'><img class='tab-icon' src='#{link}/#{image}'></button>
       <style>
         .pull-out-tab{
           position: fixed;
