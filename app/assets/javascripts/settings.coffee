@@ -296,3 +296,5 @@ $ ->
       $('.tab-icon-wrapper').html("
         <img src='#{image}' class='tab-icon'>
       ")
+  $(window).resize ->
+    collecting_data_for_preview()

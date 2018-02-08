@@ -45,7 +45,7 @@ class HomeController < ShopifyApp::AuthenticatedController
       recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.new(
               name: "Test plan",
               price: 9.99,
-              return_url: "https://0c9836bf.ngrok.io/activatecharge",
+              return_url: "https://6a235071.ngrok.io/activatecharge",
               test: true,
               capped_amount: 9.99,
               trial_days: 7)
