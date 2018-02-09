@@ -298,3 +298,12 @@ $ ->
       ")
   $(window).resize ->
     collecting_data_for_preview()
+
+  $('#show-example').on 'click', ->
+    $(this).next().fadeToggle()
+    if $(this).attr('data-show') == 'show'
+      $(this).attr('data-show','hide')
+      $(this).html('Close example of text positioning')
+    else
+      $(this).attr('data-show','show')
+      $(this).html('Show me example of text positioning')

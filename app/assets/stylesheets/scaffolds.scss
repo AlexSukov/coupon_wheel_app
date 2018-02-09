@@ -367,12 +367,16 @@ table div.minicolors{
   width: 25px;
   vertical-align: middle;
 }
+
 .slice-save, .create_discount_code, .add-new-url{
   background-image: url(asset_path('save.png'));
 }
 .slice-delete, .url_delete, .destroy_discount_code, .cancel_discount_code, .remove-email, .remove-new-url-form {
   background-image: url(asset_path('remove.png'));
   margin-left: 10px;
+}
+.slice-save.disabled{
+  filter: grayscale(100%);
 }
 .create_slice, .add_discount_code_form, .add_url, .show-advanced, .close-advanced{
   display: block;
@@ -406,6 +410,21 @@ table div.minicolors{
 
 #duo_color{
   margin-top: 7px;
+}
+
+#show-example{
+  display: block;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-bottom: 15px;
+  color: #01ac3a;
+}
+#show-example:active, #show-example:focus{
+  outline: none;
+}
+.text-image{
+  display: none;
 }
 
 .select-title{
@@ -494,6 +513,9 @@ table div.minicolors{
 }
 
 @media only screen and (max-width: 1050px){
+  .text-image{
+    width: 100%;
+  }
   .logo-block {
       width: 100%;
       margin-bottom: 10px;
@@ -530,6 +552,7 @@ table div.minicolors{
   body{
     margin: 3px;
   }
+
   .add-image {
     right: 0;
     top: 15%;

@@ -1,5 +1,6 @@
 @discount_code_verification = (input) ->
   value = input.val()
+  parent = input.parent()
   flag = undefined
   $('#suggested_discounts').children().each ->
     if $(this).val() == value
@@ -8,19 +9,23 @@
       flag = true
   if flag
     input.addClass('wrong_discount_code')
+    parent.parent().children('td').children('.slice-save').addClass('disabled').attr("disabled", true);
+    parent.children('.home-info').remove()
+    parent.append("<p class='home-info'><br/>This code does not exist</p>")
   else
     input.removeClass('wrong_discount_code')
-
+    parent.parent().children('td').children('.slice-save').removeClass('disabled').attr("disabled", false);
+    parent.children('.home-info').remove()
 $ ->
   $('.add_discount_code_form').on 'click' ,->
     $(this).prop('disabled', true)
     $('#discount-container').append("
     <table id='discount-form'>
       <caption>
-        To create new discount code enter desired values below and press 'Create discount code'
+        To create new discount code enter desired values below and press 'Create discount code'. Avoid non-alphanumeric characters like % or ! or $ any other weird stuff ( @ # & – [ { } ] : ; ', ? / * ` ~ ^ + = < >) in the discount code name. Especially if your discount code name has multiple words with spaces.
       </caption>
       <tr>
-        <th>Name</th>
+        <th>Code</th>
         <th>Type</th>
         <th>Value</th>
         <th>Actions</th>

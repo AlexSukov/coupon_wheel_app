@@ -92,7 +92,7 @@
       <p class='free_product_description'>#{settings.free_product_description}</p>
       <img src='#{winningSegment.product_image}' class='product_image'>
       <div>
-        <a href='#{winningSegment.code}' class='free_product_link'><button type='button' class='free_product_button'>#{settings.free_product_button}</button></a>
+        <a href='https://#{winningSegment.code}' class='free_product_link'><button type='button' class='free_product_button'>#{settings.free_product_button}</button></a>
         <button class='free_product_reject'>#{settings.free_product_reject}</button>
       </div>
     ")
@@ -767,7 +767,7 @@
   return theWheel
 
 @second_spin = (settings, slices)->
-  body_prepend(settings, 'https://6a235071.ngrok.io')
+  body_prepend(settings, 'https://a57e58a8.ngrok.io')
   $('#email-form').remove()
   $("
     <button type='button' class='spin coupon-wheel-send'>#{settings.spin_button}</button>
@@ -788,7 +788,7 @@ $ ->
     domain = document.domain
     $.ajax
       type: 'POST'
-      url: "https://6a235071.ngrok.io/clientside"
+      url: "https://a57e58a8.ngrok.io/clientside"
       data: { shop_domain: domain }
       dataType: "json"
       success: (data) ->
@@ -808,7 +808,7 @@ $ ->
           $("form[action*='/cart'] [name='checkout']").one 'click', (e) ->
             $this = $(this)
             e.preventDefault()
-            show_facebook_sharer(settings, 'https://6a235071.ngrok.io')
+            show_facebook_sharer(settings, 'https://a57e58a8.ngrok.io')
             $('body').on 'click', '.close-facebook-modal', ->
               $('.facebook-modal').fadeOut()
               setCookie('coupon_wheel_app_facebook', true, settings.do_not_show_app)
@@ -821,7 +821,7 @@ $ ->
           if settings.enable
             if permitted_url
               if $(window).width() > 800 && settings.show_on_desktop
-                body_prepend(settings, 'https://6a235071.ngrok.io')
+                body_prepend(settings, 'https://a57e58a8.ngrok.io')
                 if settings.show_on_desktop_leave_intent
                   $(document).mouseleave ->
                     if $('#discount-code-bar').length == 0 && window.coupon == false
@@ -831,7 +831,7 @@ $ ->
                     show_coupon_wheel_modal(settings)
                   ), settings.show_on_desktop_seconds * 1000
               if $(window).width() < 800 && settings.show_on_mobile
-                body_prepend(settings, 'https://6a235071.ngrok.io')
+                body_prepend(settings, 'https://a57e58a8.ngrok.io')
                 if settings.show_on_mobile_leave_intent
                   scroll = $(window).scrollTop()
                   $(window).scroll ->
@@ -853,7 +853,7 @@ $ ->
                 email = $this.children('.coupon-wheel-email').val()
                 $.ajax
                   type: 'POST'
-                  url: "https://6a235071.ngrok.io/collected_emails"
+                  url: "https://a57e58a8.ngrok.io/collected_emails"
                   data: { collected_email: email, shop_domain: domain }
                   dataType: "json"
                   success: (data) ->
@@ -867,15 +867,15 @@ $ ->
                     theWheel.startAnimation()
                     setCookie('coupon_wheel_app_do_not_show', 'true', data.settings.do_not_show_app)
                   error: (data) ->
-                    alert('Email not saved')
+                    console.log('Email already exist')
       error: (data) ->
-        alert('All bad')
+        console.log('All bad');
 
   code = getCookie('coupon_wheel_app_code')
   if code != ''
     attribute = $("form[action*='/cart']").attr('action')
     if attribute == '/cart'
       attribute = attribute + '?discount=' + code
-    else
+    else if attribute == '/cart?'
       attribute = attribute + '&discount=' + code
     $("form[action*='/cart']").attr('action', attribute)

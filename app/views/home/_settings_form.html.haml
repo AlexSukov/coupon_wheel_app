@@ -43,6 +43,8 @@
 
   .section-block
     %h2.home-title Advanced
+    %button.home-subtitle{type: 'button', id: 'show-example', 'data-show': 'show'} Show me example of text positioning
+    = image_tag ("text-image.jpg"), class: 'text-image'
     .form-group.half
       = form.label :title_text
       = form.text_field :title_text, id: :setting_title_text, class: 'form-control'
@@ -147,12 +149,15 @@
   .section-block
     %h2.home-title Slices
     %p.home-info Bear in mind, that our wheel will never stop on a losing slice.
+    %h3.home-subtitle Slice type – Free product
+    %p.home-info This is for all “Pay only shipping” users. You can choose your free product by clicking on the “Add product” button. 
+    %p.home-info If you are not using the free product – pay only shipping method, please do not use this option.
     %table#slice-container
       %tr
         %th Slice
         %th Type
-        %th Discount Name
-        %th Coupon Code
+        %th Slice Name
+        %th Discount Code
         %th.slice-color-td Slice Color
         %th Gravity
         %th Probability
@@ -188,7 +193,7 @@
     %h2.home-title Discount Codes
     %table#discount-codes
       %tr
-        %th Name
+        %th Code
         %th Type
         %th Value
         %th Actions
@@ -204,10 +209,10 @@
     %h2.home-title Discount code bar
     .form-group.float-container
       .form-title Enable discount code bar
-      %p.home-info Little trick to stimulate the customer to buy as soon as possible. The coupon will not be canceled when the time will end.
       = form.label :enable_discount_code_bar, class: "switch" do
         = form.check_box :enable_discount_code_bar, id: :setting_enable_discount_code_bar
         %span.slider.round
+      %p.home-info Little trick to stimulate the customer to buy as soon as possible. The coupon will not be canceled when the time will end.
     #discount-code-bar-container{hidden: !setting.enable_discount_code_bar }
       .form-group.float-container
         .form-title.time Discount code bar coutdown time:
@@ -224,10 +229,10 @@
     %h2.home-title Progress bar
     .form-group.float-container
       .form-title Enable progress bar
-      %p.home-info Show customers how much coupons already used.
       = form.label :enable_progress_bar, class: "switch" do
         = form.check_box :enable_progress_bar, id: :setting_enable_progress_bar
         %span.slider.round
+      %p.home-info Nifty contraption for boosting your conversion rates.
     #progress-bar-container{hidden: !setting.enable_progress_bar }
       .flex.around
         .row-flex
@@ -354,7 +359,8 @@
       = form.label :discount_coupon_auto_apply, class: "switch" do
         = form.check_box :discount_coupon_auto_apply, id: :setting_discount_coupon_auto_apply
         %span.slider.round
-      %p.home-info Auto apply coupon on checkout page
+      %p.home-info Auto apply coupon on checkout page. Checkout links don't work?
+      %p.home-info Avoid non-alphanumeric characters like % or ! or $ any other weird stuff ( @ # & – [ { } ] : ; ', ? / * ` ~ ^ + = < >) in the discount code name. Especially if your discount code name has multiple words with spaces.
 
   .section-block
     %h2.home-title Facebook sharer
