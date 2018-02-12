@@ -767,7 +767,7 @@
   return theWheel
 
 @second_spin = (settings, slices)->
-  body_prepend(settings, 'https://a57e58a8.ngrok.io')
+  body_prepend(settings, 'https://3957111f.ngrok.io')
   $('#email-form').remove()
   $("
     <button type='button' class='spin coupon-wheel-send'>#{settings.spin_button}</button>
@@ -788,7 +788,7 @@ $ ->
     domain = document.domain
     $.ajax
       type: 'POST'
-      url: "https://a57e58a8.ngrok.io/clientside"
+      url: "https://3957111f.ngrok.io/clientside"
       data: { shop_domain: domain }
       dataType: "json"
       success: (data) ->
@@ -808,7 +808,7 @@ $ ->
           $("form[action*='/cart'] [name='checkout']").one 'click', (e) ->
             $this = $(this)
             e.preventDefault()
-            show_facebook_sharer(settings, 'https://a57e58a8.ngrok.io')
+            show_facebook_sharer(settings, 'https://3957111f.ngrok.io')
             $('body').on 'click', '.close-facebook-modal', ->
               $('.facebook-modal').fadeOut()
               setCookie('coupon_wheel_app_facebook', true, settings.do_not_show_app)
@@ -821,7 +821,7 @@ $ ->
           if settings.enable
             if permitted_url
               if $(window).width() > 800 && settings.show_on_desktop
-                body_prepend(settings, 'https://a57e58a8.ngrok.io')
+                body_prepend(settings, 'https://3957111f.ngrok.io')
                 if settings.show_on_desktop_leave_intent
                   $(document).mouseleave ->
                     if $('#discount-code-bar').length == 0 && window.coupon == false
@@ -831,7 +831,7 @@ $ ->
                     show_coupon_wheel_modal(settings)
                   ), settings.show_on_desktop_seconds * 1000
               if $(window).width() < 800 && settings.show_on_mobile
-                body_prepend(settings, 'https://a57e58a8.ngrok.io')
+                body_prepend(settings, 'https://3957111f.ngrok.io')
                 if settings.show_on_mobile_leave_intent
                   scroll = $(window).scrollTop()
                   $(window).scroll ->
@@ -853,7 +853,7 @@ $ ->
                 email = $this.children('.coupon-wheel-email').val()
                 $.ajax
                   type: 'POST'
-                  url: "https://a57e58a8.ngrok.io/collected_emails"
+                  url: "https://3957111f.ngrok.io/collected_emails"
                   data: { collected_email: email, shop_domain: domain }
                   dataType: "json"
                   success: (data) ->

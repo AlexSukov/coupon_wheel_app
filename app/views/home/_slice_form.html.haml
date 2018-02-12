@@ -20,12 +20,13 @@
       - free = false
     %td
       = select_tag "slice-type", options_for_select(slice_type_options, slice.slice_type), class: "slice-type custom-select"
+      %p.free-product-text{hidden: !free} Please choose the product with $0 price from the list
     %td
       %button.slice-choose-product{type: 'button', hidden: !free } Add Product
       %input.slice-label{type: "text", value: slice.label, onchange: "collecting_data_for_preview();" }
       %input.slice-product-image{type: 'text', value: slice.product_image, hidden: true}
     %td
-      %input.slice-code{type: "text", value: slice.code, hidden: free, list: 'suggested_discounts' }
+      %input.slice-code{type: "text", value: slice.code, hidden: free, list: 'suggested_discounts', placeholder: 'Choose discount' }
     %td.slice-color-td
       %input.slice-color{type: "hidden", value: slice.color, onchange: "collecting_data_for_preview();" }
     %td

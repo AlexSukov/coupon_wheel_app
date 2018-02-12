@@ -138,6 +138,14 @@ label {
   clear: both;
 }
 
+.float-left{
+  float: left;
+}
+.float-m-left{
+  float: left;
+  margin-left: 10px;
+}
+
 .float-container::before, .float-container::after{
   content: '';
   display: table;
@@ -344,8 +352,11 @@ table div.minicolors{
   width: 60%;
   margin: 0 auto;
 }
-
-.slice-type, .slice-code{
+.slice-code{
+  width: 80%;
+  min-width: 150px;
+}
+.slice-type{
   width: 60%;
 }
 
@@ -402,6 +413,9 @@ table div.minicolors{
 }
 .mailer-link:visited, .page a:visited, .next a:visited, .last a:visited, .prev a:visited, .first a:visited{
   color: #4caf50;
+}
+.free-product-text{
+  margin: 10px 0;
 }
 
 #setting_theme{
@@ -511,10 +525,18 @@ table div.minicolors{
   width: 50%;
   margin: 0 auto;
 }
+@media only screen and (max-width: 1400px){
+  .slice-delete, .url_delete, .destroy_discount_code, .cancel_discount_code, .remove-email, .remove-new-url-form{
+    margin: 0;
+  }
+}
 
 @media only screen and (max-width: 1050px){
   .text-image{
     width: 100%;
+  }
+  .slice-code{
+    min-width: 50px;
   }
   .logo-block {
       width: 100%;
@@ -524,9 +546,6 @@ table div.minicolors{
     width: 100%;
     padding: 0;
     float: none;
-  }
-  .slice-delete, .url_delete, .destroy_discount_code, .cancel_discount_code, .remove-email, .remove-new-url-form{
-    margin: 0;
   }
   .home-title{
     font-size: 20px;

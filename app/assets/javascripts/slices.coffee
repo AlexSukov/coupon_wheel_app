@@ -45,7 +45,7 @@ $ ->
     $.ajax
       type: 'POST'
       url: "/slices"
-      data: { slice: { setting_id: setting_id, lose: false, slice_type: 'Coupon', label: 'Coupon Name', code: '000-000-000', gravity: 0, color: '#00ff99' } }
+      data: { slice: { setting_id: setting_id, lose: false, slice_type: 'Coupon', label: 'Coupon Name', code: '', gravity: 0, color: '#00ff99' } }
       dataType: "json"
       success: (data) ->
         if $('.slice-index').length != 0
@@ -58,7 +58,9 @@ $ ->
             <td><select class='slice-type custom-select'>
               <option value='Coupon' selected>Coupon</option>
               <option value='Free Product'>Free Product</option>
-            </select></td>
+            </select>
+            <p class='free-product-text' hidden>Please choose the product with $0 price from the list</p>
+            </td>
             <td>
               <button type='button' class='slice-choose-product' hidden>Add Product</button>
               <input class='slice-label' type='text' value='#{data.slice.label}'
@@ -66,7 +68,7 @@ $ ->
               <input class='slice-product-image' type='text' hidden>
             </td>
             <td>
-              <input class='slice-code' type='text' value='#{data.slice.code}'
+              <input class='slice-code' type='text' placeholder='Choose discount'
                 list='suggested_discounts'>
             </td>
             <td class='slice-color-td' data-color-id='#{data.slice.id}'>
@@ -157,6 +159,7 @@ $ ->
       parent.children('td').children('.slice-code').val('000-000-000')
     parent.children('td').children('.slice-product-image').val('')
     parent.children('td').children('.slice-choose-product').toggle()
+    parent.children('td').children('.free-product-text').toggle()
     parent.children('td').children('.slice-code').toggle()
 
   $('#slice-container').on 'click', '.slice-choose-product', ->
