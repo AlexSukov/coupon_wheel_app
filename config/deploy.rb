@@ -7,7 +7,7 @@ server 'exitwheel.zoomifi.com', port: 22, roles: [:web, :app, :db], primary: tru
 
 set :repo_url,        'https://github.com/AlexSukov/coupon_wheel_app.git'
 set :application,     'ExitWheel'
-set :user,            'Alex Sukov'
+set :user,            'ubuntu'
 set :puma_threads,    [4, 16]
 set :puma_workers,    0
 
