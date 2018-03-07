@@ -19,5 +19,5 @@ test:
 production:
   <<: *default
   database: Coupon_wheel_app_production
-  username: dbuser
+  username: exitwheel
   password: slowsnow82

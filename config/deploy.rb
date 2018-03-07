@@ -2,7 +2,9 @@
 lock "3.7.1"
 
 # Change these
-server '54.204.249.80', port: 22, roles: [:web, :app, :db], primary: true, password: 'slowsnow82'
+
+ask(:password, nil, echo: false)
+server 'exitwheel.zoomifi.com', port: 22, roles: [:web, :app, :db], primary: true, password: fetch(:password)
 
 set :repo_url,        'https://github.com/AlexSukov/coupon_wheel_app.git'
 set :application,     'ExitWheel'
