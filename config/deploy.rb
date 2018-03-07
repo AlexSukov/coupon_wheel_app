@@ -2,10 +2,7 @@
 lock "3.7.1"
 
 # Change these
-server '54.204.249.80', port: 22, roles: [:web, :app, :db], primary: true
-
-hl = HighLine.new
-set :password, hl.ask('Please type server password (will not be shown):'){ |q| q.echo = false }
+server '54.204.249.80', port: 22, roles: [:web, :app, :db], primary: true, password: 'slowsnow82'
 
 set :repo_url,        'https://github.com/AlexSukov/coupon_wheel_app.git'
 set :application,     'ExitWheel'

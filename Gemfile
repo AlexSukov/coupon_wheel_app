@@ -77,5 +77,3 @@ gem 'pry-rails'
 
 # Pagination
 gem 'kaminari'
-
-gem 'highline', '~> 1.7', '>= 1.7.8'
