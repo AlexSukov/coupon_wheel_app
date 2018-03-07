@@ -6,17 +6,17 @@ default: &default
 development:
   <<: *default
   database: Coupon_wheel_app_development
-  username: postgres
-  password: postgres
+  username: dbuser
+  password: slowsnow82
 
 test:
   <<: *default
   database: Coupon_wheel_app_test
-  username: postgres
-  password: postgres
+  username: dbuser
+  password: slowsnow82
 
 production:
   <<: *default
   database: Coupon_wheel_app_production
-  username: Coupon_wheel_app
-  password: <%= ENV['COUPON_WHEEL_APP_DATABASE_PASSWORD'] %>
+  username: dbuser
+  password: slowsnow82
