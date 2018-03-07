@@ -2,7 +2,7 @@
 lock "3.7.1"
 
 # Change these
-server '172.31.13.143', port: 81, roles: [:web, :app, :db], primary: true
+server '54.204.249.80', port: 81, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'https://github.com/AlexSukov/coupon_wheel_app.git'
 set :application,     'ExitWheel'
