@@ -1,5 +1,5 @@
 ShopifyApp.configure do |config|
-  config.application_name = "Coupon Wheel App"
+  config.application_name = "Exit Stopper"
   config.api_key = "847a13dd3a1d07b391a0e603fb02c4b5"
   config.secret = "eeafd20e72730e1e997e93e61899255c"
   config.scope = "read_products, write_price_rules, read_price_rules, read_script_tags, write_script_tags"
