@@ -7,9 +7,9 @@ ShopifyApp.configure do |config|
   config.after_authenticate_job = false
   config.session_repository = Shop
   config.scripttags = [
-    {event:'onload', src: 'https://exitwheel.zoomifi.com/assets/coupon_wheel.js' },
-    {event:'onload', src: 'https://exitwheel.zoomifi.com/assets/winwheel.js'},
-    {event:'onload', src: 'https://exitwheel.zoomifi.com/assets/TweenMax.js'},
-    {event:'onload', src: 'https://exitwheel.zoomifi.com/assets/jquery.countdown.min.js'}
+    {event:'onload', src: 'https://exitwheel.zoomifi.com/js/coupon_wheel.coffee' },
+    {event:'onload', src: 'https://exitwheel.zoomifi.com/js/winwheel.js'},
+    {event:'onload', src: 'https://exitwheel.zoomifi.com/js/TweenMax.js'},
+    {event:'onload', src: 'https://exitwheel.zoomifi.com/js/jquery.countdown.min.js'}
   ]
 end
