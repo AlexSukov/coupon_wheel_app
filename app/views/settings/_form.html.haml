@@ -9,10 +9,10 @@
           %li= message
 
       %h3 Slices
-        = form.fields_for :slices do |slice|
-          = render 'slice_fields', form: slice
-        .links
-          = link_to_add_association 'add slice', form, :slices
+      = form.fields_for :slices do |slice|
+        = render 'slice_fields', form: slice
+      .links
+        = link_to_add_association 'add slice', form, :slices
 
   .actions
     = form.submit
