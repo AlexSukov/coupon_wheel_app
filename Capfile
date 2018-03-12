@@ -18,6 +18,7 @@ require 'capistrano/puma'
 # or
 require "capistrano/scm/git"
 install_plugin Capistrano::SCM::Git
+load 'deploy/assets'
 
 # Include tasks from other gems included in your Gemfile
 #
