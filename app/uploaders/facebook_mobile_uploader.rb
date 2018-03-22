@@ -1,6 +1,7 @@
 class FacebookMobileUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
-  storage :file
+  #storage :file
+  storage :fog
 
   process resize_to_limit: [300, 500]
 

@@ -61,6 +61,7 @@ gem 'pg', '~> 0.18'
 
 # Image uploading
 gem 'carrierwave'
+gem 'fog'
 gem 'mini_magick'
 
 # Color-picker
