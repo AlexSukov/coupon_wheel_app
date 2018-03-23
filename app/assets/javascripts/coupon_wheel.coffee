@@ -430,11 +430,11 @@
     </style>
   ")
   if settings.big_logo.url != null
-    $('.coupon-wheel-text-container').prepend("<img class='big-logo' src='#{link}/#{settings.big_logo.url}'>")
+    $('.coupon-wheel-text-container').prepend("<img class='big-logo' src='#{settings.big_logo.url}'>")
   if settings.small_logo.url != null
     $('.canvas-centerpiece').append("
       <div class='canvas-logo'>
-        <img class='canvas-logo-img' src='#{link}/#{settings.small_logo.url}'>
+        <img class='canvas-logo-img' src='#{settings.small_logo.url}'>
       </div>")
   if settings.show_pull_out_tab
     if settings.default_tab_icon == 'Custom'
@@ -442,7 +442,7 @@
     else
       image = settings.default_tab_icon
     $('body').prepend("
-      <button type='button' class='pull-out-tab'><img class='tab-icon' src='#{link}/#{image}'></button>
+      <button type='button' class='pull-out-tab'><img class='tab-icon' src='#{image}'></button>
       <style>
         .pull-out-tab{
           position: fixed;
@@ -648,7 +648,7 @@
           background-color: rgba(255,255,255,0.9);
         }
         .facebook-modal-container{
-          background-image: url(#{link}#{settings.facebook_image.url});
+          background-image: url(#{settings.facebook_image.url});
           background-size: cover;
           background-repeat: no-repeat;
           width: 50%;
@@ -701,7 +701,7 @@
           .facebook-modal-container{
             width: 95%;
             height: 95%;
-            background-image: url(#{link}#{settings.facebook_image_mobile.url});
+            background-image: url(#{settings.facebook_image_mobile.url});
           }
           .facebook-text-container{
             top: 75%;

@@ -314,7 +314,7 @@
           %h3.home-subtitle Tab icon
           %p.home-info 64x64 px, max 100 kB, PNG/JPEG/GIF image
           .form-group.logo-text
-            - tab_icon_options = [ ['Default 1', '/tab-icon/tab_icon.png'], ['Default 2', '/tab-icon/tab_icon_2.png'], ['Custom...', 'Custom'] ]
+            - tab_icon_options = [ ['Default 1', 'https://exitwheel.zoomifi.com/tab-icon/tab_icon.png'], ['Default 2', 'https://exitwheel.zoomifi.com/tab-icon/tab_icon_2.png'], ['Custom...', 'Custom'] ]
             - selected_tab_icon = setting.default_tab_icon
             .select-title Choose icon
             = form.select :default_tab_icon, options_for_select(tab_icon_options, selected_tab_icon), {}, {class: 'form-control custom-select one-third', id: 'setting_default_tab_icon'}
