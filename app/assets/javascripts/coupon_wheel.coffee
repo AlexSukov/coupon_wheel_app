@@ -161,6 +161,7 @@
         width: 50%;
         height: 100%;
         float: left;
+        max-width: 768px;
       }
       .coupon-wheel-text-container{
         padding-top: 10%;
@@ -185,6 +186,7 @@
         position: absolute;
         top: 50%;
         left: 50%;
+        width: 52%;
         transform: translate(-50%, -50%);
         z-index: 3;
       }
@@ -260,7 +262,7 @@
         max-width: 300px;
         max-height: 168px;
       }
-      @media only screen and (max-width: 1400px){
+      @media only screen and (max-width: 1600px){
         .coupon-wheel-modal-wrapper-blur{
           filter: blur(5px);
         }
@@ -310,6 +312,9 @@
         }
         .coupon-wheel-text-container {
           padding-top: 40%;
+        }
+        .canvas-centerpiece {
+          width: 83%;
         }
       }
       @media only screen and (max-width: 1023px){
