@@ -790,7 +790,7 @@
     theWheel.startAnimation()
 
 $ ->
-    domain = document.domain
+    domain = Shopify.shop
     $.ajax
       type: 'POST'
       url: "https://exitwheel.zoomifi.com/clientside"
