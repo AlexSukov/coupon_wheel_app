@@ -275,7 +275,8 @@
           width: 80%;
         }
         .canvas-centerpiece {
-          width: 65%;
+          width: 59.5%;
+          top: 50.5%;
         }
         .coupon-wheel-text-container{
           margin-right: 5%;
@@ -283,7 +284,16 @@
           padding-top: 1%;
         }
         .canvas-marker{
-          top:15%;
+          top: 20%;
+        }
+      }
+      @media only screen and (max-width: 1400px){
+        .canvas-centerpiece {
+          width: 65%;
+          top: 50%;
+        }
+        .canvas-marker {
+          top: 15%;
         }
       }
       @media only screen and (max-width: 1300px){
