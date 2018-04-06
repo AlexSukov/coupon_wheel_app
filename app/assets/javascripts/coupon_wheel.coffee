@@ -176,7 +176,7 @@
       }
       .canvas-back{
         position: absolute;
-        top: 54%;
+        top: 52.9%;
         left: 50%;
         transform: translate(-50%, -50%);
         width: 70%;
