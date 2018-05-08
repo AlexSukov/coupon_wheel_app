@@ -358,7 +358,7 @@
         }
         .canvas-container{
           position: absolute;
-          top: 98%;
+          top: 97%;
           transform: translateY(-50%);
         }
         .big-logo{
@@ -368,7 +368,7 @@
           padding: 0;
           margin: 0;
           overflow: auto;
-          height: 35%;
+          height: 70%;
         }
         .canvas-centerpiece{
           width: 76%;
@@ -416,18 +416,11 @@
           top: 57%;
           width: 87%;
         }
-        .coupon-wheel-text-container {
-          height: 40%;
-        }
       }
       @media only screen and (device-width: 375px){
         .canvas-back {
           top: 59%;
           width: 92%;
-        }
-        .coupon-wheel-text-container {
-          height: 70%;
-          margin-top: 15px;
         }
       }
       @media only screen and (device-width: 320px){
