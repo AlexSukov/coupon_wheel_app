@@ -369,7 +369,7 @@
       = form.label :facebook_enable, class: "switch" do
         = form.check_box :facebook_enable, id: :setting_facebook_enable
         %span.slider.round
-      %p.home-info If customer shares on Facebook allow another spin. Displays when customer clicks on check out after spinning a wheel.
+      %p.home-info If customer shares on Facebook allow another spin. Displays when customer clicks on check out after spinning a wheel. Be aware that customer may not actually share your post on Facebook.
     #facebook-container{hidden: !setting.facebook_enable}
       .form-group
         = form.label :facebook_title
