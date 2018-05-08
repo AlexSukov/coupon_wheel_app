@@ -40,15 +40,14 @@ class HomeController < ShopifyApp::AuthenticatedController
   end
 
   def create_recurring_application_charge
-    @charge = ShopifyAPI::RecurringApplicationCharge.current
-    unless @charge
+    unless ShopifyAPI::RecurringApplicationCharge.current
       recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.new(
-              name: "Test plan",
+              name: "Standard Plan",
               price: 9.99,
               return_url: "https://exitwheel.zoomifi.com/activatecharge",
               test: true,
-              capped_amount: 9.99,
               trial_days: 7)
+
       if recurring_application_charge.save
         response.headers.delete('X-Frame-Options')
         fullpage_redirect_to recurring_application_charge.confirmation_url
@@ -60,7 +59,7 @@ class HomeController < ShopifyApp::AuthenticatedController
     recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.find(request.params['charge_id'])
     if recurring_application_charge.status == "accepted"
       recurring_application_charge.activate
-      redirect_to root_path
+      fullpage_redirect_to root_path
     else
       render 'accept_charge'
     end

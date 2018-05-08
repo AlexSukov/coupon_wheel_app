@@ -305,6 +305,10 @@ label {
   padding-bottom: 2%;
   padding-right: 5%;
 }
+input.half{
+  padding-top: 0;
+  padding-bottom: 0;
+}
 .left{
   float: left;
 }
@@ -362,7 +366,7 @@ table div.minicolors{
 
 .slice-type.custom-select{
   background-position: 95% 50%;
-  background-size: 10%;
+  //background-size: 10%;
 }
 
 .slice-type.custom-select:focus{

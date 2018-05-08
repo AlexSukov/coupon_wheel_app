@@ -10,6 +10,7 @@ ShopifyApp.configure do |config|
     {event:'onload', src: 'https://exitwheel.zoomifi.com/assets/coupon_wheel.js' },
     {event:'onload', src: 'https://exitwheel.zoomifi.com/assets/winwheel.js'},
     {event:'onload', src: 'https://exitwheel.zoomifi.com/assets/TweenMax.js'},
-    {event:'onload', src: 'https://exitwheel.zoomifi.com/assets/jquery.countdown.min.js'}
+    {event:'onload', src: 'https://exitwheel.zoomifi.com/assets/jquery.countdown.min.js'},
+    {event:'onload', src: 'https://exitwheel.zoomifi.com/assets/clipboard.min.js'}
   ]
 end

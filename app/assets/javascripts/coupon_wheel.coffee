@@ -16,12 +16,6 @@
       return c.substring(name.length, c.length)
     i++
   ''
-@copyToClipboard = (element) ->
-  $temp = $('<input>')
-  $('body').append $temp
-  $temp.val($(element).text()).select()
-  document.execCommand 'copy'
-  $temp.remove()
 
 @random_item = (items) ->
   items[Math.floor(Math.random() * items.length)]
@@ -77,15 +71,15 @@
       <h2 class='winning_title'>#{settings.winning_title}</h2>
       <p class='winning_text'>#{settings.winning_text}</p>
       <p class='discount_code_title'>#{settings.discount_code_title}
-        <span class='code'>#{winningSegment.code}</span>
+        <span id='winning_code' class='code'>#{winningSegment.code}</span>
       </p>
-      <button class='continue_button'>#{settings.continue_button}</button>
+      <button data-clipboard-target='#winning_code' class='continue_button'>#{settings.continue_button}</button>
       <button class='reject_discount_button'>#{settings.reject_discount_button}</button>
     ")
     code = getCookie('coupon_wheel_app_code')
     if code != ''
       $("<p>Your prize from previous spin is: '#{code}'. Be aware that you can use only one discount code at checkout!</p>").insertAfter('.discount_code_title')
-
+    new ClipboardJS('.continue_button');
   else
     $('.coupon-wheel-text-container').append("
       <h2 class='winning_title'>#{settings.winning_title}</h2>
@@ -363,7 +357,9 @@
           width: 100%;
         }
         .canvas-container{
-          height: 60%;
+          position: absolute;
+          top: 98%;
+          transform: translateY(-50%);
         }
         .big-logo{
           display: none;
@@ -382,7 +378,7 @@
           height: 95%;
           width: 95%;
           display: flex;
-          flex-wrap: wrap-reverse;
+          position: relative;
         }
         .coupon-wheel-modal-wrapper-blur{
           filter: blur(5px);
@@ -430,7 +426,8 @@
           width: 92%;
         }
         .coupon-wheel-text-container {
-          height: 40%;
+          height: 70%;
+          margin-top: 15px;
         }
       }
       @media only screen and (device-width: 320px){
@@ -519,9 +516,7 @@
     window.coupon = true
     setCookie('coupon_wheel_app_do_not_show', 'true', settings.do_not_show_app)
   $('body').on 'click', '.continue_button', (e)->
-    if $(window).width() > 767
-      copyToClipboard('.code')
-      $(this).text("#{settings.copied_message}")
+    $(this).text("#{settings.copied_message}")
     close_coupon_wheel_modal()
     if settings.enable_discount_code_bar && getCookie('coupon_wheel_app_facebook') == ''
       countdown = new Date
