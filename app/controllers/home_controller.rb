@@ -43,10 +43,10 @@ class HomeController < ShopifyApp::AuthenticatedController
     unless ShopifyAPI::RecurringApplicationCharge.current
       recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.new(
               name: "Standard Plan",
-              price: 9.99,
+              price: 4.99,
               return_url: "https://exitwheel.zoomifi.com/activatecharge",
               test: true,
-              trial_days: 7)
+              trial_days: 10)
 
       if recurring_application_charge.save
         response.headers.delete('X-Frame-Options')

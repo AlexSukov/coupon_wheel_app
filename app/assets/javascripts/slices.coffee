@@ -140,7 +140,7 @@ $ ->
       slice_gravity = 0
     slice_product_image = $parent.children('td').children('.slice-product-image').val()
     if (slice_type == 'Losing')
-      data_slice = { slice: { label: slice_label } }
+      data_slice = { slice: { label: slice_label, color: slice_color } }
     else
       data_slice = { slice: { slice_type: slice_type, label: slice_label, code: slice_code, gravity: slice_gravity, product_image: slice_product_image, color: slice_color } }
     $.ajax

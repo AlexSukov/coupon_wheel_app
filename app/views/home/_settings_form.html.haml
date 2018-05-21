@@ -150,7 +150,7 @@
     %h2.home-title Slices
     %p.home-info Bear in mind, that our wheel will never stop on a losing slice.
     %h3.home-subtitle.float-left Slice type – Free product
-    %p.home-info.float-m-left When choosing the Free Product option - please create product with $0 price before
+    %p.home-subtitle.attention.float-m-left When choosing the Free Product option - please create product with $0 price before
     %h3.home-subtitle{style: 'clear: left;'} In order to save changes to slice you need to press corresponding slice save button with disk icon. Be aware, that pressing on "Save" button will not save changes to your slices.
     %table#slice-container
       %tr
@@ -377,6 +377,9 @@
       .form-group
         = form.label :facebook_desc
         = form.text_field :facebook_desc, id: :setting_facebook_desc, class: 'form-control'
+      .form-group
+        = form.label :facebook_link
+        = form.text_field :facebook_link, id: :setting_facebook_link, class: 'form-control'
       .form-group
         = form.label :facebook_button
         = form.text_field :facebook_button, id: :setting_facebook_button, class: 'form-control'

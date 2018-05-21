@@ -1,3 +1,8 @@
+@scroll_to_preview = ->
+  $('html, body').animate({
+    scrollTop: $(".canvas-container").offset().top
+  }, 2000);
+
 @displayMailchimpList = (api_key, list_id) ->
   $.ajax
     type: 'POST'

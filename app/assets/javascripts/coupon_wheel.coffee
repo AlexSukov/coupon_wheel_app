@@ -1,6 +1,6 @@
 if (location.href.includes('checkout') || location.href.includes('password'))
   console.log('It is a password or checkout page.')
-else 
+else
   @setCookie = (cname, cvalue, exdays) ->
     d = new Date
     d.setTime d.getTime() + exdays * 24 * 60 * 60 * 1000
@@ -613,7 +613,7 @@ else
         $('.coupon-wheel-modal').addClass('coupon-wheel-progress-finished')
   @show_facebook_sharer = (settings, link) ->
     if settings.facebook_enable
-      url = encodeURIComponent($("meta[property='og:url']").attr('content'))
+      url = encodeURIComponent(settings.facebook_link)
       $('body').prepend("
         <div class='facebook-modal'>
           <div class='facebook-modal-wrapper'></div>
