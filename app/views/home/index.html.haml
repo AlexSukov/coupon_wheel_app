@@ -9,7 +9,7 @@
           },
           secondary: [
             { label: "Help", callback: function(){ alert('help'); } },
-            { label: "Preview", callback: scroll_to_preview() }
+            { label: "Preview", callback: function(){ $('html, body').animate({scrollTop: $(".canvas-container").offset().top}, 2000);} }
           ],
         },
       });
