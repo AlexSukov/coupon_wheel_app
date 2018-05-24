@@ -41,6 +41,11 @@
 .help-text a{
   color: #01ac3a;
   text-decoration: underline;
+  cursor: pointer;
+  &:hover{
+    color: #01ac3a;
+    text-decoration: underline;
+  }
   &:visited{
     color: #01ac3a;
     text-decoration: underline;

@@ -284,6 +284,12 @@ $ ->
   $('.close-help').on 'click', ->
     $('#help-pop-up').fadeOut()
 
+  $(document).click(function(event) {
+    if (!$(event.target).closest(".help-text, .ui-button").length) {
+      $('#help-pop-up').fadeOut()
+    }
+  });
+
   $('.close-advanced').on 'click', ->
     $('#advanced-settings').fadeOut();
     $('.show-advanced').show();
