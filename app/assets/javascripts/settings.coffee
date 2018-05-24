@@ -286,7 +286,7 @@ $ ->
 
   $(document).click(function(event) {
     if (!$(event.target).closest(".help-text, .ui-button").length) {
-      $('#help-pop-up').fadeOut()
+      $('#help-pop-up').fadeOut();
     }
   });
 
