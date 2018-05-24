@@ -25,6 +25,7 @@
   position: absolute;
   right: 5px;
   top: 5px;
+  cursor: pointer;
 }
 
 .help-text{
@@ -41,7 +42,6 @@
 .help-text a{
   color: #01ac3a;
   text-decoration: underline;
-  cursor: pointer;
   &:hover{
     color: #01ac3a;
     text-decoration: underline;
