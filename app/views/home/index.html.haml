@@ -18,6 +18,7 @@
   .help-text
     %span.close-help &#10005;
     Have any questions - visit our FAQ page
+    %br
     %a{href: 'http://zoomifi.com/help/exit-stopper'} http://zoomifi.com/help/exit-stopper
 %input#shop_domain{type: 'hidden', value: @shop.shopify_domain}
 = render 'settings_form', setting: @settings, slices: @slices, collected_emails: @collected_emails

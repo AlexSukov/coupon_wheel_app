@@ -23,8 +23,8 @@
 
 .close-help{
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 15px;
+  top:15px;
   cursor: pointer;
 }
 
@@ -35,8 +35,9 @@
   transform: translate(-50%,-50%);
   background-color: white;
   border-radius: 5px;
-  padding: 25px;
-  font-size: 1.2em;
+  padding: 50px;
+  font-size: 1.3em;
+  text-align: center;
 }
 
 .help-text a{
