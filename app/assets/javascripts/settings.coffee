@@ -281,6 +281,9 @@ $ ->
     $('#advanced-settings').fadeIn();
     $(this).hide()
 
+  $('.close-help').on 'click', ->
+    $('#help-pop-up').fadeOut()
+
   $('.close-advanced').on 'click', ->
     $('#advanced-settings').fadeOut();
     $('.show-advanced').show();
