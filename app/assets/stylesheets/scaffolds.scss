@@ -10,6 +10,30 @@
   margin: 20px auto 0;
 }
 
+#help-pop-up{
+  display: none;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  z-index: 9999;
+}
+
+.close-help{
+  position: absolute;
+  right: 0;
+  top: -10px;
+}
+
+.help-text{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+}
+
 body {
   background-color: #f4f6f8;;
   color: #333;

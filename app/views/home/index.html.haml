@@ -8,11 +8,16 @@
             label: "Save", callback: function(){ $('#setting_save').click() }
           },
           secondary: [
-            { label: "Help", callback: function(){ alert('Have any questions - visit our FAQ page http://zoomifi.com/help/exit-stopper'); } },
+            { label: "Help", callback: function(){ $('#help-pop-up').fadeIn() } },
             { label: "Preview", callback: function(){ $('html, body').animate({scrollTop: $(".canvas-container").offset().top}, 2000);} }
           ],
         },
       });
     });
+#help-pop-up
+  .help-text
+    %span.close-help &#10005;
+    Have any questions - visit our FAQ page
+    %a{href: 'http://zoomifi.com/help/exit-stopper'} http://zoomifi.com/help/exit-stopper
 %input#shop_domain{type: 'hidden', value: @shop.shopify_domain}
 = render 'settings_form', setting: @settings, slices: @slices, collected_emails: @collected_emails
