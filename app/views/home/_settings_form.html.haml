@@ -141,7 +141,7 @@
         %p.home-info#each-slice-color-note{hidden: !setting.duo_color } To change color of each slice use the settings below.
         - if setting.duo_color?
           :css
-            .slice-color-td{display: block}
+            .slice-color-td{display: table-cell}
         - else
           :css
             .slice-color-td{display: none}

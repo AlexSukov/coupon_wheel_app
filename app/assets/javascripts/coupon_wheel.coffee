@@ -1,5 +1,5 @@
 if (location.href.includes('checkout') || location.href.includes('password'))
-  console.log('It is a password or checkout page.')
+  
 else
   @setCookie = (cname, cvalue, exdays) ->
     d = new Date

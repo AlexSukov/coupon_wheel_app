@@ -250,7 +250,7 @@ $ ->
     if $('#duo-color-settings')[0].style.display == 'block'
       $('.slice-color-td').hide()
     else
-      $('.slice-color-td').show()
+      $('.slice-color-td').css('display', 'table-cell')
       $('.slice-color').minicolors theme: 'bootstrap'
 
   $('#setting_enable_discount_code_bar').on 'change', ->
