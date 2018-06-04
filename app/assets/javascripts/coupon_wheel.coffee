@@ -1,5 +1,5 @@
 if (location.href.includes('checkout') || location.href.includes('password'))
-  
+  return
 else
   @setCookie = (cname, cvalue, exdays) ->
     d = new Date
