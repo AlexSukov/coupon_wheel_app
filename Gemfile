@@ -76,3 +76,6 @@ gem 'pry-rails'
 
 # Pagination
 gem 'kaminari'
+
+# Active Job
+gem 'sidekiq'

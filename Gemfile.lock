@@ -102,6 +102,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.0.5)
+    connection_pool (2.2.2)
     crass (1.0.3)
     daemons (1.2.6)
     domain_name (0.5.20170404)
@@ -368,6 +369,8 @@ GEM
     puma (3.11.0)
     rack (2.0.3)
     rack-cors (1.0.2)
+    rack-protection (2.0.3)
+      rack
     rack-test (0.8.2)
       rack (>= 1.0, < 3)
     rails (5.1.4)
@@ -405,6 +408,7 @@ GEM
       json (>= 1.8)
       nokogiri (~> 1.5)
       trollop (~> 2.1)
+    redis (4.0.1)
     rest-client (2.0.2)
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
@@ -441,6 +445,11 @@ GEM
       omniauth-shopify-oauth2 (~> 1.2.0)
       rails (>= 5.0.0)
       shopify_api (>= 4.3.5)
+    sidekiq (5.1.3)
+      concurrent-ruby (~> 1.0)
+      connection_pool (~> 2.2, >= 2.2.0)
+      rack-protection (>= 1.5.0)
+      redis (>= 3.3.5, < 5)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -518,10 +527,11 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   selenium-webdriver
   shopify_app
+  sidekiq
   thin
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   1.16.1
+   1.16.2

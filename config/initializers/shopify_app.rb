@@ -14,6 +14,7 @@ ShopifyApp.configure do |config|
     {event:'onload', src: 'https://exitwheel.zoomifi.com/assets/clipboard.min.js'}
   ]
   config.webhooks = [
-    {topic: 'shop/redact', address: 'https://exitwheel.zoomifi.com/webhooks/shop_redact'}
+    {topic: 'shop/redact', address: 'https://exitwheel.zoomifi.com/webhooks/shop_redact'},
+    {topic: 'customers/redact', address: 'https://exitwheel.zoomifi.com/webhooks/customers_redact'}
   ]
 end

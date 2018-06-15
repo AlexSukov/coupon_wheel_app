@@ -1,4 +1,4 @@
-if (!location.href.includes('checkout') && !location.href.includes('password'))
+if (!location.href.includes('checkout') && !location.href.includes('password') && !location.href.includes('/orders/'))
   @setCookie = (cname, cvalue, exdays) ->
     d = new Date
     d.setTime d.getTime() + exdays * 24 * 60 * 60 * 1000
