@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :collected_emails, only: [:create, :destroy]
   resources :settings, only: :update
   resources :slices, only: [:create, :update, :destroy]
-  
+
   post 'clientside', to: 'settings#clientside'
 
   post 'mailchimp_api_key_verification', to: 'settings#mailchimp_api_key_verification'
@@ -17,6 +17,9 @@ Rails.application.routes.draw do
   get 'activatecharge', to: 'home#activatecharge'
 
   get 'collected_emails_pagination', to: 'home#collected_emails_pagination'
+
+  post 'customers_redact', to: 'gdpr_webhooks#customers_redact'
+  post 'shop_redact', to: 'gdpr_webhooks#shop_redact'
 
   root to: 'home#index'
   mount ShopifyApp::Engine, at: '/'
