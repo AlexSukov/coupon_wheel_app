@@ -3,6 +3,6 @@ class ShopRedactJob < ApplicationJob
 
   def perform(webhook)
     @shop = Shop.find_by(shopify_domain: webhook.shop_domain)
-    @shop.destroy
+    @shop.collected_emails.destroy_all
   end
 end

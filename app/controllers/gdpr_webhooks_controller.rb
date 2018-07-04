@@ -1,5 +1,4 @@
 class GdprWebhooksController < ApplicationController
-  include ShopifyApp::WebhookVerification
 
   def customers_redact
     params.permit!

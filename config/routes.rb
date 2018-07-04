@@ -24,4 +24,8 @@ Rails.application.routes.draw do
   root to: 'home#index'
   mount ShopifyApp::Engine, at: '/'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  require 'sidekiq/web'
+  require 'admin_constraint'
+  Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
+  mount Sidekiq::Web => '/sidekiq', :constraints => AdminConstraint.new
 end
