@@ -471,6 +471,7 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
           }
         </style>
       ")
+    ###
     if settings.enable_progress_bar
       progress_bar_position = ''
       switch (settings.progress_bar_position)
@@ -503,6 +504,7 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
           border-radius: 5px;
         }
       </style>" ).insertAfter(progress_bar_position)
+    ###
     $('body').on 'click', '.pull-out-tab', ->
       show_coupon_wheel_modal(settings)
     $('body').on 'click', '.coupon-wheel-close, .free_product_reject, .reject_discount_button', ->
@@ -605,10 +607,12 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
     $('.coupon-wheel-modal').removeClass('coupon-wheel-modal-showing')
   @show_coupon_wheel_modal = (settings) ->
     $('.coupon-wheel-modal').addClass('coupon-wheel-modal-showing')
+    ###
     if settings.enable_progress_bar
       if !$('.coupon-wheel-modal').hasClass('coupon-wheel-progress-finished')
         animate_progress_bar(settings.progress_bar_percentage)
         $('.coupon-wheel-modal').addClass('coupon-wheel-progress-finished')
+    ###
   @show_facebook_sharer = (settings, link) ->
     if settings.facebook_enable
       url = encodeURIComponent(settings.facebook_link)
