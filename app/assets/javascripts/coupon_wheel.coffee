@@ -171,7 +171,7 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
         }
         .canvas-back{
           position: absolute;
-          top: 52.9%;
+          //top: 52.9%;
           left: 50%;
           transform: translate(-50%, -50%);
           width: 70%;
@@ -179,7 +179,7 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
         }
         .canvas-centerpiece{
           position: absolute;
-          top: 50%;
+          //top: 50%;
           left: 50%;
           width: 52%;
           transform: translate(-50%, -50%);
@@ -192,11 +192,11 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
           transform: translate(-50%,-50%);
           z-index: 4;
         }
-        .canvas-marker{
+        .canvas-marker {
           position: absolute;
-          top: 19%;
+          //top: 19%;
           left: 50%;
-          transform: translate(-50%,-50%);
+          transform: translate(-50%,-10%);
           z-index: 3;
         }
         #coupon_wheel{
@@ -266,66 +266,67 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
             width: 95%;
           }
           .canvas-back {
-            top: 54%;
+            //top: 54%;
             width: 80%;
           }
           .canvas-centerpiece {
             width: 59.5%;
-            top: 50.5%;
+            //top: 50.5%;
           }
           .coupon-wheel-text-container{
             margin-right: 5%;
             margin-left: 5%;
             padding-top: 1%;
           }
-          .canvas-marker{
+          /*.canvas-marker {
             top: 20%;
-          }
+          }*/
         }
         @media only screen and (max-width: 1400px){
           .canvas-centerpiece {
             width: 65%;
-            top: 50%;
+            //top: 50%;
           }
-          .canvas-marker {
+          /*.canvas-marker {
             top: 15%;
-          }
+          }*/
         }
         @media only screen and (max-width: 1300px){
           .canvas-back {
-            top: 53%;
+            //top: 53%;
             width: 85%;
           }
           .canvas-centerpiece {
             width: 66%;
-            top: 50.5%;
+            //top: 50.5%;
           }
           .coupon-wheel-text-container {
             padding-top: 10%;
           }
-          .canvas-marker{
+          /*.canvas-marker {
             top:27%;
-          }
+          }*/
         }
         @media only screen and (max-width: 1100px){
-          .canvas-marker {
+          /*.canvas-marker {
             top: 35%;
-          }
+          }*/
           .canvas-back {
-            top: 52%;
+            //top: 52%;
             width: 100%;
           }
           .coupon-wheel-text-container {
             padding-top: 40%;
           }
           .canvas-centerpiece {
-            width: 83%;
+            width: 75%;
           }
         }
         @media only screen and (max-width: 1023px){
           .coupon-wheel-modal-wrapper{
             display: flex;
             flex-wrap: wrap;
+            justify-content: center;
           }
           .canvas-container, .coupon-wheel-text-container{
             width: 100%;
@@ -346,12 +347,12 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
             width: 55%;
           }
           .canvas-back {
-            top: 54.5%;
+            //top: 54.5%;
             width: 70%;
           }
-          .canvas-marker {
+          /*.canvas-marker {
             top: 8%;
-          }
+          }*/
         }
         @media only screen and (max-width: 767px){
           .canvas-container, .coupon-wheel-text-container{
@@ -373,7 +374,7 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
           }
           .canvas-centerpiece{
             width: 76%;
-            top: 53%;
+            //top: 53%;
           }
           .coupon-wheel-modal-wrapper{
             height: 95%;
@@ -390,10 +391,10 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
           }
           .canvas-marker {
             width: 12%;
-            top: 13%;
+            //top: 13%;
           }
           .canvas-back {
-            top: 57%;
+            //top: 57%;
             width: 92%;
           }
           .coupon-wheel-text-container p{
@@ -414,19 +415,19 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
         }
         @media only screen and (device-width: 414px){
           .canvas-back {
-            top: 57%;
+            //top: 57%;
             width: 87%;
           }
         }
         @media only screen and (device-width: 375px){
           .canvas-back {
-            top: 59%;
+            //top: 59%;
             width: 92%;
           }
         }
         @media only screen and (device-width: 320px){
           .canvas-back {
-            top: 61%;
+            //top: 61%;
             width: 89%;
           }
           .coupon-wheel-text-container {
@@ -435,6 +436,17 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
         }
       </style>
     ")
+    height = $('.canvas-container').height()
+    width = $('.canvas-container').width()
+    if $(window).width() < 1024
+      $('.canvas-back').css('top', height / 1.81)
+    else
+      $('.canvas-back').css('top', height / 1.85)
+    marker_top = $('.canvas-back').position().top;
+    $('.canvas-marker').css('top', marker_top + 'px')
+    canvas_back_height = $('.canvas-back').height()
+    center_piece_top = marker_top + canvas_back_height / 2.2
+    $('.canvas-centerpiece').css('top', center_piece_top + 'px')
     if settings.big_logo.url != null
       $('.coupon-wheel-text-container').prepend("<img class='big-logo' src='#{settings.big_logo.url}'>")
     if settings.small_logo.url != null
@@ -471,6 +483,7 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
           }
         </style>
       ")
+
     ###
     if settings.enable_progress_bar
       progress_bar_position = ''
@@ -737,16 +750,14 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
           fillStyle = settings.win_section_color
       segments.push({fillStyle: fillStyle, text: slice.label,
       code: slice.code, product_image: slice.product_image, slice_type: slice.slice_type})
+    outerRadius = $('.canvas-centerpiece').width() / 2
     if $(window).width() > 767
-      outerRadius = 200
       innerRadius = 40
       textFontSize = 14
     else if $(window).width() > 340
-      outerRadius = 125
       innerRadius = 20
       textFontSize = 12
     else
-      outerRadius = 100
       innerRadius = 15
       textFontSize = 10
     theWheel = new Winwheel(
@@ -754,6 +765,8 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
       numSegments: segments.length
       segments: segments
       textAlignment : 'center'
+      centerX : width / 2
+      centerY : height / 2
       innerRadius   : innerRadius
       outerRadius   : outerRadius
       textFontSize  : textFontSize
@@ -854,6 +867,39 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
                       show_coupon_wheel_modal(settings)
                     ), settings.show_on_mobile_seconds * 1000
                 theWheel = draw_wheel(settings, slices)
+                $(window).resize ->
+                  height = $('.canvas-container').height()
+                  width = $('.canvas-container').width()
+                  if $(window).width() < 767
+                    $('.coupon-wheel-modal-wrapper').css('height', $(window).height())
+                  $('#coupon_wheel').attr('width', width)
+                  $('#coupon_wheel').attr('height', height)
+                  if $(window).width() < 1024
+                    $('.canvas-back').css('top', height / 1.81)
+                  else
+                    $('.canvas-back').css('top', height / 1.85)
+                  marker_top = $('.canvas-back').position().top
+                  $('.canvas-marker').css('top', marker_top + 'px')
+                  canvas_back_height = $('.canvas-back').height()
+                  center_piece_top = marker_top + canvas_back_height / 2.2
+                  $('.canvas-centerpiece').css('top', center_piece_top + 'px')
+                  outerRadius = $('.canvas-centerpiece').width() / 2
+                  if $(window).width() > 767
+                    innerRadius = 40
+                    textFontSize = 14
+                  else if $(window).width() > 340
+                    innerRadius = 20
+                    textFontSize = 12
+                  else
+                    innerRadius = 15
+                    textFontSize = 10
+                  theWheel.centerX = width / 2
+                  theWheel.centerY = height / 2
+                  theWheel.outerRadius = outerRadius
+                  theWheel.innerRadius = innerRadius
+                  theWheel.textFontSize = textFontSize
+                  theWheel.clearCanvas()
+                  theWheel.draw()
                 $('body').on 'submit', '#email-form', (e) ->
                   e.preventDefault()
                   $this = $(this)

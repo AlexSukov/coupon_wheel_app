@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180207094436) do
+ActiveRecord::Schema.define(version: 20180521071307) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 20180207094436) do
     t.string "facebook_image"
     t.string "facebook_image_mobile"
     t.string "default_tab_icon", default: "/tab-icon/tab_icon.png"
+    t.string "facebook_link", default: "https://www.shopify.com"
     t.index ["shop_id"], name: "index_settings_on_shop_id"
   end
 
