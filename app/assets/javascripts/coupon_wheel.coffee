@@ -91,6 +91,43 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
           <button class='free_product_reject'>#{settings.free_product_reject}</button>
         </div>
       ")
+  @calculate_sizes = (theWheel)->
+    height = $('.canvas-container').height()
+    width = $('.canvas-container').width()
+    if $(window).width() < 1024
+      $('.canvas-back').css('top', height / 1.81)
+    else
+      $('.canvas-back').css('top', height / 1.865)
+    if $(window).width() < 1100 && $(window).height() > 1080
+       $('.canvas-back').css('top', height / 1.92)
+    marker_top = $('.canvas-back').position().top
+    $('.canvas-marker').css('top', marker_top + 'px')
+    canvas_back_height = $('.canvas-back').height()
+    center_piece_top = marker_top + canvas_back_height / 2.2
+    $('.canvas-centerpiece').css('top', center_piece_top + 'px')
+    if typeof theWheel != 'undefined'
+      if $(window).width() < 767
+        $('.coupon-wheel-modal-wrapper').css('height', $(window).height())
+      $('#coupon_wheel').attr('width', width)
+      $('#coupon_wheel').attr('height', height)
+      outerRadius = $('.canvas-centerpiece').width() / 2
+      if $(window).width() > 767
+        innerRadius = 40
+        textFontSize = 14
+      else if $(window).width() > 340
+        innerRadius = 20
+        textFontSize = 12
+      else
+        innerRadius = 15
+        textFontSize = 10
+      theWheel.centerX = width / 2
+      theWheel.centerY = height / 2
+      theWheel.outerRadius = outerRadius
+      theWheel.innerRadius = innerRadius
+      theWheel.textFontSize = textFontSize
+      theWheel.clearCanvas()
+      theWheel.draw()
+
   @body_prepend = (settings, link) ->
     $('body').prepend("
       <div class='coupon-wheel-modal'>
@@ -436,17 +473,8 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
         }
       </style>
     ")
-    height = $('.canvas-container').height()
-    width = $('.canvas-container').width()
-    if $(window).width() < 1024
-      $('.canvas-back').css('top', height / 1.81)
-    else
-      $('.canvas-back').css('top', height / 1.85)
-    marker_top = $('.canvas-back').position().top;
-    $('.canvas-marker').css('top', marker_top + 'px')
-    canvas_back_height = $('.canvas-back').height()
-    center_piece_top = marker_top + canvas_back_height / 2.2
-    $('.canvas-centerpiece').css('top', center_piece_top + 'px')
+
+
     if settings.big_logo.url != null
       $('.coupon-wheel-text-container').prepend("<img class='big-logo' src='#{settings.big_logo.url}'>")
     if settings.small_logo.url != null
@@ -527,16 +555,19 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
     $('body').on 'click', '.continue_button', (e)->
       $(this).text("#{settings.copied_message}")
       close_coupon_wheel_modal()
+      ###
       if settings.enable_discount_code_bar && getCookie('coupon_wheel_app_facebook') == ''
         countdown = new Date
         countdown.setTime countdown.getTime() + settings.discount_code_bar_countdown_time * 60 * 1000
         exp_time = settings.discount_code_bar_countdown_time / 1440
         setCookie('coupon_wheel_app_countdown', countdown, exp_time )
         discount_code_bar(settings, countdown)
+      ###
       if settings.discount_coupon_auto_apply
         code = $('.code').text()
         exp_time = settings.discount_code_bar_countdown_time / 1440
         setCookie('coupon_wheel_app_code', code, exp_time)
+
   @animate_progress_bar = (percentage) ->
     elem = $('#coupon-wheel-bar')
     width = 0
@@ -822,9 +853,11 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
           $.each url_filters, (i) ->
             if url_filters[i] == document.location.href
               permitted_url = false
-          if countdown != ''
+          ###
+            if countdown != ''
             countdown = new Date(countdown)
             discount_code_bar(settings, countdown)
+          ###
           if getCookie('coupon_wheel_app_facebook') == '' && settings.facebook_enable
             $("form[action*='/cart'] [name='checkout']").one 'click', (e) ->
               $this = $(this)
@@ -867,39 +900,11 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
                       show_coupon_wheel_modal(settings)
                     ), settings.show_on_mobile_seconds * 1000
                 theWheel = draw_wheel(settings, slices)
-                $(window).resize ->
-                  height = $('.canvas-container').height()
-                  width = $('.canvas-container').width()
-                  if $(window).width() < 767
-                    $('.coupon-wheel-modal-wrapper').css('height', $(window).height())
-                  $('#coupon_wheel').attr('width', width)
-                  $('#coupon_wheel').attr('height', height)
-                  if $(window).width() < 1024
-                    $('.canvas-back').css('top', height / 1.81)
-                  else
-                    $('.canvas-back').css('top', height / 1.85)
-                  marker_top = $('.canvas-back').position().top
-                  $('.canvas-marker').css('top', marker_top + 'px')
-                  canvas_back_height = $('.canvas-back').height()
-                  center_piece_top = marker_top + canvas_back_height / 2.2
-                  $('.canvas-centerpiece').css('top', center_piece_top + 'px')
-                  outerRadius = $('.canvas-centerpiece').width() / 2
-                  if $(window).width() > 767
-                    innerRadius = 40
-                    textFontSize = 14
-                  else if $(window).width() > 340
-                    innerRadius = 20
-                    textFontSize = 12
-                  else
-                    innerRadius = 15
-                    textFontSize = 10
-                  theWheel.centerX = width / 2
-                  theWheel.centerY = height / 2
-                  theWheel.outerRadius = outerRadius
-                  theWheel.innerRadius = innerRadius
-                  theWheel.textFontSize = textFontSize
-                  theWheel.clearCanvas()
-                  theWheel.draw()
+
+                setInterval (->
+                  calculate_sizes(theWheel)
+                ), 200
+
                 $('body').on 'submit', '#email-form', (e) ->
                   e.preventDefault()
                   $this = $(this)
