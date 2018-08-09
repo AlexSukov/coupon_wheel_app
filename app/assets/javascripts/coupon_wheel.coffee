@@ -352,9 +352,6 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
             //top: 52%;
             width: 100%;
           }
-          .coupon-wheel-text-container {
-            padding-top: 40%;
-          }
           .canvas-centerpiece {
             width: 75%;
           }
@@ -369,13 +366,14 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
             width: 100%;
           }
           .canvas-container{
-            height: 55%;
+            height: 60%;
           }
           .coupon-wheel-text-container{
             margin: 0;
-            height: 45%;
-            padding: 10% 10% 0 10%;
+            height: 40%;
+            padding: 10%;
             overflow: auto;
+            z-index: 1;
           }
           .big-logo{
             display: none;
@@ -399,6 +397,7 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
             position: absolute;
             top: 97%;
             transform: translateY(-50%);
+            height: 80%;
           }
           .big-logo{
             display: none;
@@ -407,7 +406,7 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
             padding: 0;
             margin: 0;
             overflow: auto;
-            height: 70%;
+            height: 55%;
           }
           .canvas-centerpiece{
             width: 76%;
@@ -448,6 +447,14 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
           .continue_button, .free_product_button{
             width: 100%;
             margin: 20px auto;
+          }
+        }
+        @media only screen and (max-width: 600px){
+          .canvas-container{
+            height: 50%;
+          }
+          .coupon-wheel-text-container{
+            height: 70%;
           }
         }
         @media only screen and (device-width: 414px){
