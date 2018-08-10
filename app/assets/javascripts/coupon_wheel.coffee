@@ -108,6 +108,8 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
     if typeof theWheel != 'undefined'
       if $(window).width() < 767
         $('.coupon-wheel-modal-wrapper').css('height', $(window).height())
+      else
+        $('.coupon-wheel-modal-wrapper').css('height', '')
       $('#coupon_wheel').attr('width', width)
       $('#coupon_wheel').attr('height', height)
       outerRadius = $('.canvas-centerpiece').width() / 2
@@ -774,6 +776,8 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
     width = $('.canvas-container').width()
     if $(window).width() < 767
       $('.coupon-wheel-modal-wrapper').css('height', $(window).height())
+    else
+      $('.coupon-wheel-modal-wrapper').css('height', '')
     $('#coupon_wheel').attr('width', width)
     $('#coupon_wheel').attr('height', height)
     segments = []
