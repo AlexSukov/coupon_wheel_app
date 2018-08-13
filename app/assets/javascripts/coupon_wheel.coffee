@@ -198,11 +198,13 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
           max-width: 768px;
         }
         .coupon-wheel-text-container{
-          padding-top: 10%;
           color: #{settings.font_color};
           width: 40%;
           margin-right: 10%;
-          height: 100%;
+          top: 50%;
+          transform: translateY(-50%);
+          height: auto;
+          max-height: 100%;
           overflow: auto;
         }
         .disclaimer-text, .guiding-text, .winning_text, .discount_code_title, .free_product_description{
@@ -315,7 +317,6 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
           .coupon-wheel-text-container{
             margin-right: 5%;
             margin-left: 5%;
-            padding-top: 1%;
           }
           /*.canvas-marker {
             top: 20%;
@@ -339,9 +340,6 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
             width: 66%;
             //top: 50.5%;
           }
-          .coupon-wheel-text-container {
-            padding-top: 10%;
-          }
           /*.canvas-marker {
             top:27%;
           }*/
@@ -364,34 +362,16 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
             flex-wrap: wrap;
             justify-content: center;
           }
-          .canvas-container, .coupon-wheel-text-container{
-            width: 100%;
-          }
-          .canvas-container{
-            height: 60%;
-          }
-          .coupon-wheel-text-container{
-            margin: 0;
-            height: 40%;
-            padding: 10%;
-            overflow: auto;
-            z-index: 1;
-          }
-          .big-logo{
-            display: none;
-          }
           .canvas-centerpiece {
             width: 55%;
           }
           .canvas-back {
             //top: 54.5%;
-            width: 70%;
+            width: 100%;
           }
           /*.canvas-marker {
             top: 8%;
           }*/
-        }
-        @media only screen and (max-width: 767px){
           .canvas-container, .coupon-wheel-text-container{
             width: 100%;
           }
@@ -400,6 +380,7 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
             top: 97%;
             transform: translateY(-50%);
             height: 80%;
+            width: 80%;
           }
           .big-logo{
             display: none;
@@ -408,7 +389,11 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
             padding: 0;
             margin: 0;
             overflow: auto;
-            height: 55%;
+            height: auto;
+            max-height: 50%;
+            top: 0;
+            transform: translateY(0);
+            z-index: 1;
           }
           .canvas-centerpiece{
             width: 76%;
@@ -431,10 +416,6 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
             width: 12%;
             //top: 13%;
           }
-          .canvas-back {
-            //top: 57%;
-            width: 92%;
-          }
           .coupon-wheel-text-container p{
             margin-bottom: 10px;
           }
@@ -451,33 +432,42 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
             margin: 20px auto;
           }
         }
-        @media only screen and (max-width: 600px){
+        @media only screen and (max-width: 1023px) and (max-height: 740px){
+          .canvas-container{
+            width: 70%;
+          }
+        }
+        @media only screen and (max-width: 1023px) and (max-height: 640px){
+          .canvas-container{
+            width: 60%;
+          }
+        }
+        @media only screen and (max-width: 1023px) and (max-height: 540px){
+          .canvas-container{
+            width: 50%;
+          }
+        }
+        @media only screen and (max-width: 1023px) and (max-height: 400px){
+          .canvas-container{
+            width: 40%;
+          }
+        }
+        @media only screen and (max-width: 414px) and (min-height: 500px){
+          .canvas-back {
+            width: 100%;
+          }
           .canvas-container{
             height: 50%;
-          }
-          .coupon-wheel-text-container{
-            height: 70%;
+            width: 100%;
           }
         }
-        @media only screen and (device-width: 414px){
+        @media only screen and (max-width: 500px) and (max-height: 500px){
           .canvas-back {
-            //top: 57%;
-            width: 87%;
+            width: 100%;
           }
-        }
-        @media only screen and (device-width: 375px){
-          .canvas-back {
-            //top: 59%;
-            width: 92%;
-          }
-        }
-        @media only screen and (device-width: 320px){
-          .canvas-back {
-            //top: 61%;
-            width: 89%;
-          }
-          .coupon-wheel-text-container {
-            height: 40%;
+          .canvas-container{
+            height: 60%;
+            width: 60%;
           }
         }
       </style>
