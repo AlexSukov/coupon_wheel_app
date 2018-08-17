@@ -45,7 +45,7 @@ class HomeController < ShopifyApp::AuthenticatedController
               name: "Standard Plan",
               price: 4.99,
               return_url: "https://exitwheel.zoomifi.com/activatecharge",
-              test: true,
+              test: null,
               trial_days: 10)
 
       if recurring_application_charge.save
