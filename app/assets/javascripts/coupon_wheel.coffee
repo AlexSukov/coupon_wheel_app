@@ -92,43 +92,44 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
         </div>
       ")
   @calculate_sizes = (theWheel)->
-    height = $('.canvas-container').height()
-    width = $('.canvas-container').width()
-    if $(window).width() < 1024
-      $('.canvas-back').css('top', height / 1.81)
-    else
-      $('.canvas-back').css('top', height / 1.865)
-    if $(window).width() < 1100 && $(window).height() > 1080
-       $('.canvas-back').css('top', height / 1.92)
-    marker_top = $('.canvas-back').position().top
-    $('.canvas-marker').css('top', marker_top + 'px')
-    canvas_back_height = $('.canvas-back').height()
-    center_piece_top = marker_top + canvas_back_height / 2.2
-    $('.canvas-centerpiece').css('top', center_piece_top + 'px')
-    if typeof theWheel != 'undefined'
-      if $(window).width() < 767
-        $('.coupon-wheel-modal-wrapper').css('height', $(window).height())
+    if $('.coupon-wheel-modal').lenght > 0
+      height = $('.canvas-container').height()
+      width = $('.canvas-container').width()
+      if $(window).width() < 1024
+        $('.canvas-back').css('top', height / 1.81)
       else
-        $('.coupon-wheel-modal-wrapper').css('height', '')
-      $('#coupon_wheel').attr('width', width)
-      $('#coupon_wheel').attr('height', height)
-      outerRadius = $('.canvas-centerpiece').width() / 2
-      if $(window).width() > 767
-        innerRadius = 40
-        textFontSize = 14
-      else if $(window).width() > 340
-        innerRadius = 20
-        textFontSize = 12
-      else
-        innerRadius = 15
-        textFontSize = 10
-      theWheel.centerX = width / 2
-      theWheel.centerY = height / 2
-      theWheel.outerRadius = outerRadius
-      theWheel.innerRadius = innerRadius
-      theWheel.textFontSize = textFontSize
-      theWheel.clearCanvas()
-      theWheel.draw()
+        $('.canvas-back').css('top', height / 1.865)
+      if $(window).width() < 1100 && $(window).height() > 1080
+         $('.canvas-back').css('top', height / 1.92)
+      marker_top = $('.canvas-back').position().top
+      $('.canvas-marker').css('top', marker_top + 'px')
+      canvas_back_height = $('.canvas-back').height()
+      center_piece_top = marker_top + canvas_back_height / 2.2
+      $('.canvas-centerpiece').css('top', center_piece_top + 'px')
+      if typeof theWheel != 'undefined'
+        if $(window).width() < 767
+          $('.coupon-wheel-modal-wrapper').css('height', $(window).height())
+        else
+          $('.coupon-wheel-modal-wrapper').css('height', '')
+        $('#coupon_wheel').attr('width', width)
+        $('#coupon_wheel').attr('height', height)
+        outerRadius = $('.canvas-centerpiece').width() / 2
+        if $(window).width() > 767
+          innerRadius = 40
+          textFontSize = 14
+        else if $(window).width() > 340
+          innerRadius = 20
+          textFontSize = 12
+        else
+          innerRadius = 15
+          textFontSize = 10
+        theWheel.centerX = width / 2
+        theWheel.centerY = height / 2
+        theWheel.outerRadius = outerRadius
+        theWheel.innerRadius = innerRadius
+        theWheel.textFontSize = textFontSize
+        theWheel.clearCanvas()
+        theWheel.draw()
 
   @body_prepend = (settings, link) ->
     $('body').prepend("
