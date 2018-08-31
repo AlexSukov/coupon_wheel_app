@@ -51,7 +51,7 @@ class SettingsController < ApplicationController
 
   def clientside
     @shop = Shop.find_by(shopify_domain: params[:shop_domain])
-    @settings = Setting.find_by(shop_id: @shop.id)
+    @settings = Setting.find_or_create_by(shop_id: @shop.id)
     @slices = Slice.where(setting_id: @settings.id).order("id ASC")
     render json: { shop: @shop, settings: @settings, slices: @slices }
   end
