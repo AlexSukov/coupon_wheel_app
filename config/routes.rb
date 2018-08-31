@@ -27,5 +27,5 @@ Rails.application.routes.draw do
   require 'sidekiq/web'
   require 'admin_constraint'
   Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
-  mount Sidekiq::Web => '/sidekiq', :constraints => AdminConstraint.new
+  mount Sidekiq::Web => '/sidekiq'
 end

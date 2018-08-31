@@ -57,6 +57,8 @@ class HomeController < ShopifyApp::AuthenticatedController
   def activatecharge
     recurring_application_charge = ShopifyAPI::RecurringApplicationCharge.find(request.params['charge_id'])
     if recurring_application_charge.status == "accepted"
+      shop = Shop.find_by(shopify_domain: ShopifyAPI::Shop.current.domain)
+      settings = Setting.find_or_create_by(shop_id: shop.id)
       recurring_application_charge.activate
       fullpage_redirect_to root_path
     else
