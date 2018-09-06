@@ -92,7 +92,7 @@ if (!location.href.includes('checkout') && !location.href.includes('password') &
         </div>
       ")
   @calculate_sizes = (theWheel)->
-    if $('.coupon-wheel-modal').lenght > 0
+    if $('.coupon-wheel-modal').length > 0
       height = $('.canvas-container').height()
       width = $('.canvas-container').width()
       if $(window).width() < 1024
