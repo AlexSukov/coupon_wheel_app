@@ -1,5 +1,5 @@
 class GdprWebhooksController < ApplicationController
-  protect_from_forgery with: :null_session
+  include ShopifyApp::WebhookVerification
 
   def customers_redact
     params.permit!
