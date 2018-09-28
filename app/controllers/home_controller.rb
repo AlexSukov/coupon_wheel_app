@@ -3,14 +3,14 @@ class HomeController < ShopifyApp::AuthenticatedController
 
   def index
     @discounts = ShopifyAPI::PriceRule.find(:all)
-    @shop = Shop.find_by(shopify_domain: ShopifyAPI::Shop.current.domain)
+    @shop = Shop.find_by(shopify_domain: ShopifyAPI::Shop.current.myshopify_domain)
     @settings = Setting.find_or_create_by(shop_id: @shop.id)
     @slices = Slice.where(setting_id: @settings.id).order("id ASC")
     @collected_emails = CollectedEmail.where(shop_id: @shop.id).page(params[:page]).per(25)
   end
 
   def collected_emails_pagination
-    @shop = Shop.find_by(shopify_domain: ShopifyAPI::Shop.current.domain)
+    @shop = Shop.find_by(shopify_domain: ShopifyAPI::Shop.current.myshopify_domain)
     @collected_emails = CollectedEmail.where(shop_id: @shop.id).page(params[:page]).per(25)
   end
 
