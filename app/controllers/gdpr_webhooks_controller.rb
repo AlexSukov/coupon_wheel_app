@@ -4,14 +4,14 @@ class GdprWebhooksController < ApplicationController
   def customers_redact
     params.permit!
     puts params
-    CustomersRedactJob.perform_later(webhook_params.to_h)
+    CustomersRedactJob.perform_later(shop_domain: shop_domain, webhook: webhook_params.to_h)
     head :ok
   end
 
   def shop_redact
     params.permit!
     puts params
-    ShopRedactJob.perform_later(webhook_params.to_h)
+    ShopRedactJob.perform_later(shop_domain: shop_domain, webhook: webhook_params.to_h)
     head :ok
   end
 
